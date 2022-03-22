@@ -28,6 +28,9 @@
   },
   "homepage": "https://github.com/KLYN74R/CommandPost#readme",
   "dependencies": {
-    "commander": "^9.1.0"
+    "@klyntar/valardohaeris": "^13.0.2",
+    "chalk": "^5.0.1",
+    "commander": "^9.1.0",
+    "inquirer": "^8.2.1"
   }
 }
