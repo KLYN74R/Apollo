@@ -1,0 +1,33 @@
+{
+  "name": "commandpost",
+  "version": "1.0.0",
+  "description": "CLI/REPL and Web interface to interact with your Klyntar infrastructure!🐙",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KLYN74R/CommandPost.git"
+  },
+  "keywords": [
+    "klyntar",
+    "klyn74r",
+    "crypto",
+    "web3",
+    "wallet"
+  ],
+  "bin": {
+    "compos": "index.js"
+  },
+  "author": "KlyntarTeam",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/KLYN74R/CommandPost/issues"
+  },
+  "homepage": "https://github.com/KLYN74R/CommandPost#readme",
+  "dependencies": {
+    "commander": "^9.1.0"
+  }
+}

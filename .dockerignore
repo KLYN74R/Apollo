@@ -1,0 +1,16 @@
+#Always
+build
+.vscode
+.idea
+node_modules
+
+
+
+#Workflow
+*.exe
+*.pdb
+*.wasm
+*.key
+*.pem
+*.dll
+*.so
