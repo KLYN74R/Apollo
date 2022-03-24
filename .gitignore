@@ -3,7 +3,7 @@ build
 .vscode
 .idea
 node_modules
-
+test.js
 
 
 #Workflow
