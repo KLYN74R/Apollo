@@ -1,6 +1,6 @@
 <div align="center">
 
-### 😈 Place for CHANGELOG in <b>CommandPost</b> node process 😇
+### 😈 Place for CHANGELOG of <b>Apollo</b> 😇
 
 We'll add more soon
 

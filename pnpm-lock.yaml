@@ -5,12 +5,14 @@ specifiers:
   chalk: ^5.0.1
   commander: ^9.1.0
   inquirer: ^8.2.1
+  uWebSockets.js: github:uNetworking/uWebSockets.js#v20.3.0
 
 dependencies:
   '@klyntar/valardohaeris': 14.0.0
   chalk: 5.0.1
   commander: 9.1.0
   inquirer: 8.2.1
+  uWebSockets.js: github.com/uNetworking/uWebSockets.js/e5d6241a7bbfb0d9258780dbf6175ae34d6f18e9
 
 packages:
 
@@ -5373,6 +5375,12 @@ packages:
       multicodec: 3.2.1
       multihashing-async: 2.1.4
       uint8arrays: 2.1.10
+    dev: false
+
+  github.com/uNetworking/uWebSockets.js/e5d6241a7bbfb0d9258780dbf6175ae34d6f18e9:
+    resolution: {tarball: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/e5d6241a7bbfb0d9258780dbf6175ae34d6f18e9}
+    name: uWebSockets.js
+    version: 20.3.0
     dev: false
 
   github.com/web3-js/scrypt-shim/aafdadda13e660e25e1c525d1f5b2443f5eb1ebb:
