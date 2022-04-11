@@ -89,10 +89,16 @@ program
 program
 
         .command('listspec')
+        .alias('ls')
+        .option('-t, --type <value>','Crypto project name','klyntar')
         .description(`List specific functions of some crypto(e.g. address format changes,set mnemo size etc.)`)
-        .action(async(name,_cmd)=>
+        .action(async(opts,_cmd)=>
         
-            console.log(SUPPORTED_FORMATS)
+            import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(async m=>
+    
+                console.log(m.default.spec)
+                
+            ).catch(e=>false)
             
         )
 
