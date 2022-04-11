@@ -11,9 +11,9 @@ import fs from 'fs'
 
 //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
 //See https://stackoverflow.com/a/66527729/18521368
-const require = createRequire(import.meta.url),
+// const require = createRequire(import.meta.url),
 
-      ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
+//       ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
 
 
 
@@ -42,6 +42,12 @@ let banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8')
             .replaceAll('E','\u001b[38;5;196mY\x1b[0m')
             .replace(`by KlyntarTeam`,`\u001b[38;5;9mby KlyntarTeam\x1b[0m`)
             .replace(`https://github.com/KLYN74R/Apollo`,`\u001b[38;5;23mhttps://github.com/KLYN74R/Apollo\x1b[0m`)
+
+
+
+
+global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
+
 
 
 
@@ -99,12 +105,20 @@ program
         .alias('s')
 
         .option('-t, --type <value>','Crypto project name','klyntar')
+        .option('-k, --privatekey <value>','Private key to sign data')
         .option('-p, --path <value>','Path to file with payload to sign or payload itself but with prefix P:','payload.txt')
         
         .description(`Sign the message or content(by path)`)
+        
         .action(async(opts,_cmd)=>
         
-            import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(m=>m.default.generate()).then(console.log).catch(e=>false)
+            import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(async m=>{
+
+                let data=opts.path.startsWith('P:')?opts.path.slice(2):fs.readFileSync(opts.path).toString('utf-8')
+
+                return await m.default.sign(data,opts.privatekey)
+
+            }).then(console.log).catch(e=>false)
             
         )
 
@@ -119,13 +133,23 @@ program
         .alias('v')
 
         .option('-t, --type <value>','Crypto project name','klyntar')
+        .option('-k, --pubkey <value>','Pubkey to verify')
         .option('-s, --sigpath <value>','Path to signature file to verify or signature itself but with prefix S:','signature.txt')
         .option('-p, --path <value>','Path to file with payload to verify or payload itself but with prefix P:','payload.txt')
 
         .description(`Verify signed message or content(by path)`)
         .action(async(opts,_cmd)=>
         
-            import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(m=>m.default.generate()).then(console.log).catch(e=>false)
+            import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(async m=>{
+    
+                let data=opts.path.startsWith('P:')?opts.path.slice(2):fs.readFileSync(opts.path).toString('utf-8'),
+
+                    signature=opts.sigpath.startsWith('S:')?opts.sigpath.slice(2):fs.readFileSync(opts.sigpath).toString('utf-8')
+    
+       
+                return await m.default.verify(data,signature,opts.pubkey)
+    
+            }).then(console.log).catch(e=>false)
             
         )
 
@@ -206,9 +230,9 @@ program
         .option('-i, --interface <value>','interface to run server','::')
         .addHelpText('before',`
         
-        *****************
-        *   dfsdfsdf    *
-        *****************
+        ********************************************************
+        * You can also use configs to set flags & other values *
+        ********************************************************
         
         `)
         .description(`Run web UI for more comfortable use`)
