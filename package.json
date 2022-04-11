@@ -4,9 +4,6 @@
   "description": "CLI/REPL and Web interface to interact with your Klyntar infrastructure!🐙",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KLYN74R/Apollo.git"
