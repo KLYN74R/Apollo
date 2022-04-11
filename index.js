@@ -1,10 +1,20 @@
 #!/usr/bin/env node
 
 import {SUPPORTED_FORMATS} from '@klyntar/valardohaeris/vd.js'
+import { createRequire } from 'module'
 import {program} from 'commander'
 import crypto from'crypto'
 import pkg from 'inquirer'
 import fs from 'fs'
+
+
+
+//Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
+//See https://stackoverflow.com/a/66527729/18521368
+const require = createRequire(import.meta.url),
+
+      ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
+
 
 
 const { prompt } = pkg
