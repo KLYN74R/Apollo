@@ -40,6 +40,11 @@ let banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8')
             .replaceAll('Q','\u001b[38;5;196mK\x1b[0m')
             .replaceAll('W','\u001b[38;5;196mL\x1b[0m')
             .replaceAll('E','\u001b[38;5;196mY\x1b[0m')
+
+            //UA
+            .replaceAll('&','\u001b[38;5;57m@\x1b[0m')
+            .replaceAll('!','\u001b[38;5;191m@\x1b[0m')
+            
             .replace(`by KlyntarTeam`,`\u001b[38;5;9mby KlyntarTeam\x1b[0m`)
             .replace(`https://github.com/KLYN74R/Apollo`,`\u001b[38;5;23mhttps://github.com/KLYN74R/Apollo\x1b[0m`)
 
@@ -55,7 +60,7 @@ program
     .name('apollo')
     .version(fs.readFileSync(PATH_RESOLVE('images/version.txt')).toString('utf-8').replaceAll('QWERTY','Apollo@v2.0.0 by KlyntarTeam'))
     .description(banner)
-    .usage('[FLAGS] [COMMAND]')
+    .usage('[COMMAND] [FLAGS]')
 
 program
 
