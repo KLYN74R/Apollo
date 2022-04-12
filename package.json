@@ -4,6 +4,9 @@
   "description": "CLI/REPL and Web interface to interact with your Klyntar infrastructure!🐙",
   "main": "index.js",
   "type": "module",
+  "scripts": {
+    "postinstall":"node ./npm_scripts/script.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KLYN74R/Apollo.git"
