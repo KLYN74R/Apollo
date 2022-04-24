@@ -71,7 +71,7 @@ program
         .alias('k')
         .option('-t, --type <value>','Crypto project name','klyntar')
 
-        .description(`Generate new keypair`)
+        .description(`\x1b[32mGenerate new keypair\x1b[0m`)
         .action(async(opts,_cmd)=>
         
             import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(m=>m.default.generate()).then(console.log).catch(e=>false)
@@ -84,7 +84,7 @@ program
 
         .command('listkeys')
         .alias('l')
-        .description(`List all supported key foramts by ValarDohaeris`)
+        .description(`\x1b[32mList all supported key foramts by ValarDohaeris\x1b[0m`)
         .action(async(name,_cmd)=>
         
             console.log(SUPPORTED_FORMATS)
@@ -99,7 +99,7 @@ program
         .command('listspec')
         .alias('ls')
         .option('-t, --type <value>','Crypto project name','klyntar')
-        .description(`List specific functions of some crypto(e.g. address format changes,set mnemo size etc.)`)
+        .description(`\x1b[32mList specific functions of some crypto(e.g. address format changes,set mnemo size etc.)\x1b[0m`)
         .action(async(opts,_cmd)=>
         
             import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(async m=>
@@ -122,7 +122,7 @@ program
         .requiredOption('-k, --privatekey <value>','Private key to sign data')
         .option('-p, --path <value>','Path to file with payload to sign or payload itself but with prefix P:','payload.txt')
         
-        .description(`Sign the message or content(by path)`)
+        .description(`\x1b[32mSign the message or content(by path)\x1b[0m`)
         
         .action(async(opts,_cmd)=>
         
@@ -151,7 +151,7 @@ program
         .option('-s, --sigpath <value>','Path to signature file to verify or signature itself but with prefix S:','signature.txt')
         .option('-p, --path <value>','Path to file with payload to verify or payload itself but with prefix P:','payload.txt')
 
-        .description(`Verify signed message or content(by path)`)
+        .description(`\x1b[32mVerify signed message or content(by path)\x1b[0m`)
         .action(async(opts,_cmd)=>
         
             import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(async m=>{
@@ -175,7 +175,7 @@ program
         .requiredOption('-s, --privatekey <value>','private key to encrypt')
         .requiredOption('-p, --password <value>','password for AES encryption')
 
-        .description(`Encrypts private keys via AES-256 symmetric algorithm to paste ciphertext to configs or for secured storage`)
+        .description(`\x1b[32mEncrypts private keys via AES-256 symmetric algorithm to paste ciphertext to configs or for secured storage\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -205,10 +205,10 @@ program
 
         .command('decrypt')
         .alias('d')
-        .requiredOption('-e, --encprv <value>','Encrypted private key')
+        .requiredOption('-e, --encprv <cipherText>','Encrypted private key')
         .requiredOption('-p, --password <value>','password for AES decryption')
 
-        .description(`Decrypts private keys via AES-256 symmetric algorithm. Be careful and avoid 3rd party eyes around you!`)
+        .description(`\x1b[32mDecrypts private keys via AES-256 symmetric algorithm. Be careful and avoid 3rd party eyes around you!\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -249,7 +249,7 @@ program
         ********************************************************
         
         `)
-        .description(`Run web UI for more comfortable use`)
+        .description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
         .action(async(opts,_cmd)=>{
 
             console.log(opts)
@@ -280,7 +280,7 @@ program
         .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
         .option('-v, --verbose','track generation process')
         
-        .description(`Generate your vanity Klyntar address with choosen prefix`)
+        .description(`\x1b[32mGenerate your vanity Klyntar address with choosen prefix\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -331,6 +331,23 @@ program
         
         })
 
+
+
+
+program
+
+        .command('event')
+        .description(`\x1b[32mSend events to symbiotes/hostchains/services\x1b[0m`)
+        .requiredOption('-r, --to <address>','recepient')
+        .requiredOption('-m, --module <value>','external pluggable modules to extend standard set of Apollo operations')
+        .requiredOption('-l, --location <value>','symbiote/hostchain/service')
+
+
+program
+
+        .command('pqc')
+        .description(`\x1b[32mModule to work with post-quantum crypto\x1b[0m`)
+        .requiredOption('-a, --algorithm <value>','one of supported formats')
 
 
 program.parse(process.argv)
