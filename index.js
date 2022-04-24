@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
 import {SUPPORTED_FORMATS} from '@klyntar/valardohaeris/vd.js'
-import { createRequire } from 'module'
+import{isMainThread,Worker} from'worker_threads'
+// import { createRequire } from 'module'
 import {program} from 'commander'
 import crypto from'crypto'
 import pkg from 'inquirer'
 import fs from 'fs'
+import os from 'os'
+
 
 
 
@@ -267,6 +270,66 @@ program
         
         })
         
+
+
+
+program
+
+        .command('vanity')
+        
+        .option('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
+        .option('-v, --verbose','track generation process')
+        
+        .description(`Generate your vanity Klyntar address with choosen prefix`)
+        
+        .action(async(opts,_cmd)=>{
+
+
+            if(['0','O','I','l','+','/'].some(x=>opts.prefix.includes(x))){
+ 
+                console.log('Be careful!. Klyntar addresses are Base58 so no symbols 0,O,I,l,+,/ in prefix are possible')
+ 
+                process.exit()
+            }
+
+            console.log(`\u001b[38;5;168m`)
+            
+            let banner=fs.readFileSync(PATH_RESOLVE('images/vanity.txt')).toString('utf-8')
+            
+            console.log(banner)
+
+            console.log(`\n\n\x1b[32mKlyntar started with maximum number of threads for your machine(\x1b[36m${process.env.NUMBER_OF_PROCESSORS}\x1b[32m)\x1b[0m`)
+
+
+            for(let i=0;i<os.cpus().length;i++){
+
+                console.log(`Spawned ${i}`)
+              
+                if (isMainThread) {
+                  
+                    const worker = new Worker(PATH_RESOLVE('vanity_worker.js'))
+              
+                    worker.on('message',data=>{
+
+                        console.log(`Worker [${data.WORKER_ID}](attempts:${data.attempts})`)
+                        
+                        console.log(data.pair)
+
+                        if(data.v){
+
+                            process.exit()
+
+                        }
+
+                    })
+
+                    worker.postMessage({id:worker.threadId,prefix:opts.prefix,v:opts.verbose})
+                            
+                }
+              
+            }
+        
+        })
 
 
 

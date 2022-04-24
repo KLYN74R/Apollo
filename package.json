@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "postinstall":"node ./npm_scripts/script.js"
+    "postinstall": "node ./npm_scripts/script.js"
   },
   "repository": {
     "type": "git",
@@ -28,10 +28,10 @@
   },
   "homepage": "https://github.com/KLYN74R/Apollo#readme",
   "dependencies": {
-    "@klyntar/valardohaeris": "^15.1.1",
+    "@klyntar/valardohaeris": "^17.0.0",
     "chalk": "^5.0.1",
-    "commander": "^9.1.0",
-    "inquirer": "^8.2.1",
+    "commander": "^9.2.0",
+    "inquirer": "^8.2.2",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.3.0"
   }
 }
