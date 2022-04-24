@@ -119,7 +119,7 @@ program
         .alias('s')
 
         .option('-t, --type <value>','Crypto project name','klyntar')
-        .option('-k, --privatekey <value>','Private key to sign data')
+        .requiredOption('-k, --privatekey <value>','Private key to sign data')
         .option('-p, --path <value>','Path to file with payload to sign or payload itself but with prefix P:','payload.txt')
         
         .description(`Sign the message or content(by path)`)
@@ -147,7 +147,7 @@ program
         .alias('v')
 
         .option('-t, --type <value>','Crypto project name','klyntar')
-        .option('-k, --pubkey <value>','Pubkey to verify')
+        .requiredOption('-k, --pubkey <value>','Pubkey to verify')
         .option('-s, --sigpath <value>','Path to signature file to verify or signature itself but with prefix S:','signature.txt')
         .option('-p, --path <value>','Path to file with payload to verify or payload itself but with prefix P:','payload.txt')
 
@@ -172,8 +172,8 @@ program
 
         .command('encrypt')
         .alias('e')
-        .option('-s, --privatekey <value>','private key to encrypt')
-        .option('-p, --password <value>','password for AES encryption')
+        .requiredOption('-s, --privatekey <value>','private key to encrypt')
+        .requiredOption('-p, --password <value>','password for AES encryption')
 
         .description(`Encrypts private keys via AES-256 symmetric algorithm to paste ciphertext to configs or for secured storage`)
         
@@ -205,8 +205,8 @@ program
 
         .command('decrypt')
         .alias('d')
-        .option('-e, --encprv <value>','Encrypted private key')
-        .option('-p, --password <value>','password for AES decryption')
+        .requiredOption('-e, --encprv <value>','Encrypted private key')
+        .requiredOption('-p, --password <value>','password for AES decryption')
 
         .description(`Decrypts private keys via AES-256 symmetric algorithm. Be careful and avoid 3rd party eyes around you!`)
         
