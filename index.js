@@ -276,8 +276,8 @@ program
 program
 
         .command('vanity')
-        
-        .option('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
+
+        .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
         .option('-v, --verbose','track generation process')
         
         .description(`Generate your vanity Klyntar address with choosen prefix`)
