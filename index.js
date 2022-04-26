@@ -40,6 +40,7 @@ let PATH_RESOLVE=path=>__dirname+'/'+path
 let banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8')
             .replaceAll('█','\u001b[38;5;50m█\x1b[0m')
             .replaceAll('*','\u001b[38;5;50m*\x1b[0m')
+            .replaceAll('^','\u001b[38;5;171m*\x1b[0m')
             .replaceAll('Q','\u001b[38;5;196mK\x1b[0m')
             .replaceAll('W','\u001b[38;5;196mL\x1b[0m')
             .replaceAll('E','\u001b[38;5;196mY\x1b[0m')
@@ -347,7 +348,15 @@ program
 
         .command('pqc')
         .description(`\x1b[32mModule to work with post-quantum crypto\x1b[0m`)
+        .requiredOption('-m, --mod <value>','module to woork with e.g. sign/key exchange','sign')
         .requiredOption('-a, --algorithm <value>','one of supported formats')
+
+
+program
+
+        .command('service')
+        .description(`\x1b[32mTo work with services/conveyors etc.\x1b[0m`)
+        .option('-p, --path <value>','')
 
 
 program.parse(process.argv)
