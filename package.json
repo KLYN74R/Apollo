@@ -1,6 +1,6 @@
 {
   "name": "apollo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "CLI/REPL and Web interface to interact with your Klyntar infrastructure!🐙",
   "main": "index.js",
   "type": "module",
