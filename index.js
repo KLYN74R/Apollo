@@ -359,4 +359,11 @@ program
         .option('-p, --path <value>','')
 
 
+program
+        .command('unobtanium')
+        .alias('u')
+        .description(`\x1b[32mTo control your Unobtanium\x1b[0m`)
+        .option('-s, --scope <value>','Choose a project scope','bitcoin')
+
+
 program.parse(process.argv)
