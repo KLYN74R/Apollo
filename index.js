@@ -366,4 +366,13 @@ program
         .option('-s, --scope <value>','Choose a project scope','bitcoin')
 
 
+
+program
+        .command('init-symbiote')
+        .alias('u')
+        .description(`\x1b[32mTo prepare configs,directories and structures for your symbiote\x1b[0m`)
+        .option('-n, --net <value>','Set mode for your symbiote(mainnet/tesnet)','test')
+
+
+
 program.parse(process.argv)
