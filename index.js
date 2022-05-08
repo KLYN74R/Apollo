@@ -4,12 +4,8 @@
 //_________________________________________________________________________ IMPORTS POOL _________________________________________________________________________
 
 
-import {SUPPORTED_FORMATS} from '@klyntar/valardohaeris/vd.js'
-import{isMainThread,Worker} from'worker_threads'
 import {program} from 'commander'
 import fs from 'fs'
-
-
 
 
 //__________________________________________________________________________ IMPORTS POOL _________________________________________________________________________
@@ -83,9 +79,9 @@ program
         .command('listkeys')
         .alias('l')
         .description(`\x1b[32mList all supported key formats by ValarDohaeris\x1b[0m`)
-        .action(async(name,_cmd)=>
+        .action(async()=>
         
-            console.log(SUPPORTED_FORMATS)
+            import('@klyntar/valardohaeris/vd.js').then(mod=>console.log(mod.SUPPORTED_FORMATS))
             
         )
 
@@ -286,6 +282,7 @@ program
         
         .action(async(opts,_cmd)=>{
 
+            let {isMainThread,Worker} = await import('worker_threads')
 
             if(['0','O','I','l','+','/'].some(x=>opts.prefix.includes(x))){
  
