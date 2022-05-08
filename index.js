@@ -382,7 +382,7 @@ program
                 //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
                 //See https://stackoverflow.com/a/66527729/18521368
 
-                let { createRequire } = await import('module')
+                let { createRequire } = await import('module'),
                 
                     require = createRequire(import.meta.url),
 
