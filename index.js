@@ -425,6 +425,7 @@ program
 program
 
         .command('build-service')
+        .alias('bs')
         .description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
         .option('-p, --path <value>','')
         .action(async(opts,_cmd)=>{
@@ -450,7 +451,7 @@ program
 
 program
         .command('init-symbiote')
-        .alias('')
+        .alias('is')
         .description(`\x1b[32mTo prepare configs,directories and structures for your symbiote\x1b[0m`)
         .option('-n, --net <value>','Set mode for your symbiote(mainnet/tesnet)','test')
             
