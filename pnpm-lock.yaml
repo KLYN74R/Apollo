@@ -2,6 +2,8 @@ lockfileVersion: 5.3
 
 specifiers:
   '@klyntar/valardohaeris': ^17.0.0
+  adm-zip: ^0.5.9
+  blake3-wasm: ^2.1.5
   chalk: ^5.0.1
   commander: ^9.2.0
   inquirer: ^8.2.2
@@ -9,6 +11,8 @@ specifiers:
 
 dependencies:
   '@klyntar/valardohaeris': 17.0.0
+  adm-zip: 0.5.9
+  blake3-wasm: 2.1.5
   chalk: 5.0.1
   commander: 9.2.0
   inquirer: 8.2.2
@@ -1100,6 +1104,7 @@ packages:
 
   /@unimodules/core/7.1.2:
     resolution: {integrity: sha512-lY+e2TAFuebD3vshHMIRqru3X4+k7Xkba4Wa7QsDBd+ex4c4N2dHAO61E2SrGD9+TRBD8w/o7mzK6ljbqRnbyg==}
+    deprecated: 'replaced by the ''expo'' package, learn more: https://blog.expo.dev/whats-new-in-expo-modules-infrastructure-7a7cdda81ebc'
     requiresBuild: true
     dependencies:
       compare-versions: 3.6.0
@@ -1108,6 +1113,7 @@ packages:
 
   /@unimodules/react-native-adapter/6.3.9:
     resolution: {integrity: sha512-i9/9Si4AQ8awls+YGAKkByFbeAsOPgUNeLoYeh2SQ3ddjxJ5ZJDtq/I74clDnpDcn8zS9pYlcDJ9fgVJa39Glw==}
+    deprecated: 'replaced by the ''expo'' package, learn more: https://blog.expo.dev/whats-new-in-expo-modules-infrastructure-7a7cdda81ebc'
     requiresBuild: true
     dependencies:
       expo-modules-autolinking: 0.0.3
@@ -1178,6 +1184,11 @@ packages:
     resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+    dev: false
+
+  /adm-zip/0.5.9:
+    resolution: {integrity: sha512-s+3fXLkeeLjZ2kLjCBwQufpI5fuN+kIGBxu6530nVQZGVol0d7Y/M88/xw9HGGUcJjKf8LutN3VPRUBq6N7Ajg==}
+    engines: {node: '>=6.0'}
     dev: false
 
   /aes-js/3.1.2:
@@ -1615,6 +1626,10 @@ packages:
     dependencies:
       blake2b-wasm: 2.4.0
       nanoassert: 2.0.0
+    dev: false
+
+  /blake3-wasm/2.1.5:
+    resolution: {integrity: sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g==}
     dev: false
 
   /blakejs/1.2.1:

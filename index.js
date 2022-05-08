@@ -1,26 +1,18 @@
 #!/usr/bin/env node
 
+
+//_________________________________________________________________________ IMPORTS POOL _________________________________________________________________________
+
+
 import {SUPPORTED_FORMATS} from '@klyntar/valardohaeris/vd.js'
 import{isMainThread,Worker} from'worker_threads'
-// import { createRequire } from 'module'
 import {program} from 'commander'
-import crypto from'crypto'
-import pkg from 'inquirer'
 import fs from 'fs'
-import os from 'os'
 
 
 
 
-//Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
-//See https://stackoverflow.com/a/66527729/18521368
-// const require = createRequire(import.meta.url),
-
-//       ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
-
-
-
-const { prompt } = pkg
+//__________________________________________________________________________ IMPORTS POOL _________________________________________________________________________
 
 
 global.__dirname = await import('path').then(async mod=>
@@ -33,11 +25,11 @@ global.__dirname = await import('path').then(async mod=>
 
 )
 
-let PATH_RESOLVE=path=>__dirname+'/'+path
+const PATH_RESOLVE=path=>__dirname+'/'+path
 
 
 
-let banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8')
+const banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8')
             .replaceAll('█','\u001b[38;5;50m█\x1b[0m')
             .replaceAll('*','\u001b[38;5;50m*\x1b[0m')
             .replaceAll('^','\u001b[38;5;171m*\x1b[0m')
@@ -56,6 +48,11 @@ let banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8')
 
 
 global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
+
+
+
+
+//_________________________________________________________________________ CLI COMMANDS _________________________________________________________________________
 
 
 
@@ -180,6 +177,8 @@ program
         
         .action(async(opts,_cmd)=>{
 
+
+            let crypto=await import('crypto')
             
             //_____________________________________________Prepare key and initialization vector_____________________________________________
             
@@ -213,6 +212,7 @@ program
         
         .action(async(opts,_cmd)=>{
 
+            let crypto=await import('crypto')
                
             //_____________________________________________Prepare key and initialization vector_____________________________________________
             
@@ -232,7 +232,7 @@ program
             
                 console.log(decipher.update(opts.encprv,'hex','utf8')+decipher.final('utf8'))
 
-            }catch{ console.log('Failed') }
+            }catch{ console.log('\x1b[31;1mFailed\x1b[0m') }
 
         
         })
@@ -242,6 +242,7 @@ program
 
         .command('ui')
         .option('-p, --port <value>','Port to run web UI',9999)
+        .option('-m, --mod <value>','You can set module to override default Apollo UI behavior')
         .option('-i, --interface <value>','interface to run server','::')
         .addHelpText('before',`
         
@@ -252,22 +253,21 @@ program
         `)
         .description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
         .action(async(opts,_cmd)=>{
+            
+            import('uWebSockets.js').then(module=>{
 
-            console.log(opts)
-            // import('uWebSockets.js').then(module=>{
-
-            //     let UWS=module.default
+                let UWS=module.default
                 
-            //     UWS.App()
+                UWS.App()
                 
-            //         .get('/',(a,q)=>{
+                    .get('/',(a,q)=>{
                     
-            //             a.end(`Hello from KLYNTAR@UI`)
+                        a.end(`Hello from KLYNTAR@UI`)
                     
-            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
+                    }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on \x1b[32;1m[${opts.interface}]:${opts.port}\x1b[0m`))
 
             
-            // }).catch(e=>false)
+            }).catch(e=>false)
         
         })
         
@@ -279,6 +279,7 @@ program
         .command('vanity')
 
         .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .option('-v, --verbose','track generation process')
         
         .description(`\x1b[32mGenerate your vanity Klyntar address with choosen prefix\x1b[0m`)
@@ -301,6 +302,7 @@ program
 
             console.log(`\n\n\x1b[32mKlyntar started with maximum number of threads for your machine(\x1b[36m${process.env.NUMBER_OF_PROCESSORS}\x1b[32m)\x1b[0m`)
 
+            let os = await import('os')
 
             for(let i=0;i<os.cpus().length;i++){
 
@@ -340,7 +342,7 @@ program
         .command('event')
         .description(`\x1b[32mSend events to symbiotes/hostchains/services\x1b[0m`)
         .requiredOption('-r, --to <address>','recepient')
-        .requiredOption('-m, --module <value>','external pluggable modules to extend standard set of Apollo operations')
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .requiredOption('-l, --location <value>','symbiote/hostchain/service')
         .action(async(opts,_cmd)=>{
 
@@ -371,27 +373,35 @@ program
         .option('-l, --list','List available functions set')
         .option('-f, --function <value>','call function of one of the supported formats')
         .option('-p, --params','pass params to function')
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
-        .option('-v, --verbose','Print beautiful explanation of what to do with generated values')
+        .option('-v, --verbose','Print pretty explanation of what to do with generated values')
 
         .action(async(opts,_cmd)=>{
 
-            console.log(opts)
-            // import('uWebSockets.js').then(module=>{
+            //Addons will be available only in Linux env first time
+            if(process.platform==='linux'){
 
-            //     let UWS=module.default
-                
-            //     UWS.App()
-                
-            //         .get('/',(a,q)=>{
-                    
-            //             a.end(`Hello from KLYNTAR@UI`)
-                    
-            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
+                //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
+                //See https://stackoverflow.com/a/66527729/18521368
 
-            
-            // }).catch(e=>false)
-        
+                let { createRequire } = await import('module')
+                
+                    require = createRequire(import.meta.url),
+
+                    ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
+
+
+                console.log(opts)
+
+                if(opts.list) console.log(ADDONS)
+                else{
+
+                }
+                
+
+            } else console.log('\x1b[31;1mPost-quantum cryptography available only in Linux env.Please,compile addons and try again\x1b[0m')
+
         })
         
 
@@ -400,23 +410,10 @@ program
         .command('service')
         .description(`\x1b[32mTo work with services/conveyors etc.\x1b[0m`)
         .option('-p, --path <value>','')
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .action(async(opts,_cmd)=>{
 
             console.log(opts)
-            // import('uWebSockets.js').then(module=>{
-
-            //     let UWS=module.default
-                
-            //     UWS.App()
-                
-            //         .get('/',(a,q)=>{
-                    
-            //             a.end(`Hello from KLYNTAR@UI`)
-                    
-            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
-
-            
-            // }).catch(e=>false)
         
         })
         
@@ -427,24 +424,12 @@ program
         .command('build-service')
         .alias('bs')
         .description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
-        .option('-p, --path <value>','')
+        .option('-p, --path <value>','Path to directory with service')
+        .option('-d, --dest <value>','Write arhive with service here')
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .action(async(opts,_cmd)=>{
 
             console.log(opts)
-            // import('uWebSockets.js').then(module=>{
-
-            //     let UWS=module.default
-                
-            //     UWS.App()
-                
-            //         .get('/',(a,q)=>{
-                    
-            //             a.end(`Hello from KLYNTAR@UI`)
-                    
-            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
-
-            
-            // }).catch(e=>false)
         
         })
 
@@ -454,24 +439,11 @@ program
         .alias('is')
         .description(`\x1b[32mTo prepare configs,directories and structures for your symbiote\x1b[0m`)
         .option('-n, --net <value>','Set mode for your symbiote(mainnet/tesnet)','test')
-            
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+
         .action(async(opts,_cmd)=>{
 
             console.log(opts)
-            // import('uWebSockets.js').then(module=>{
-
-            //     let UWS=module.default
-                
-            //     UWS.App()
-                
-            //         .get('/',(a,q)=>{
-                    
-            //             a.end(`Hello from KLYNTAR@UI`)
-                    
-            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
-
-            
-            // }).catch(e=>false)
         
         })
         
