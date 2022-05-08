@@ -85,7 +85,7 @@ program
 
         .command('listkeys')
         .alias('l')
-        .description(`\x1b[32mList all supported key foramts by ValarDohaeris\x1b[0m`)
+        .description(`\x1b[32mList all supported key formats by ValarDohaeris\x1b[0m`)
         .action(async(name,_cmd)=>
         
             console.log(SUPPORTED_FORMATS)
@@ -342,37 +342,138 @@ program
         .requiredOption('-r, --to <address>','recepient')
         .requiredOption('-m, --module <value>','external pluggable modules to extend standard set of Apollo operations')
         .requiredOption('-l, --location <value>','symbiote/hostchain/service')
+        .action(async(opts,_cmd)=>{
 
+            console.log(opts)
+            // import('uWebSockets.js').then(module=>{
+
+            //     let UWS=module.default
+                
+            //     UWS.App()
+                
+            //         .get('/',(a,q)=>{
+                    
+            //             a.end(`Hello from KLYNTAR@UI`)
+                    
+            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
+
+            
+            // }).catch(e=>false)
+        
+        })
+        
 
 program
 
         .command('pqc')
         .description(`\x1b[32mModule to work with post-quantum crypto\x1b[0m`)
-        .requiredOption('-m, --mod <value>','module to woork with e.g. sign/key exchange','sign')
-        .requiredOption('-a, --algorithm <value>','one of supported formats')
+        
+        .option('-l, --list','List available functions set')
+        .option('-f, --function <value>','call function of one of the supported formats')
+        .option('-p, --params','pass params to function')
+        //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
+        .option('-v, --verbose','Print beautiful explanation of what to do with generated values')
 
+        .action(async(opts,_cmd)=>{
+
+            console.log(opts)
+            // import('uWebSockets.js').then(module=>{
+
+            //     let UWS=module.default
+                
+            //     UWS.App()
+                
+            //         .get('/',(a,q)=>{
+                    
+            //             a.end(`Hello from KLYNTAR@UI`)
+                    
+            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
+
+            
+            // }).catch(e=>false)
+        
+        })
+        
 
 program
 
         .command('service')
         .description(`\x1b[32mTo work with services/conveyors etc.\x1b[0m`)
         .option('-p, --path <value>','')
+        .action(async(opts,_cmd)=>{
+
+            console.log(opts)
+            // import('uWebSockets.js').then(module=>{
+
+            //     let UWS=module.default
+                
+            //     UWS.App()
+                
+            //         .get('/',(a,q)=>{
+                    
+            //             a.end(`Hello from KLYNTAR@UI`)
+                    
+            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
+
+            
+            // }).catch(e=>false)
+        
+        })
+        
 
 
 program
-        .command('unobtanium')
-        .alias('u')
-        .description(`\x1b[32mTo control your Unobtanium\x1b[0m`)
-        .option('-s, --scope <value>','Choose a project scope','bitcoin')
 
+        .command('build-service')
+        .description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
+        .option('-p, --path <value>','')
+        .action(async(opts,_cmd)=>{
+
+            console.log(opts)
+            // import('uWebSockets.js').then(module=>{
+
+            //     let UWS=module.default
+                
+            //     UWS.App()
+                
+            //         .get('/',(a,q)=>{
+                    
+            //             a.end(`Hello from KLYNTAR@UI`)
+                    
+            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
+
+            
+            // }).catch(e=>false)
+        
+        })
 
 
 program
         .command('init-symbiote')
-        .alias('u')
+        .alias('')
         .description(`\x1b[32mTo prepare configs,directories and structures for your symbiote\x1b[0m`)
         .option('-n, --net <value>','Set mode for your symbiote(mainnet/tesnet)','test')
+            
+        .action(async(opts,_cmd)=>{
 
+            console.log(opts)
+            // import('uWebSockets.js').then(module=>{
+
+            //     let UWS=module.default
+                
+            //     UWS.App()
+                
+            //         .get('/',(a,q)=>{
+                    
+            //             a.end(`Hello from KLYNTAR@UI`)
+                    
+            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
+
+            
+            // }).catch(e=>false)
+        
+        })
+        
 
 
 program.parse(process.argv)

@@ -1,6 +1,12 @@
 {
-    "REMOTE_URL":"https://myremotenodeyirucco6sjgyp2f7lfznelzgpjcp6oha2olzb4rlead.onion",
-    "REMOTE_PORT":3232,
+    "CLUSTER":{
+        "URL":"https://myremotenodeyirucco6sjgyp2f7lfznelzgpjcp6oha2olzb4rlead.onion",
+        "AUTH":"NODE_AUTH"
+    },
+    
+    "PROXY":{
+        "TYPE":"SOCKS5",
+        "URL":"http://USER:PASS@localhost:5666"
+    }
 
-    "PLUGINS":[]
 }
