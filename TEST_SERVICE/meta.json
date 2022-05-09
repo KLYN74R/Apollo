@@ -1,3 +1,9 @@
 {
-    "author":"JLhXeVigeiBwCrdciy4Yr6X1ftXMN4KmKtv8jrN6PUEP"
+    "author":"JLhXeVigeiBwCrdciy4Yr6X1ftXMN4KmKtv8jrN6PUEP",
+    "desc":"Describe your service in a few words.Minimum network size is 200 symbols",
+    "toolchain":["docker","go","node.js"],
+    "type":"self",
+    "keywords":["storage","avax","klyntar"],
+    "hostchains":["avax"],
+    "dec_storage":true
 }

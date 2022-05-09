@@ -169,7 +169,7 @@ program
         .requiredOption('-s, --privatekey <value>','private key to encrypt')
         .requiredOption('-p, --password <value>','password for AES encryption')
 
-        .description(`\x1b[32mEncrypts private keys via AES-256 symmetric algorithm to paste ciphertext to configs or for secured storage\x1b[0m`)
+        .description(`\x1b[32mEncrypts private keys via \x1b[36;1mAES-256\x1b[32m symmetric algorithm to paste ciphertext to configs or for secured storage\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -204,7 +204,7 @@ program
         .requiredOption('-e, --encprv <cipherText>','Encrypted private key')
         .requiredOption('-p, --password <value>','password for AES decryption')
 
-        .description(`\x1b[32mDecrypts private keys via AES-256 symmetric algorithm. Be careful and avoid 3rd party eyes around you!\x1b[0m`)
+        .description(`\x1b[32mDecrypts private keys via \x1b[36;1mAES-256\x1b[32m symmetric algorithm. Be careful and avoid 3rd party eyes around you!\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -278,7 +278,7 @@ program
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .option('-v, --verbose','track generation process')
         
-        .description(`\x1b[32mGenerate your vanity Klyntar address with choosen prefix\x1b[0m`)
+        .description(`\x1b[32mGenerate your vanity \x1b[31;1mKlyntar\x1b[32m address with choosen prefix\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -422,12 +422,31 @@ program
         .alias('bs')
         .description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
         .option('-p, --path <value>','Path to directory with service')
-        .option('-d, --dest <value>','Write arhive with service here')
+        .option('-d, --dest <value>','Write archive with service here')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .action(async(opts,_cmd)=>{
 
-            console.log(opts)
-        
+            let {hash}=await import('blake3-wasm'),
+
+            admZip=(await import('adm-zip')).default,
+
+            BLAKE3=v=>hash(v).toString('hex')
+
+            //Creating archives
+            let zip = new admZip()
+
+            // add directory
+            zip.addLocalFolder(opts.path,opts.path)
+            
+            // get everything as a buffer
+            let fingerPrint=BLAKE3(zip.toBuffer())
+
+            console.log(fingerPrint)
+
+            //Write archive
+            zip.writeZip(opts.dest)
+
+            
         })
 
 
