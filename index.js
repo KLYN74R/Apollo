@@ -369,6 +369,49 @@ program
         
         .option('-l, --list','List available functions set')
         .option('-f, --function <value>','call function of one of the supported formats')
+        .option('-p, --params','pass params to function splitted by comma')
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+        //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
+        .option('-v, --verbose','Print pretty explanation of what to do with generated values')
+
+        .action(async(opts,_cmd)=>{
+
+            //Addons will be available only in Linux env first time
+            if(process.platform==='linux'){
+
+                //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
+                //See https://stackoverflow.com/a/66527729/18521368
+
+                let { createRequire } = await import('module'),
+                
+                    require = createRequire(import.meta.url),
+
+                    ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
+
+                if(opts.list) console.log(ADDONS)
+                
+                else{
+
+                    console.log(ADDONS[opts.function](...opts.params.split(',')))//call function and pass params if function need it
+
+                }
+                
+            } else console.log('\x1b[31;1mPost-quantum cryptography available only in Linux env.Please,compile addons and try again\x1b[0m')
+
+        })
+        
+
+
+
+
+program
+
+        .command('multisig')
+        .alias('ms')
+        .description(`\x1b[32mModule to work with multisignatures\x1b[0m`)
+        
+        .option('-l, --list','List available functions set')
+        .option('-f, --function <value>','call function of one of the supported formats')
         .option('-p, --params','pass params to function')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
@@ -401,6 +444,8 @@ program
 
         })
         
+
+
 
 program
 
