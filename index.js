@@ -392,7 +392,7 @@ program
                 
                 else{
 
-                    console.log(ADDONS[opts.function](...opts.params?.split(',')))//call function and pass params if function need it
+                    console.log(ADDONS[opts.function](...(opts.params?.split(',') || [] )))//call function and pass params if function need it
 
                 }
                 
