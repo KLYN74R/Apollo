@@ -291,17 +291,26 @@ program
                 process.exit()
             }
 
+            //_________________ BANNER _________________
+
             console.log(`\u001b[38;5;168m`)
             
             let banner=fs.readFileSync(PATH_RESOLVE('images/vanity.txt')).toString('utf-8')
             
             console.log(banner)
 
-            console.log(`\n\n\x1b[32mKlyntar started with maximum number of threads for your machine(\x1b[36m${process.env.NUMBER_OF_PROCESSORS}\x1b[32m)\x1b[0m`)
 
-            let os = await import('os')
 
-            for(let i=0;i<os.cpus().length;i++){
+            let os = await import('os'),
+
+                numProc = os.cpus().length
+
+            console.log(`\n\n\x1b[32mKlyntar started with maximum number of threads for your machine(\x1b[36m${numProc}\x1b[32m)\x1b[0m`)
+
+
+            //_________________ RUN CYCLE _________________
+
+            for(let i=0;i<numProc;i++){
 
                 console.log(`Spawned ${i}`)
               
@@ -336,66 +345,25 @@ program
 
 program
 
-        .command('event')
-        .description(`\x1b[32mSend events to symbiotes/hostchains/services\x1b[0m`)
-        .requiredOption('-r, --to <address>','recepient')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-        .requiredOption('-l, --location <value>','symbiote/hostchain/service')
-        .action(async(opts,_cmd)=>{
-
-            console.log(opts)
-            // import('uWebSockets.js').then(module=>{
-
-            //     let UWS=module.default
-                
-            //     UWS.App()
-                
-            //         .get('/',(a,q)=>{
-                    
-            //             a.end(`Hello from KLYNTAR@UI`)
-                    
-            //         }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on [${opts.interface}]:${opts.port}`))
-
-            
-            // }).catch(e=>false)
-        
-        })
-        
-
-program
-
         .command('pqc')
         .description(`\x1b[32mModule to work with post-quantum crypto\x1b[0m`)
         
-        .option('-l, --list','List available functions set')
+        .option('-l, --list','List available functions set and how to use them')
         .option('-f, --function <value>','call function of one of the supported formats')
-        .option('-p, --params','pass params to function splitted by comma')
+        .option('-p, --parameters <comma splitted params>','pass params to function splitted by comma')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-        //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
-        .option('-v, --verbose','Print pretty explanation of what to do with generated values')
-
+        
         .action(async(opts,_cmd)=>{
 
             //Addons will be available only in Linux env first time
             if(process.platform==='linux'){
 
-                //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
-                //See https://stackoverflow.com/a/66527729/18521368
+                //_________________________ IMPORTS SECTION _________________________
 
-                let { createRequire } = await import('module'),
-                
-                    require = createRequire(import.meta.url),
-
-                    ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
-
-                if(opts.list) console.log(ADDONS)
-                
-                else{
-
-                    console.log(ADDONS[opts.function]?.(...(opts.params?.split(',') || [] )))//call function and pass params if function need it
-
-                }
-                
+                let index=(await import('./KLY_Addons/index.js')).default
+    
+                opts.list?index.list():index.action(opts.function,opts.parameters)//call function and pass params if function need it
+    
             } else console.log('\x1b[31;1mPost-quantum cryptography available only in Linux env.Please,compile addons and try again\x1b[0m')
 
         })

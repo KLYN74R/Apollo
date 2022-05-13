@@ -4,6 +4,7 @@ specifiers:
   '@klyntar/valardohaeris': ^17.0.0
   adm-zip: ^0.5.9
   blake3-wasm: ^2.1.5
+  bls-wasm: ^0.4.8
   chalk: ^5.0.1
   commander: ^9.2.0
   inquirer: ^8.2.2
@@ -13,6 +14,7 @@ dependencies:
   '@klyntar/valardohaeris': 17.0.0
   adm-zip: 0.5.9
   blake3-wasm: 2.1.5
+  bls-wasm: 0.4.8
   chalk: 5.0.1
   commander: 9.2.0
   inquirer: 8.2.2
@@ -1634,6 +1636,10 @@ packages:
 
   /blakejs/1.2.1:
     resolution: {integrity: sha512-QXUSXI3QVc/gJME0dBpXrag1kbzOqCjCX8/b54ntNyW6sjtoqxqRk3LTmXzaJoh71zMsDCjM+47jS7XiwN/+fQ==}
+    dev: false
+
+  /bls-wasm/0.4.8:
+    resolution: {integrity: sha512-UF0cHgtK5fBr+MFek8KGNWFePcDKe7izQxyMWpJECpn0WW2iSlgr9iNJrvIczVx87ALWQWZqxoTkGImnOaJJtA==}
     dev: false
 
   /bluebird/3.7.2:
