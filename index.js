@@ -352,6 +352,7 @@ program
         .option('-f, --function <value>','call function of one of the supported formats')
         .option('-p, --parameters <comma splitted params>','pass params to function splitted by comma')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+        .option('-o, --output <path>','Path to write your keypair to file in JSON format')
         
         .action(async(opts,_cmd)=>{
 
