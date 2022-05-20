@@ -377,14 +377,26 @@ program
 
         .command('multisig')
         .alias('ms')
-        .description(`\x1b[32mModule to work with multisignatures\x1b[0m`)
+        .description(`\x1b[32mModule to work with multisignatures(currently TBLS)\x1b[0m`)
+
+        .addCommand(
+            
+            program.createCommand('generate')
         
-        .option('-l, --list','List available functions set')
-        .option('-f, --function <value>','call function of one of the supported formats')
-        .option('-p, --params','pass params to function')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
+            .option('-n, --number','initial number of signers')
+            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            
+            .action((async(opts,_cmd)=>{
+            
+                console.log('Hello subcommand')
+        
+            }))
+        
+        )
+        
+        .addCommand(program.createCommand('sign'))
         //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
-        .option('-v, --verbose','Print pretty explanation of what to do with generated values')
 
         .action(async(opts,_cmd)=>{
 

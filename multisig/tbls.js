@@ -48,9 +48,9 @@ bls.init().then(() => {
   // each member need to first create a verification vector and a secret key
   // contribution for every other member in the group (including itself!)
   members.forEach(id => {
-    const {verificationVector, secretKeyContribution} = dkg.generateContribution(bls, members.map(m => m.id), threshold)
+    const {verificationVector,secretKeyContribution} = dkg.generateContribution(bls, members.map(m => m.id), threshold)
 
-    console.log(`Verification vector for ${id} => ${verificationVector} => ${secretKeyContribution}`)
+    console.log(`Verification vector for ${JSON.stringify(id)} => ${verificationVector} => ${secretKeyContribution}`)
     // the verification vector should be posted publically so that everyone
     // in the group can see it
     vvecs.push(verificationVector)
