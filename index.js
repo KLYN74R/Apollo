@@ -375,9 +375,9 @@ program
 
 program
 
-        .command('multisig')
-        .alias('ms')
-        .description(`\x1b[32mModule to work with multisignatures(currently TBLS)\x1b[0m`)
+        .command('thresholdsig')
+        .alias('ts')
+        .description(`\x1b[32mModule to work with threshold signatures(currently TBLS based on BLS12-381)\x1b[0m`)
 
         .addCommand(
             
@@ -426,6 +426,60 @@ program
         })
         
 
+
+
+
+        program
+
+        .command('multisig')
+        .alias('ms')
+        .description(`\x1b[32mModule to work with multisignatures(currently BLS/Schnorr)\x1b[0m`)
+
+        .addCommand(
+            
+            program.createCommand('generate')
+        
+            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
+            .option('-n, --number','initial number of signers')
+            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            
+            .action((async(opts,_cmd)=>{
+            
+                console.log('Hello subcommand')
+        
+            }))
+        
+        )
+        
+        .addCommand(program.createCommand('sign'))
+        //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
+
+        .action(async(opts,_cmd)=>{
+
+            //Addons will be available only in Linux env first time
+            if(process.platform==='linux'){
+
+                //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
+                //See https://stackoverflow.com/a/66527729/18521368
+
+                let { createRequire } = await import('module'),
+                
+                    require = createRequire(import.meta.url),
+
+                    ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
+
+
+                console.log(opts)
+
+                if(opts.list) console.log(ADDONS)
+                else{
+
+                }
+                
+
+            } else console.log('\x1b[31;1mPost-quantum cryptography available only in Linux env.Please,compile addons and try again\x1b[0m')
+
+        })
 
 
 program
