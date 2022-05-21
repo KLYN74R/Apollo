@@ -5,13 +5,15 @@ build
 node_modules
 test.js
 
+#No keys
+*.pem
 
-#Workflow
+#Builds
 *.exe
 *.pdb
 *.wasm
 *.key
-*.pem
 *.dll
 *.so
 *.zip
+*.h
