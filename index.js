@@ -369,7 +369,22 @@ program
 
         })
         
+        
+        
+program
 
+        .command('checkrepo')
+        .description(`\x1b[32mVerify commits,repositories by \u001b[38;5;105mKlyntarTeam\x1b[0m\x1b[32m or by other devs\x1b[0m`)
+        .alias('cr')
+        .option('-p, --path','Path to repository')
+        .option('-m, --meta','required metadata e.g. multisig pubkey etc.')
+        
+        .action(async(opts,_cmd)=>{
+
+            //
+ 
+        })
+        
 
 
 
@@ -429,7 +444,7 @@ program
 
 
 
-        program
+program
 
         .command('multisig')
         .alias('ms')
@@ -502,6 +517,7 @@ program
         .alias('bs')
         .description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
         .option('-p, --path <value>','Path to directory with service')
+        .option('-z, --zip_path <value>','Path in ZIP')
         .option('-d, --dest <value>','Write archive with service here')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .action(async(opts,_cmd)=>{
@@ -516,7 +532,7 @@ program
             let zip = new admZip()
 
             // add directory
-            zip.addLocalFolder(opts.path,opts.path)
+            zip.addLocalFolder(opts.path,opts.zip_path)
             
             // get everything as a buffer
             let fingerPrint=BLAKE3(zip.toBuffer())
