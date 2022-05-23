@@ -398,29 +398,52 @@ program
             
             program.createCommand('generate').alias('gs')
         
-            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
-            .option('-n, --number <value>','initial number of signers')
-            .option('-i, --id <value>','your id')
-            .option('-s, --signers <id1,id2,...idN>','Array of IDs of other participants splitted by coma.')
+            .requiredOption('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
+            .requiredOption('-i, --id <value>','your id')
+            .requiredOption('-s, --signers <id1,id2,...idN>','Array of IDs of other participants splitted by coma.')
+            .option('-p, --path <value>','Path to .json file to store generated data','your_tbls.json')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             .description('To generate your verification vector,secret shares for other signers and so on')
-            .action((async(opts,_cmd)=>{
+            .action((opts,_cmd)=>
             
-                let bundle=(await import('./signatures/tbls.js')).default
+                import('./signatures/tbls.js').then(
 
-                console.log(bundle)
-        
-            }))
+                    bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(',')))
+
+                )
+  
+            )
         
         )
         .addCommand(
             
             program.createCommand('verify-share')
         
-            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
-            .option('-n, --number','initial number of signers')
+            .option('-i, --id <value>','your id in hex format')
+            .option('-s, --secret <value>','secret share contribution received by someone in hex format')
+            .option('-v, --vector <v1,v2,...vN>','verification vector received from some signer')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             .description('Verify share received by participant')
+            .action((opts,_cmd)=>
+            
+                import('./signatures/tbls.js').then(
+                    
+                    bundle => bundle.default.verifyShareTBLS(opts.id,opts.secret,opts.vector.split(','))
+                
+                )
+
+            )
+        
+        )
+        .addCommand(
+            
+            program.createCommand('sign')
+        
+            .option('-i, --id <value>','your id in hex format')
+            .option('-s, --shared-payload-path','Path to specific struct. Read more https://mastering.klyntar.org/beginning/cryptography/multi-threshold-aggregated-signatures')
+            .option('-d, --data <value>','text data to sign')
+            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            .description('Sign some data')
             .action((async(opts,_cmd)=>{
             
                 console.log('Hello subcommand')
@@ -430,12 +453,12 @@ program
         )
         .addCommand(
             
-            program.createCommand('sign')
+            program.createCommand('buildsig').alias('bs')
         
             .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .option('-n, --number','initial number of signers')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-            .description('Sign some data')
+            .description('Build general signature from sigshares')
             .action((async(opts,_cmd)=>{
             
                 console.log('Hello subcommand')
@@ -579,8 +602,6 @@ program
         
         })
         
-
-
 
 program
         .command('verify-configs')

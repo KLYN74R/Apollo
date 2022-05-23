@@ -34,19 +34,23 @@ export default {
         console.log('\n\n==================== RESULT ====================\n')
 
         let jsonVerificationVector=JSON.stringify(serializedVerificationVector),
-      
-            jsonSecretShares=JSON.stringify(serializedSecretKeyContribution),
-
+    
             serializedId=signers[pubKeysArr.indexOf(myPubId)].id.serializeToHexStr()
 
 
 
         console.log(`Send this verification vector to all group members => ${jsonVerificationVector}`)
-        console.log(`Send this secret shares to appropriate user(one per user) => ${jsonSecretShares}`)
+        console.log(`\n\nSend this secret shares to appropriate user(one per user)`)
+        serializedSecretKeyContribution.forEach((share,index)=>{
+
+            console.log(`To user ${index} => ${share}`)
+
+        })
 
         //console.log(`\n\nYour creds ${JSON.stringify(signers[pubKeysArr.indexOf(myPubId)])}`)
         console.log(`\n\nYour ID ${serializedId}`)
 
+        console.log('\nP.S:Stored to <filepath>.json')
         return JSON.stringify({
         
             verificationVector:serializedVerificationVector,
@@ -59,18 +63,19 @@ export default {
 
     
     verifyShareTBLS:(hexMyId,hexSomeSignerSecretKeyContribution,hexSomeSignerVerificationVector)=>{
-
+        
         //Deserialize at first from hex
         let someSignerSecretKeyContribution=blsA.deserializeHexStrToSecretKey(hexSomeSignerSecretKeyContribution)
+        
         let someSignerVerificationVector=hexSomeSignerVerificationVector.map(x=>blsA.deserializeHexStrToPublicKey(x))
         let myId = blsA.deserializeHexStrToSecretKey(hexMyId)
     
-    
+
         // Теперь когда нужный член групы получил этот secret sk,то он проверяет его по VSS с помощью verification vector of the sender и сохраняет его если всё ок
         const isVerified = dkg.verifyContributionShare(blsA,myId,someSignerSecretKeyContribution,someSignerVerificationVector)
      
-        if(!isVerified) throw new Error(`Invalid share received from user with verification vector ${hexSomeSignerVerificationVector}`)
-        else console.log(`Share ${hexSomeSignerSecretKeyContribution} valid - please,store it`) 
+        if(!isVerified) console.log(`\n\n\x1b[31mInvalid\x1b[0m share received from user with verification vector ${hexSomeSignerVerificationVector}`)
+        else console.log(`\n\nShare ${hexSomeSignerSecretKeyContribution} is \x1b[32mvalid\x1b[0m - please,store it`) 
      
         //Store shares somewhere with information who send(which id) has sent this share for you
     
