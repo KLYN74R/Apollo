@@ -6,9 +6,10 @@ import * as dkg from './tbls_index.js'
 import blsA from 'bls-wasm'
 
 
-let generateTBLS=async(threshold,myPubId,pubKeysArr)=>{
 
-    await blsA.init()
+await blsA.init()
+
+let generateTBLS=(threshold,myPubId,pubKeysArr)=>{
 
     let signers=pubKeysArr.map(id => {
 
@@ -33,26 +34,33 @@ let generateTBLS=async(threshold,myPubId,pubKeysArr)=>{
     //console.log('SecretKey contribution SERIALIZE ', secKeyArr.map(x=>blsA.deserializeHexStrToSecretKey(x)))
     console.log('\n\n==================== RESULT ====================\n')
 
-    console.log(`Send this verification vector to all group members => ${JSON.stringify(serializedVerificationVector)}`)
-    console.log(`Send this secret shares to appropriate user(one per user) => ${JSON.stringify(serializedSecretKeyContribution)}`)
+    let jsonVerificationVector=JSON.stringify(serializedVerificationVector),
+    
+        jsonSecretShares=JSON.stringify(serializedSecretKeyContribution),
+
+        serializedId=signers[pubKeysArr.indexOf(myPubId)].id.serializeToHexStr()
+
+
+
+    console.log(`Send this verification vector to all group members => ${jsonVerificationVector}`)
+    console.log(`Send this secret shares to appropriate user(one per user) => ${jsonSecretShares}`)
+
     //console.log(`\n\nYour creds ${JSON.stringify(signers[pubKeysArr.indexOf(myPubId)])}`)
-    console.log(`\n\nYour ID ${signers[pubKeysArr.indexOf(myPubId)].id.serializeToHexStr()}`)
+    console.log(`\n\nYour ID ${serializedId}`)
 
-    return {
+    return JSON.stringify({
     
-        verificationVector:JSON.stringify(serializedVerificationVector)
+        verificationVector:serializedVerificationVector,
+        secretShares:serializedSecretKeyContribution,
+        id:serializedId
     
-    }
+    })
     
-// console.log(`\n\nYour creds ${blsA.deserializeHexStrToSecretKey(signers[pubKeysArr.indexOf(myPubId)].id.serializeToHexStr())}`)
-
 }
 
 
 
 let verifyShareTBLS=async(hexMyId,hexSomeSignerSecretKeyContribution,hexSomeSignerVerificationVector)=>{
-
-    await blsA.init()
 
     //Deserialize at first from hex
     let someSignerSecretKeyContribution=blsA.deserializeHexStrToSecretKey(hexSomeSignerSecretKeyContribution)
@@ -77,6 +85,12 @@ let verifyShareTBLS=async(hexMyId,hexSomeSignerSecretKeyContribution,hexSomeSign
  * 
  */
 let deriveGroupPubTBLS=hexVerificationVectors=>{
+
+    console.log(hexVerificationVectors.map(subArr=>
+        
+        subArr.map(x=>blsA.deserializeHexStrToPublicKey(x))
+        
+    ))
 
     const groupVvec = dkg.addVerificationVectors(hexVerificationVectors.map(subArr=>
         
@@ -121,14 +135,9 @@ let deriveGroupPubTBLS=hexVerificationVectors=>{
 }
 
 */
-let signTBLS=async(hexMyId,sharedPayload,message)=>{
+let signTBLS=(hexMyId,sharedPayload,message)=>{
 
-    await blsA.init()
-
-    //Deserialize from hex
-    let myId = blsA.deserializeHexStrToSecretKey(hexMyId)
-
-    //Derive group TBLS secret key
+    //Derive group TBLS secret key for this signer
     let groupSecret=dkg.addContributionShares(
         
         sharedPayload
@@ -140,14 +149,9 @@ let signTBLS=async(hexMyId,sharedPayload,message)=>{
 
     console.log(`\n\nDerived group secret ${groupSecret.serializeToHexStr()}`)
 
-    const groupPublicKey = deriveGroupPubTBLS(sharedPayload.map(x=>x.verificationVector))
-
-    console.log('Group key ',groupPublicKey.serializeToHexStr())
-
-
     //The rest of t signers do the same with the same message
 
-    return {sigShare:groupSecret.sign(message),id:hexMyId}
+    return JSON.stringify({sigShare:groupSecret.sign(message).serializeToHexStr(),id:hexMyId})
 
 }
 
@@ -161,13 +165,13 @@ let buildSignature=signaturesArray=>{
     //Now join signatures by t signers
     const groupsSig = new blsA.Signature()
     
-    let sigs=[],signersId=[]
+    let sigs=[],signersIds=[]
 
     signaturesArray.forEach(x=>{
         
         sigs.push(blsA.deserializeHexStrToSignature(x.sigShare))
 
-        signersId.push(blsA.deserializeHexStrToSecretKey(x.id))
+        signersIds.push(blsA.deserializeHexStrToSecretKey(x.id))
 
     })
 
@@ -181,7 +185,7 @@ let buildSignature=signaturesArray=>{
 
 }
 
-let verifyTBLS=async(hexGroupPubKey,hexSignature,signedMessage)=>{
+let verifyTBLS=(hexGroupPubKey,hexSignature,signedMessage)=>{
 
     let groupPubKey=blsA.deserializeHexStrToPublicKey(hexGroupPubKey),
 
@@ -197,10 +201,10 @@ let verifyTBLS=async(hexGroupPubKey,hexSignature,signedMessage)=>{
 
 //3/4
 
-let alice=await generateTBLS(3,1,[1,2,3,4])
-let bob=await generateTBLS(3,2,[1,2,3,4])
-let charlie=await generateTBLS(3,3,[1,2,3,4])
-let denis=await generateTBLS(3,4,[1,2,3,4])
+let alice=generateTBLS(3,1,[1,2,3,4])
+let bob=generateTBLS(3,2,[1,2,3,4])
+let charlie=generateTBLS(3,3,[1,2,3,4])
+let denis=generateTBLS(3,4,[1,2,3,4])
 
 
 console.log(alice)
@@ -208,8 +212,106 @@ console.log(bob)
 console.log(charlie)
 console.log(denis)
 
+alice=JSON.parse(alice)
+bob=JSON.parse(bob)
+charlie=JSON.parse(charlie)
+denis=JSON.parse(denis)
+
+let derivedPub=deriveGroupPubTBLS([alice.verificationVector,bob.verificationVector,charlie.verificationVector,denis.verificationVector])
+
+console.log(derivedPub)
 
 
+// {
+//     verificationVector://VV of signer1 - array of hex values
+//     secretKeyShare://share received from signer1 - hex value
+// }
+
+let aliceSig=signTBLS(alice.id,[
+    {
+        verificationVector:alice.verificationVector,
+        secretKeyShare:alice.secretShares[0]
+
+    },//own share
+    {
+        verificationVector:bob.verificationVector,
+        secretKeyShare:bob.secretShares[0]
+    },//data from bob
+    {
+        verificationVector:charlie.verificationVector,
+        secretKeyShare:charlie.secretShares[0]
+    },//from charlie
+    {
+        verificationVector:denis.verificationVector,
+        secretKeyShare:denis.secretShares[0]
+    },//from denis
+
+],'HELLO KLYNTAR')
+
+console.log(`Alice sigPart is ${aliceSig}`)
+
+//Do the same for the rest 2 signers(Bob and Charlie)
+let bobSig=signTBLS(bob.id,[
+    {
+        verificationVector:bob.verificationVector,
+        secretKeyShare:bob.secretShares[1]
+
+    },//own share
+    {
+        verificationVector:alice.verificationVector,
+        secretKeyShare:alice.secretShares[1]
+    },//data from alice
+    {
+        verificationVector:charlie.verificationVector,
+        secretKeyShare:charlie.secretShares[1]
+    },//from charlie
+    {
+        verificationVector:denis.verificationVector,
+        secretKeyShare:denis.secretShares[1]
+    },//from denis
+
+],'HELLO KLYNTAR')
+
+console.log(`Bob sigPart is ${bobSig}`)
+
+let charlieSig=signTBLS(charlie.id,[
+    {
+        verificationVector:charlie.verificationVector,
+        secretKeyShare:charlie.secretShares[2]
+
+    },//own share
+    {
+        verificationVector:bob.verificationVector,
+        secretKeyShare:bob.secretShares[2]
+    },//data from bob
+    {
+        verificationVector:alice.verificationVector,
+        secretKeyShare:alice.secretShares[2]
+    },//from alice
+    {
+        verificationVector:denis.verificationVector,
+        secretKeyShare:denis.secretShares[2]
+    },//from denis
+
+],'HELLO KLYNTAR')
+
+console.log(`Charlie sigPart is ${charlieSig}`)
+
+
+
+//_______________________ Join sigShares _______________________
+
+let finalSig=buildSignature([
+    JSON.parse(aliceSig),JSON.parse(bobSig),JSON.parse(charlieSig)
+])
+//signaturesArray - [ {sigShare:signedShare1,id:hexId1}, {sigShare:signedShare2,id:hexId2},... {sigShare:signedShareN,id:hexIdN} ]
+
+console.log(`Builded signature is ${finalSig}`)
+
+//_______________________ Verification _______________________
+
+
+console.log(verifyTBLS(derivedPub,finalSig,'HELLO KLYNTAR'))
 
 // let verificationVector = ["85de76c71640bd43d43bb904da358148a4042e5c24380b59ce9cb1a2c813100030922fe76eab63455b8f9254da8f497d116255bc41bc033d8424e08a28a57614","23075d8f8712fed159338e5c40c93b77a4b3e8abfd26c283b0e72d2db657981539a93e12c9d0f9ed9c5e24e26f63df7903a079b1a5bcd5b275ca6c2adbebcf1d","d61cf280c8179be8ad69787e62471c45e8237a1a840788b55313443c227f5a225bf844ecc59334996881bc85716ee870c2a0982e6802971ce7f21efeca6f6e17"]
 

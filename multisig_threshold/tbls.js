@@ -25,7 +25,7 @@ bls.init().then(() => {
 
   // to setup a group first we need a set a threshold. The threshold is the
   // number of group participants need to create a valid siganture for the group
-  const threshold = 6
+  const threshold = 2
   // each member in the group needs a unique ID. What the id is doesn't matter
   // but it does need to be imported into bls-lib as a secret key
   const members = [10314, 30911, 25411, 8608, 31524, 15441, 1000000].map(id => {
@@ -78,6 +78,8 @@ bls.init().then(() => {
 
   // Now any one can add together the all verification vectors posted by the
   // members of the group to get a single verification vector of for the group
+  console.log('VVECS length is ',vvecs.length)
+  console.log(vvecs)
   const groupsVvec = dkg.addVerificationVectors(vvecs)
   console.log('-> verification vector computed')
 
