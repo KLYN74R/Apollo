@@ -392,16 +392,65 @@ program
 
         .command('thresholdsig')
         .alias('ts')
-        .description(`\x1b[32mModule to work with threshold signatures(currently TBLS based on BLS12-381)\x1b[0m`)
+        .description(`\x1b[32mModule to work with threshold signatures(currently \u001b[38;5;153mTBLS\x1b[0m\x1b[32m based on \u001b[38;5;96mBLS12-381\x1b[0m\x1b[32m)\x1b[0m`)
 
         .addCommand(
             
-            program.createCommand('generate')
+            program.createCommand('generate').alias('gs')
+        
+            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
+            .option('-n, --number <value>','initial number of signers')
+            .option('-i, --id <value>','your id')
+            .option('-s, --signers <id1,id2,...idN>','Array of IDs of other participants splitted by coma.')
+            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            .description('To generate your verification vector,secret shares for other signers and so on')
+            .action((async(opts,_cmd)=>{
+            
+                let bundle=(await import('./signatures/tbls.js')).default
+
+                console.log(bundle)
+        
+            }))
+        
+        )
+        .addCommand(
+            
+            program.createCommand('verify-share')
         
             .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .option('-n, --number','initial number of signers')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            .description('Verify share received by participant')
+            .action((async(opts,_cmd)=>{
             
+                console.log('Hello subcommand')
+        
+            }))
+        
+        )
+        .addCommand(
+            
+            program.createCommand('sign')
+        
+            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
+            .option('-n, --number','initial number of signers')
+            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            .description('Sign some data')
+            .action((async(opts,_cmd)=>{
+            
+                console.log('Hello subcommand')
+        
+            }))
+        
+        )
+        .addCommand(
+            
+            program.createCommand('verify')
+        
+            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
+            .option('-n, --number','initial number of signers')
+            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            .description('Verify signature')
             .action((async(opts,_cmd)=>{
             
                 console.log('Hello subcommand')
@@ -410,36 +459,7 @@ program
         
         )
         
-        .addCommand(program.createCommand('sign'))
-        //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
-
-        .action(async(opts,_cmd)=>{
-
-            //Addons will be available only in Linux env first time
-            if(process.platform==='linux'){
-
-                //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
-                //See https://stackoverflow.com/a/66527729/18521368
-
-                let { createRequire } = await import('module'),
-                
-                    require = createRequire(import.meta.url),
-
-                    ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
-
-
-                console.log(opts)
-
-                if(opts.list) console.log(ADDONS)
-                else{
-
-                }
-                
-
-            } else console.log('\x1b[31;1mPost-quantum cryptography available only in Linux env.Please,compile addons and try again\x1b[0m')
-
-        })
-        
+    
 
 
 
@@ -448,7 +468,7 @@ program
 
         .command('multisig')
         .alias('ms')
-        .description(`\x1b[32mModule to work with multisignatures(currently BLS/Schnorr)\x1b[0m`)
+        .description(`\x1b[32mModule to work with multisignatures(currently \u001b[38;5;199mBLS/Schnorr\x1b[0m\x1b[32m)\x1b[0m`)
 
         .addCommand(
             
@@ -560,5 +580,19 @@ program
         })
         
 
+
+
+program
+        .command('verify-configs')
+        .alias('vc')
+        .description(`\x1b[32mVerify your configuration for jsymbiote\x1b[0m`)
+        .option('-p, --path <value>','Path to symbiotes.json')
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+
+        .action(async(opts,_cmd)=>{
+
+            console.log(opts)
+        
+        })
 
 program.parse(process.argv)
