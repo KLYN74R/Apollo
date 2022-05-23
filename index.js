@@ -417,11 +417,11 @@ program
         )
         .addCommand(
             
-            program.createCommand('verify-share')
+            program.createCommand('verify-share').alias('vs')
         
-            .option('-i, --id <value>','your id in hex format')
-            .option('-s, --secret <value>','secret share contribution received by someone in hex format')
-            .option('-v, --vector <v1,v2,...vN>','verification vector received from some signer')
+            .requiredOption('-i, --id <value>','your id in hex format')
+            .requiredOption('-s, --secret <value>','secret share contribution received by someone in hex format')
+            .requiredOption('-v, --vector <v1,v2,...vN>','verification vector received from some signer')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             .description('Verify share received by participant')
             .action((opts,_cmd)=>
@@ -437,7 +437,7 @@ program
         )
         .addCommand(
             
-            program.createCommand('sign')
+            program.createCommand('partialsign').alias('ps')
         
             .option('-i, --id <value>','your id in hex format')
             .option('-s, --shared-payload-path','Path to specific struct. Read more https://mastering.klyntar.org/beginning/cryptography/multi-threshold-aggregated-signatures')
@@ -468,7 +468,7 @@ program
         )
         .addCommand(
             
-            program.createCommand('verify')
+            program.createCommand('verify').alias('v')
         
             .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .option('-n, --number','initial number of signers')
@@ -483,7 +483,17 @@ program
         )
         
     
+program
 
+        .command('ringsig').alias('rs')
+        .description(`\x1b[32mTo work with ring signatures etc.\x1b[0m`)
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+        .action(async(opts,_cmd)=>{
+
+            console.log(opts)
+        
+})
+        
 
 
 
@@ -552,6 +562,7 @@ program
         
         })
         
+
 
 
 program
