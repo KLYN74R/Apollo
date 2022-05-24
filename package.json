@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "postinstall": "node ./npm_scripts/script.js"
+    "postinstall": "node ./npm_scripts/script.js",
+    "build": "cd ./signatures/ringsig/lrs-ecdsa && pnpm install && pnpm add tsc -g && tsc && cd ../../../ && pnpm install"
   },
   "repository": {
     "type": "git",

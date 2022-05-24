@@ -9,6 +9,7 @@ test.js
 *.pem
 
 #Builds
+dist
 *.exe
 *.pdb
 *.wasm

@@ -406,7 +406,7 @@ program
             .description('To generate your verification vector,secret shares for other signers and so on')
             .action((opts,_cmd)=>
             
-                import('./signatures/tbls.js').then(
+                import('./signatures/threshold/tbls.js').then(
 
                     bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(',')))
 
@@ -426,7 +426,7 @@ program
             .description('Verify share received by participant')
             .action((opts,_cmd)=>
             
-                import('./signatures/tbls.js').then(
+                import('./signatures/threshold/tbls.js').then(
                     
                     bundle => bundle.default.verifyShareTBLS(opts.id,opts.secret,opts.vector.split(','))
                 
@@ -488,11 +488,21 @@ program
         .command('ringsig').alias('rs')
         .description(`\x1b[32mTo work with ring signatures etc.\x1b[0m`)
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-        .action(async(opts,_cmd)=>{
+        .action((opts,_cmd)=>
 
-            console.log(opts)
-        
-})
+            import('module').then(
+                
+                mod => mod.createRequire(import.meta.url)
+                
+            ).then(require=>{
+
+                let {sign,verify,link,Wallet} = require('./signatures/ringsig/lrs-ecdsa/export.js')
+
+                //...will be implemented soon
+
+            })
+    
+        )
         
 
 

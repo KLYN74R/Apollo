@@ -1,5 +1,4 @@
 import * as bls from '@noble/bls12-381'
-
 import Base58 from 'base-58'
 
 
