@@ -6,8 +6,7 @@ WORKDIR /root/APOLLO
 COPY package*.json ./
 COPY . .
 
-RUN chmod 777 setup.sh build.sh antiven.js && ./setup.sh && pnpm install && npm link
-
+RUN chmod 777 setup.sh build.sh antiven.js && ./setup.sh && pnpm run build && npm link
 ENV NODE_ENV production
 
 #Traditionally use 7777 as default KLYNTAR port.You can change if you need(but change configs also to run instance)
