@@ -142,9 +142,9 @@ import crypto from 'crypto'
 
 
 
-export let TEST = {
+export default {
 
-    generatePrivateKey:()=>new Promise((resolve,reject)=>
+    generatePrivateKey:async()=>new Promise((resolve,reject)=>
         
         crypto.randomBytes(32,(e,buf)=>
 
@@ -166,7 +166,7 @@ export let TEST = {
     ).then(b=>Buffer.from(b,'utf-8').toString('base64')),
 
     
-    singleVerify:(msg,pubKey,data)=>bls.verify(Buffer.from(data,'base64'),Buffer.from(msg,'utf-8').toString('hex'),Base58.decode(pubKey)),
+    singleVerify:(msg,pubKey,signa)=>bls.verify(Buffer.from(signa,'base64'),Buffer.from(msg,'utf-8').toString('hex'),Base58.decode(pubKey)),
 
 
 // const signatures2 = await Promise.all(privateKeys.map(p=>bls.sign(message,p)));
@@ -208,14 +208,14 @@ export let TEST = {
 
 
 
-let privateKey=await TEST.generatePrivateKey()
-let publicKey=await TEST.derivePubKey(privateKey)
+// let privateKey=await TEST.generatePrivateKey()
+// let publicKey=await TEST.derivePubKey(privateKey)
 
-console.log(privateKey)
-console.log(`Your 48 bytes base58 encoded pubkey => `,publicKey)
+// console.log(privateKey)
+// console.log(`Your 48 bytes base58 encoded pubkey => `,publicKey)
 
-let signa=await TEST.singleSig('Hello Klyntar',privateKey)
+// let signa=await TEST.singleSig('Hello Klyntar',privateKey)
 
-console.log(`Single signa is `,Buffer.from(signa,'base64').length)
+// console.log(`Single signa is `,Buffer.from(signa,'base64').length)
 
-console.log('Signle verify ',await TEST.singleVerify('Hello Klyntar',publicKey,signa))
+// console.log('Signle verify ',await TEST.singleVerify('Hello Klyntar',publicKey,signa))

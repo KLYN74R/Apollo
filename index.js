@@ -605,69 +605,77 @@ program
 
         .addCommand(
             
-            program.createCommand('generate')
+            program.createCommand('generate').alias('g')
         
-            .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
-            .option('-n, --number','initial number of signers')
-            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-            
-            .action((async(opts,_cmd)=>{
-            
-                console.log('Hello subcommand')
-        
-            }))
+            .description('Generate BLS keypair')
+
+            .action(async(_,__)=>{
+
+                let MOD = (await import('./signatures/multisig/bls.js')).default,
+
+                        privateKey = await MOD.generatePrivateKey(),
+
+                        pubKey=MOD.derivePubKey(privateKey)
+
+
+                console.log({privateKey,pubKey})
+
+            })
         
         )
+
+        .addCommand(
+            
+            program.createCommand('sign').alias('s').description('Get simple BLS signature')
+
+            .option('-p, --privateKey <value>','Your BLS privatekey')
+            .option('-d, --data <value>','Data to sign')
+           
+            .action(async(opts,_cmd)=>{
+
+                let MOD = (await import('./signatures/multisig/bls.js')).default
+
+                console.log(await MOD.singleSig(opts.data,opts.privateKey))
+
+            })
         
-        .addCommand(program.createCommand('sign'))
-        //Add this option to explain users what to do with generated values(because most of these algorithms are new to people)
+        )
 
-        .action(async(opts,_cmd)=>{
+        .addCommand(
+            
+            program.createCommand('verify').alias('v').description('Verify single sig')
 
-            //Addons will be available only in Linux env first time
-            if(process.platform==='linux'){
+            .option('-p, --pubKey <value>','Your BLS public key(it`s address btw)')
+            .option('-d, --data <value>','Data to sign')
+            .option('-s, --signa <value>','Signature')
 
-                //Fix to load addons. For node v17.9.0 it's still impossible to load addons to ESM environment
-                //See https://stackoverflow.com/a/66527729/18521368
+            .action(async(opts,_cmd)=>{
 
-                let { createRequire } = await import('module'),
-                
-                    require = createRequire(import.meta.url),
+                let MOD = (await import('./signatures/multisig/bls.js')).default
 
-                    ADDONS = require('./KLY_Addons/build/Release/BUNDLE');
+                console.log(await MOD.singleVerify(opts.data,opts.pubKey,opts.signa))
+
+            })
+        
+        )
 
 
-                console.log(opts)
 
-                if(opts.list) console.log(ADDONS)
-                else{
 
-                }
-                
 
-            } else console.log('\x1b[31;1mPost-quantum cryptography available only in Linux env.Please,compile addons and try again\x1b[0m')
 
-        })
+
 
 
 program
 
         .command('service')
         .description(`\x1b[32mTo work with services/conveyors etc.\x1b[0m`)
-        .option('-p, --path <value>','')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-        .action(async(opts,_cmd)=>{
+        .addCommand(
 
-            console.log(opts)
-        
-        })
-        
+            program
 
-
-
-program
-
-        .command('build-service')
+        .command('build')
         .alias('bs')
         .description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
         .option('-p, --path <value>','Path to directory with service')
@@ -678,12 +686,12 @@ program
 
             let {hash}=await import('blake3-wasm'),
 
-            admZip=(await import('adm-zip')).default,
+                admZip=(await import('adm-zip')).default,
 
-            BLAKE3=v=>hash(v).toString('hex')
+                BLAKE3=v=>hash(v).toString('hex'),
 
-            //Creating archives
-            let zip = new admZip()
+                //Creating archives
+                zip = new admZip()
 
             // add directory
             zip.addLocalFolder(opts.path,opts.zip_path)
@@ -698,6 +706,9 @@ program
 
             
         })
+
+    )
+
 
 
 program

@@ -6,7 +6,7 @@ let elliptic_1 = require("elliptic"),
     
     ec = new elliptic_1.ec('secp256k1'),
 
-    {sign,verify,link,RingSign} = require('.'),
+    {sign,verify,link} = require('.'),
     
     {Wallet} = require("ethers"),
 
