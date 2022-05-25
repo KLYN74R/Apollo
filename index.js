@@ -488,22 +488,113 @@ program
         .command('ringsig').alias('rs')
         .description(`\x1b[32mTo work with ring signatures etc.\x1b[0m`)
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-        .action((opts,_cmd)=>
+        .addCommand(
 
-            import('module').then(
-                
-                mod => mod.createRequire(import.meta.url)
-                
-            ).then(require=>{
-
-                let {sign,verify,link,Wallet} = require('./signatures/ringsig/lrs-ecdsa/export.js')
-
-                //...will be implemented soon
-
-            })
-    
-        )
+            program.createCommand('generate').alias('g')
         
+            .description('Generate LRS keypair')
+
+            .action((_,__)=>
+
+                import('module').then(
+                
+                    mod => mod.createRequire(import.meta.url)
+                
+                ).then(require=>{
+
+                    let {Wallet} = require('./signatures/ringsig/lrs-ecdsa/export.js')
+
+                    const w = Wallet.createRandom()
+                    console.log({
+                        privateKey: w.privateKey,
+                        publicKey: w.signingKey.publicKey,
+                        address:w.address
+                    })
+
+                })
+            )
+
+        ).addCommand(
+
+            program.createCommand('sign').alias('s')
+        
+            .description('Generate linkable ring signature')
+            .option('-p, --privkey <value>','Your private key')
+            .option('-d, --data <value>','Data to sign')
+            .option('-r, --ring <value1,value2,...valueN>','Public keys of other ring members splitted by comma')
+            .action((opts,_cmd)=>
+
+                import('module').then(
+                
+                    mod => mod.createRequire(import.meta.url)
+                
+                ).then(require=>{
+
+                        let {sign,serializeRingSigtoHex} = require('./signatures/ringsig/lrs-ecdsa/export.js')
+
+                        console.log('\n\n==================== SIGNATURE(copy this hexadecimal payload) ====================\n')
+                        console.log(serializeRingSigtoHex(sign(opts.data,opts.privkey,opts.ring.split(','))))
+                  
+                    }
+                    
+                )
+            
+            )
+
+        ).addCommand(
+
+            program.createCommand('verify').alias('v')
+            .option('-s, --signature <value>','Signature in JSON')
+            .description('Verify LRS signature')
+
+            .action((opts,_cmd)=>
+
+                import('module').then(
+                
+                    mod => mod.createRequire(import.meta.url)
+                
+                ).then(require=>{
+
+                    let {verify,deserializeRingSig} = require('./signatures/ringsig/lrs-ecdsa/export.js')
+                    
+                    let signa=JSON.parse(Buffer.from(opts.signature,'hex')),
+
+                        [hexKeys,signature]=deserializeRingSig(signa)
+
+                    console.log(verify(signature,hexKeys))
+
+                })
+            )
+
+        )
+
+        .addCommand(
+
+            program.createCommand('link').alias('l')
+            .requiredOption('-s1, --signature1 <value>','Signature1 in hex')
+            .requiredOption('-s2, --signature2 <value>','Signature2 in hex')
+            .description('Check if LRS signature was signed by the same signer')
+
+            .action((opts,_cmd)=>
+
+                import('module').then(
+                
+                    mod => mod.createRequire(import.meta.url)
+                
+                ).then(require=>{
+
+                    let {link,deserializeRingSig} = require('./signatures/ringsig/lrs-ecdsa/export.js')
+                    
+                    let signa1=JSON.parse(Buffer.from(opts.signature1,'hex')),
+
+                        signa2=JSON.parse(Buffer.from(opts.signature2,'hex'))
+                    
+                    console.log(link(deserializeRingSig(signa1)[1],deserializeRingSig(signa2)[1]))
+
+                })
+            )
+
+        )
 
 
 program
