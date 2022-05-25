@@ -1,3 +1,5 @@
+//https://gitlab.com/vocdoni/lrs-ecdsa/
+
 let elliptic_1 = require("elliptic"),
 
     bn = require('bn.js'),
