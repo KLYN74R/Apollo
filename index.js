@@ -670,19 +670,17 @@ program
 program
 
         .command('service')
-        .description(`\x1b[32mTo work with services/conveyors etc.\x1b[0m`)
-        .addCommand(
+        .description(`\x1b[32mTo work with services/conveyors etc.\x1b[0m`).addCommand(
 
-            program
 
-        .command('build')
-        .alias('bs')
-        .description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
-        .option('-p, --path <value>','Path to directory with service')
-        .option('-z, --zip_path <value>','Path in ZIP')
-        .option('-d, --dest <value>','Write archive with service here')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-        .action(async(opts,_cmd)=>{
+            program.createCommand('build').alias('bs').description(`\x1b[32mTo prepare metadata,verify service and build an archive\x1b[0m`)
+            
+            .option('-p, --path <value>','Path to directory with service')
+            .option('-z, --zip_path <value>','Path in ZIP')
+            .option('-d, --dest <value>','Write archive with service here')
+            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+            
+            .action(async(opts,_cmd)=>{
 
             let {hash}=await import('blake3-wasm'),
 
@@ -707,7 +705,20 @@ program
             
         })
 
-    )
+        ).addCommand(
+
+            program.createCommand('interact').alias('i').description(`\x1b[32mTo interact with services\x1b[0m`)
+            
+            .option('-m, --mod <value>','You can set module of service API to work with it')
+            
+            .action(async(opts,_cmd)=>{
+
+        
+                console.log('Coming soon :)')
+            
+            })
+
+        )
 
 
 
@@ -720,7 +731,7 @@ program
 
         .action(async(opts,_cmd)=>{
 
-            console.log(opts)
+            console.log('Coming soon :)')
         
         })
         
@@ -728,14 +739,46 @@ program
 program
         .command('verify-configs')
         .alias('vc')
-        .description(`\x1b[32mVerify your configuration for jsymbiote\x1b[0m`)
+        .description(`\x1b[32mVerify your configuration for symbiote\x1b[0m`)
         .option('-p, --path <value>','Path to symbiotes.json')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
         .action(async(opts,_cmd)=>{
 
-            console.log(opts)
+            console.log('Coming soon :)')
         
         })
+
+
+
+
+program
+        .command('events')
+        .alias('ev')
+        .description(`\x1b[32mTo work with events on some symbiote\x1b[0m`)
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+
+        .action(async(opts,_cmd)=>{
+
+            console.log('Coming soon :)')
+        
+        })
+
+
+
+
+program
+        .command('stats')
+        .alias('st')
+        .description(`\x1b[32mGet statistic data about your Klyntar infrastructure\x1b[0m`)
+        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+
+        .action(async(opts,_cmd)=>{
+
+            console.log('Coming soon :)')
+        
+        })
+
+
 
 program.parse(process.argv)
