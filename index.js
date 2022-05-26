@@ -59,6 +59,26 @@ program
     .description(banner)
     .usage('[COMMAND] [FLAGS]')
 
+
+
+
+
+/*
+
+88                                                          88                         
+88                                                          ""                         
+88                                                                                     
+88   ,d8   ,adPPYba,  8b       d8  8b,dPPYba,   ,adPPYYba,  88  8b,dPPYba,  ,adPPYba,  
+88 ,a8"   a8P_____88  `8b     d8'  88P'    "8a  ""     `Y8  88  88P'   "Y8  I8[    ""  
+8888[     8PP"""""""   `8b   d8'   88       d8  ,adPPPPP88  88  88           `"Y8ba,   
+88`"Yba,  "8b,   ,aa    `8b,d8'    88b,   ,a8"  88,    ,88  88  88          aa    ]8I  
+88   `Y8a  `"Ybbd8"'      Y88'     88`YbbdP"'   `"8bbdP"Y8  88  88          `"YbbdP"'  
+                          d8'      88                                                  
+                         d8'       88                                                  
+
+*/
+
+
 program
 
         .command('keygen')
@@ -232,42 +252,7 @@ program
 
         
         })
-
-
-program
-
-        .command('ui')
-        .option('-p, --port <value>','Port to run web UI',9999)
-        .option('-m, --mod <value>','You can set module to override default Apollo UI behavior')
-        .option('-i, --interface <value>','interface to run server','::')
-        .addHelpText('before',`
         
-        ********************************************************
-        * You can also use configs to set flags & other values *
-        ********************************************************
-        
-        `)
-        .description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
-        .action(async(opts,_cmd)=>{
-            
-            import('uWebSockets.js').then(module=>{
-
-                let UWS=module.default
-                
-                UWS.App()
-                
-                    .get('/',(a,q)=>{
-                    
-                        a.end(`Hello from KLYNTAR@UI`)
-                    
-                    }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on \x1b[32;1m[${opts.interface}]:${opts.port}\x1b[0m`))
-
-            
-            }).catch(e=>false)
-        
-        })
-        
-
 
 
 program
@@ -343,6 +328,24 @@ program
 
 
 
+/*
+
+                                                                                                                                             
+                                                                                                                                             
+                                       ,d                                                            ,d                                      
+                                       88                                                            88                                      
+8b,dPPYba,    ,adPPYba,   ,adPPYba,  MM88MMM      ,adPPYb,d8  88       88  ,adPPYYba,  8b,dPPYba,  MM88MMM  88       88  88,dPYba,,adPYba,   
+88P'    "8a  a8"     "8a  I8[    ""    88        a8"    `Y88  88       88  ""     `Y8  88P'   `"8a   88     88       88  88P'   "88"    "8a  
+88       d8  8b       d8   `"Y8ba,     88        8b       88  88       88  ,adPPPPP88  88       88   88     88       88  88      88      88  
+88b,   ,a8"  "8a,   ,a8"  aa    ]8I    88,       "8a    ,d88  "8a,   ,a88  88,    ,88  88       88   88,    "8a,   ,a88  88      88      88  
+88`YbbdP"'    `"YbbdP"'   `"YbbdP"'    "Y888      `"YbbdP'88   `"YbbdP'Y8  `"8bbdP"Y8  88       88   "Y888   `"YbbdP'Y8  88      88      88  
+88                                                        88                                                                                 
+88                                                        88 
+
+*/
+
+
+
 program
 
         .command('pqc')
@@ -386,6 +389,20 @@ program
         })
         
 
+/*
+
+                                                                                                    
+         88                                              88                        88           88  
+  ,d     88                                              88                        88           88  
+  88     88                                              88                        88           88  
+MM88MMM  88,dPPYba,   8b,dPPYba,   ,adPPYba,  ,adPPYba,  88,dPPYba,    ,adPPYba,   88   ,adPPYb,88  
+  88     88P'    "8a  88P'   "Y8  a8P_____88  I8[    ""  88P'    "8a  a8"     "8a  88  a8"    `Y88  
+  88     88       88  88          8PP"""""""   `"Y8ba,   88       88  8b       d8  88  8b       88  
+  88,    88       88  88          "8b,   ,aa  aa    ]8I  88       88  "8a,   ,a8"  88  "8a,   ,d88  
+  "Y888  88       88  88           `"Ybbd8"'  `"YbbdP"'  88       88   `"YbbdP"'   88   `"8bbdP"Y8  
+                                                                                                   
+
+*/
 
 
 program
@@ -437,13 +454,13 @@ program
         )
         .addCommand(
             
-            program.createCommand('partialsign').alias('ps')
+            program.createCommand('partialsign').alias('ps').description('Sign some data')
         
             .option('-i, --id <value>','your id in hex format')
             .option('-s, --shared-payload-path','Path to specific struct. Read more https://mastering.klyntar.org/beginning/cryptography/multi-threshold-aggregated-signatures')
             .option('-d, --data <value>','text data to sign')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-            .description('Sign some data')
+            
             .action((async(opts,_cmd)=>{
             
                 console.log('Hello subcommand')
@@ -453,12 +470,12 @@ program
         )
         .addCommand(
             
-            program.createCommand('buildsig').alias('bs')
+            program.createCommand('buildsig').alias('bs').description('Build general signature from sigshares')
         
             .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .option('-n, --number','initial number of signers')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-            .description('Build general signature from sigshares')
+            
             .action((async(opts,_cmd)=>{
             
                 console.log('Hello subcommand')
@@ -468,12 +485,12 @@ program
         )
         .addCommand(
             
-            program.createCommand('verify').alias('v')
+            program.createCommand('verify').alias('v').description('Verify signature')
         
             .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .option('-n, --number','initial number of signers')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-            .description('Verify signature')
+            
             .action((async(opts,_cmd)=>{
             
                 console.log('Hello subcommand')
@@ -485,9 +502,10 @@ program
     
 program
 
-        .command('ringsig').alias('rs')
-        .description(`\x1b[32mTo work with ring signatures etc.\x1b[0m`)
+        .command('ringsig').alias('rs').description(`\x1b[32mTo work with ring signatures etc.\x1b[0m`)
+        
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
+        
         .addCommand(
 
             program.createCommand('generate').alias('g')
@@ -516,12 +534,12 @@ program
 
         ).addCommand(
 
-            program.createCommand('sign').alias('s')
-        
-            .description('Generate linkable ring signature')
+            program.createCommand('sign').alias('s').description('Generate linkable ring signature')
+            
             .option('-p, --privkey <value>','Your private key')
             .option('-d, --data <value>','Data to sign')
             .option('-r, --ring <value1,value2,...valueN>','Public keys of other ring members splitted by comma')
+            
             .action((opts,_cmd)=>
 
                 import('module').then(
@@ -543,9 +561,9 @@ program
 
         ).addCommand(
 
-            program.createCommand('verify').alias('v')
+            program.createCommand('verify').alias('v').description('Verify LRS signature')
+
             .option('-s, --signature <value>','Signature in JSON')
-            .description('Verify LRS signature')
 
             .action((opts,_cmd)=>
 
@@ -571,6 +589,7 @@ program
         .addCommand(
 
             program.createCommand('link').alias('l')
+            
             .requiredOption('-s1, --signature1 <value>','Signature1 in hex')
             .requiredOption('-s2, --signature2 <value>','Signature2 in hex')
             .description('Check if LRS signature was signed by the same signer')
@@ -597,17 +616,32 @@ program
         )
 
 
-program
 
-        .command('multisig')
-        .alias('ms')
-        .description(`\x1b[32mModule to work with multisignatures(currently \u001b[38;5;199mBLS/Schnorr\x1b[0m\x1b[32m)\x1b[0m`)
+
+
+
+
+/*
+
+                                                                              
+                                 88           88             88               
+                                 88    ,d     ""             ""               
+                                 88    88                                     
+88,dPYba,,adPYba,   88       88  88  MM88MMM  88  ,adPPYba,  88   ,adPPYb,d8  
+88P'   "88"    "8a  88       88  88    88     88  I8[    ""  88  a8"    `Y88  
+88      88      88  88       88  88    88     88   `"Y8ba,   88  8b       88  
+88      88      88  "8a,   ,a88  88    88,    88  aa    ]8I  88  "8a,   ,d88  
+88      88      88   `"YbbdP'Y8  88    "Y888  88  `"YbbdP"'  88   `"YbbdP"Y8  
+                                                                  aa,    ,88  
+                                                                   "Y8bbdP"  
+
+*/
+        
+program.command('multisig').alias('ms').description(`\x1b[32mModule to work with multisignatures(currently \u001b[38;5;199mBLS/Schnorr\x1b[0m\x1b[32m)\x1b[0m`)
 
         .addCommand(
             
-            program.createCommand('generate').alias('g')
-        
-            .description('Generate BLS keypair')
+            program.createCommand('generate').alias('g').description('Generate BLS keypair')
 
             .action(async(_,__)=>{
 
@@ -663,9 +697,19 @@ program
 
 
 
+/*
+                                                                                       
+                                                88                                     
+                                                ""                                     
+                                                                                       
+,adPPYba,   ,adPPYba,  8b,dPPYba,  8b       d8  88   ,adPPYba,   ,adPPYba,  ,adPPYba,  
+I8[    ""  a8P_____88  88P'   "Y8  `8b     d8'  88  a8"     ""  a8P_____88  I8[    ""  
+ `"Y8ba,   8PP"""""""  88           `8b   d8'   88  8b          8PP"""""""   `"Y8ba,   
+aa    ]8I  "8b,   ,aa  88            `8b,d8'    88  "8a,   ,aa  "8b,   ,aa  aa    ]8I  
+`"YbbdP"'   `"Ybbd8"'  88              "8"      88   `"Ybbd8"'   `"Ybbd8"'  `"YbbdP"'  
 
 
-
+*/
 
 program
 
@@ -718,14 +762,55 @@ program
             
             })
 
+        ).addCommand(
+
+            program.createCommand('load').alias('l').description(`\x1b[32mLoad service repository\x1b[0m`)
+            
+            .option('-m, --mod <value>','You can set module of service API to work with it')
+            
+            .action(async(opts,_cmd)=>{
+
+        
+                console.log('Coming soon :)')
+            
+            })
+
+        ).addCommand(
+
+            program.createCommand('scan').alias('i').description(`\x1b[32mTo scan service directory for vulns & malware & other stuff\x1b[0m`)
+            
+            .option('-m, --mod <value>','You can set module of service API to work with it')
+            
+            .action(async(opts,_cmd)=>{
+
+        
+                console.log('Coming soon :)')
+            
+            })
+
         )
 
 
+/*
+
+
+                                                          
+                     88                                   
+              ,d     88                                   
+              88     88                                   
+ ,adPPYba,  MM88MMM  88,dPPYba,    ,adPPYba,  8b,dPPYba,  
+a8"     "8a   88     88P'    "8a  a8P_____88  88P'   "Y8  
+8b       d8   88     88       88  8PP"""""""  88          
+"8a,   ,a8"   88,    88       88  "8b,   ,aa  88          
+ `"YbbdP"'    "Y888  88       88   `"Ybbd8"'  88          
+                                                     
+
+*/
+
 
 program
-        .command('init-symbiote')
-        .alias('is')
-        .description(`\x1b[32mTo prepare configs,directories and structures for your symbiote\x1b[0m`)
+        .command('init-symbiote').alias('is').description(`\x1b[32mTo prepare configs,directories and structures for your symbiote\x1b[0m`)
+        
         .option('-n, --net <value>','Set mode for your symbiote(mainnet/tesnet)','test')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
@@ -737,9 +822,8 @@ program
         
 
 program
-        .command('verify-configs')
-        .alias('vc')
-        .description(`\x1b[32mVerify your configuration for symbiote\x1b[0m`)
+        .command('verify-configs').alias('vc').description(`\x1b[32mVerify your configuration for symbiote\x1b[0m`)
+
         .option('-p, --path <value>','Path to symbiotes.json')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
@@ -753,9 +837,23 @@ program
 
 
 program
-        .command('events')
-        .alias('ev')
-        .description(`\x1b[32mTo work with events on some symbiote\x1b[0m`)
+        .command('events').alias('ev').description(`\x1b[32mTo work with events on some symbiote and workflows' API\x1b[0m`)
+        
+        .option('-a, --api <workflow>','You can set appropriate API to interact with symbiotes and compatible workflowss')
+        .option('-c, --command','Get detailed description of appropriate method of API e.g. usage,params needed and so on')
+        
+        .action(async(opts,_cmd)=>{
+
+            console.log('Coming soon :)')
+        
+        })
+
+
+
+
+program
+        .command('stats').alias('st').description(`\x1b[32mGet statistic data about your Klyntar infrastructure\x1b[0m`)
+        
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
         .action(async(opts,_cmd)=>{
@@ -768,14 +866,35 @@ program
 
 
 program
-        .command('stats')
-        .alias('st')
-        .description(`\x1b[32mGet statistic data about your Klyntar infrastructure\x1b[0m`)
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
+        .command('ui')
+        .option('-p, --port <value>','Port to run web UI',9999)
+        .option('-m, --mod <value>','You can set module to override default Apollo UI behavior')
+        .option('-i, --interface <value>','interface to run server','::')
+        .addHelpText('before',`
+        
+        ********************************************************
+        * You can also use configs to set flags & other values *
+        ********************************************************
+        
+        `)
+        .description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
         .action(async(opts,_cmd)=>{
+            
+            import('uWebSockets.js').then(module=>{
 
-            console.log('Coming soon :)')
+                let UWS=module.default
+                
+                UWS.App()
+                
+                    .get('/',(a,q)=>{
+                    
+                        a.end(`Hello from KLYNTAR@UI`)
+                    
+                    }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on \x1b[32;1m[${opts.interface}]:${opts.port}\x1b[0m`))
+
+            
+            }).catch(e=>false)
         
         })
 
