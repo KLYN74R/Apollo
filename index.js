@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 //_________________________________________________________________________ IMPORTS POOL _________________________________________________________________________
 
 
@@ -83,9 +82,10 @@ program
 
         .command('keygen')
         .alias('k')
-        .option('-t, --type <value>','Crypto project name','klyntar')
-
         .description(`\x1b[32mGenerate new keypair\x1b[0m`)
+
+        .option('-t, --type <value>','Crypto project name','klyntar')
+        
         .action(async(opts,_cmd)=>
         
             import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(m=>m.default.generate()).then(console.log).catch(e=>false)
@@ -99,6 +99,7 @@ program
         .command('listkeys')
         .alias('l')
         .description(`\x1b[32mList all supported key formats by ValarDohaeris\x1b[0m`)
+
         .action(async()=>
         
             import('@klyntar/valardohaeris/vd.js').then(mod=>console.log(mod.SUPPORTED_FORMATS))
@@ -112,8 +113,10 @@ program
 
         .command('listspec')
         .alias('ls')
-        .option('-t, --type <value>','Crypto project name','klyntar')
         .description(`\x1b[32mList specific functions of some crypto(e.g. address format changes,set mnemo size etc.)\x1b[0m`)
+
+        .option('-t, --type <value>','Crypto project name','klyntar')
+        
         .action(async(opts,_cmd)=>
         
             import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(async m=>
@@ -131,12 +134,11 @@ program
 
         .command('sign')
         .alias('s')
+        .description(`\x1b[32mSign the message or content(by path)\x1b[0m`)
 
         .option('-t, --type <value>','Crypto project name','klyntar')
         .requiredOption('-k, --privatekey <value>','Private key to sign data')
         .option('-p, --path <value>','Path to file with payload to sign or payload itself but with prefix P:','payload.txt')
-        
-        .description(`\x1b[32mSign the message or content(by path)\x1b[0m`)
         
         .action(async(opts,_cmd)=>
         
@@ -159,13 +161,13 @@ program
 
         .command('verify')
         .alias('v')
+        .description(`\x1b[32mVerify signed message or content(by path)\x1b[0m`)
 
         .option('-t, --type <value>','Crypto project name','klyntar')
         .requiredOption('-k, --pubkey <value>','Pubkey to verify')
         .option('-s, --sigpath <value>','Path to signature file to verify or signature itself but with prefix S:','signature.txt')
         .option('-p, --path <value>','Path to file with payload to verify or payload itself but with prefix P:','payload.txt')
 
-        .description(`\x1b[32mVerify signed message or content(by path)\x1b[0m`)
         .action(async(opts,_cmd)=>
         
             import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(async m=>{
@@ -186,10 +188,10 @@ program
 
         .command('encrypt')
         .alias('e')
+        .description(`\x1b[32mEncrypts private keys via \x1b[36;1mAES-256\x1b[0m\x1b[32m symmetric algorithm to paste ciphertext to configs or for secured storage\x1b[0m`)
+        
         .requiredOption('-s, --privatekey <value>','private key to encrypt')
         .requiredOption('-p, --password <value>','password for AES encryption')
-
-        .description(`\x1b[32mEncrypts private keys via \x1b[36;1mAES-256\x1b[0m\x1b[32m symmetric algorithm to paste ciphertext to configs or for secured storage\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -221,10 +223,10 @@ program
 
         .command('decrypt')
         .alias('d')
+        .description(`\x1b[32mDecrypts private keys via \x1b[36;1mAES-256\x1b[0m\x1b[32m symmetric algorithm. Be careful and avoid 3rd party eyes around you!\x1b[0m`)
+
         .requiredOption('-e, --encprv <cipherText>','Encrypted private key')
         .requiredOption('-p, --password <value>','password for AES decryption')
-
-        .description(`\x1b[32mDecrypts private keys via \x1b[36;1mAES-256\x1b[0m\x1b[32m symmetric algorithm. Be careful and avoid 3rd party eyes around you!\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -257,13 +259,11 @@ program
 
 program
 
-        .command('vanity')
+        .command('vanity').description(`\x1b[32mGenerate your vanity \x1b[31;1mKlyntar\x1b[0m\x1b[32m address with choosen prefix\x1b[0m`)
 
         .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
         .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .option('-v, --verbose','track generation process')
-        
-        .description(`\x1b[32mGenerate your vanity \x1b[31;1mKlyntar\x1b[0m\x1b[32m address with choosen prefix\x1b[0m`)
         
         .action(async(opts,_cmd)=>{
 
@@ -379,6 +379,7 @@ program
         .command('checkrepo')
         .description(`\x1b[32mVerify commits,repositories by \u001b[38;5;105mKlyntarTeam\x1b[0m\x1b[32m or by other devs\x1b[0m`)
         .alias('cr')
+        
         .option('-p, --path','Path to repository')
         .option('-m, --meta','required metadata e.g. multisig pubkey etc.')
         
@@ -413,14 +414,14 @@ program
 
         .addCommand(
             
-            program.createCommand('generate').alias('gs')
+            program.createCommand('generate').alias('gs').description('To generate your verification vector,secret shares for other signers and so on')
         
             .requiredOption('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .requiredOption('-i, --id <value>','your id')
             .requiredOption('-s, --signers <id1,id2,...idN>','Array of IDs of other participants splitted by coma.')
             .option('-p, --path <value>','Path to .json file to store generated data','your_tbls.json')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-            .description('To generate your verification vector,secret shares for other signers and so on')
+            
             .action((opts,_cmd)=>
             
                 import('./signatures/threshold/tbls.js').then(
@@ -434,13 +435,13 @@ program
         )
         .addCommand(
             
-            program.createCommand('verify-share').alias('vs')
+            program.createCommand('verify-share').alias('vs').description('Verify share received by participant')
         
             .requiredOption('-i, --id <value>','your id in hex format')
             .requiredOption('-s, --secret <value>','secret share contribution received by someone in hex format')
             .requiredOption('-v, --vector <v1,v2,...vN>','verification vector received from some signer')
             .option('-m, --mod <value>','You can set module to override default Apollo behavior')
-            .description('Verify share received by participant')
+            
             .action((opts,_cmd)=>
             
                 import('./signatures/threshold/tbls.js').then(
@@ -588,11 +589,10 @@ program
 
         .addCommand(
 
-            program.createCommand('link').alias('l')
+            program.createCommand('link').alias('l').description('Check if LRS signature was signed by the same signer')
             
             .requiredOption('-s1, --signature1 <value>','Signature1 in hex')
             .requiredOption('-s2, --signature2 <value>','Signature2 in hex')
-            .description('Check if LRS signature was signed by the same signer')
 
             .action((opts,_cmd)=>
 
@@ -611,11 +611,10 @@ program
                     console.log(link(deserializeRingSig(signa1)[1],deserializeRingSig(signa2)[1]))
 
                 })
+            
             )
 
         )
-
-
 
 
 
@@ -840,13 +839,22 @@ program
         .command('events').alias('ev').description(`\x1b[32mTo work with events on some symbiote and workflows' API\x1b[0m`)
         
         .option('-a, --api <workflow>','You can set appropriate API to interact with symbiotes and compatible workflowss')
-        .option('-c, --command','Get detailed description of appropriate method of API e.g. usage,params needed and so on')
-        
-        .action(async(opts,_cmd)=>{
+        .option('-c, --payload <value>','Pass payload.Set to "usage" to get examples & manual')
+        .option('-m, --method <value>','Method to use')
 
-            console.log('Coming soon :)')
+        .action(async(opts,_cmd)=>
+
+            import(`./KLY_WorkflowsAPI/${opts.api}/index.js`).then(
+                
+                mod => mod.default
+                
+            ).then(
+                
+                m => m[opts.method](opts.payload)
+                
+            )
         
-        })
+        )
 
 
 
@@ -867,10 +875,12 @@ program
 
 program
 
-        .command('ui')
+        .command('ui').description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
+
         .option('-p, --port <value>','Port to run web UI',9999)
         .option('-m, --mod <value>','You can set module to override default Apollo UI behavior')
         .option('-i, --interface <value>','interface to run server','::')
+        
         .addHelpText('before',`
         
         ********************************************************
@@ -878,7 +888,7 @@ program
         ********************************************************
         
         `)
-        .description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
+        
         .action(async(opts,_cmd)=>{
             
             import('uWebSockets.js').then(module=>{

@@ -2,6 +2,14 @@ import VD from '@klyntar/valardohaeris/klyntar/vd.js'
 import fetch from 'node-fetch'
 
 
+/*
+
+    USAGE
+
+        Send tx => apollo ev -a dev@controller -c C:\Users\Acer\MyProjects\Klyntar\Apollo\test_keys.json,RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL,10,ANTIVENOM -m TX
+
+
+*/
 
 
 //BTW such API's specific for some workflows,services and so on may ask for some specific env options,data in configuration file and so on. It's so flexible and cool
@@ -15,7 +23,7 @@ export default {
         if (cmdPayload==='usage'){
 
             console.log('\napollo events PATH_TO_YOURKEYPAIR,recepient,amount,symbiote_alias')
-            console.log('********** Example:~/.my/secretkeypair.json,RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL,20.22,kNULL **********')
+            console.log('\n\n********** Example:~/.my/secretkeypair.json,RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL,20.22,kNULL **********')
             console.log('\n\n In this case ~/.my/secretkeypair.json is absolute path, RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL - address you want to send data, 20.22 - amount of KLY, kNULL - alias of your destination symbiote')
 
         }else{
@@ -28,33 +36,30 @@ export default {
 
                 {publicKey,privateKey}=JSON.parse(fs.readFileSync(path))
 
-                
-            let nonce=await fetch(`${CONFIG.CLUSTER}/account/${symbiote}/${pub}`).then(r=>r.json()).then(d=>d.N+1)
+
+            let nonce=await fetch(`${CONFIG.CLUSTER.URL}/account/${symbiote}/${publicKey}`).then(r=>r.json()).then(d=>d.N+1)
+
+            amount=+amount//string => number
             
             console.log('NONCE is ',nonce)
 
-            /*
             
             let event={
-   c:pub,
-   t:'TX',
-   n:NONCE,
-   p:{
-       r:'RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL',
-       a:60.7878
-   }
-}
+                c:publicKey,
+                t:'TX',
+                n:nonce,
+                p:{
+                    r:recepient,
+                    a:amount
+                }
+            }
 
-event.s=await SIG(JSON.stringify(event.p)+symbiote+NONCE+'TX',prv)
-console.log(event)
-console.log(await VERIFY(JSON.stringify(event.p)+symbiote+NONCE+'TX',event.s,event.c))
+            event.s=await VD.sign(JSON.stringify(event.p)+symbiote+nonce+'TX',privateKey)
+            console.log(event)
+            console.log(await VD.verify(JSON.stringify(event.p)+symbiote+nonce+'TX',event.s,event.c))
 
-fetch('http://localhost:11111/event',{method:'POST',body:JSON.stringify({symbiote,event})}).then(d=>d.text()).then(console.log)
+            fetch(`${CONFIG.CLUSTER.URL}/event`,{method:'POST',body:JSON.stringify({symbiote,event})}).then(d=>d.text()).then(console.log)
 
-
-
-            
-            */
 
         }
 

@@ -1,6 +1,6 @@
 {
     "CLUSTER":{
-        "URL":"https://localhost:11111",
+        "URL":"http://localhost:11111",
         "AUTH":"NODE_AUTH"
     },
     
@@ -12,7 +12,7 @@
     "ALIASES":{
         "kNULL":"RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL",
         "CARNAGE":"FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9",
-        "ANTIVENOM":""
+        "ANTIVENOM":"FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9"
     }
 
 }

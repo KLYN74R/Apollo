@@ -4,6 +4,7 @@ build
 .idea
 node_modules
 test.js
+test*
 
 #No keys
 *.pem

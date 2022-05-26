@@ -38,6 +38,7 @@
     "chalk": "^5.0.1",
     "commander": "^9.2.0",
     "inquirer": "^8.2.2",
+    "node-fetch": "^3.2.4",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.3.0"
   }
 }
