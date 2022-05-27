@@ -148,7 +148,7 @@ program
 
                 return await m.default.sign(data,opts.privatekey)
 
-            }).then(console.log).catch(e=>false)
+            }).then(console.log).catch(e=>console.log(`\x1b[31;1mCan't find VD module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
         )
 
@@ -179,7 +179,7 @@ program
        
                 return await m.default.verify(data,signature,opts.pubkey)
     
-            }).then(console.log).catch(e=>false)
+            }).then(console.log).catch(e=>console.log(`\x1b[31;1mCan't find VD module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
         )
 
@@ -428,7 +428,7 @@ program
 
                     bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(',')))
 
-                )
+                ).catch(e=>console.log(`\x1b[31;1mCan't find module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
   
             )
         
@@ -448,7 +448,7 @@ program
                     
                     bundle => bundle.default.verifyShareTBLS(opts.id,opts.secret,opts.vector.split(','))
                 
-                )
+                ).catch(e=>console.log(`\x1b[31;1mCan't find module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
 
             )
         
@@ -530,7 +530,7 @@ program
                         address:w.address
                     })
 
-                })
+                }).catch(e=>console.log(`\x1b[31;1mCan't find module/build.Run \x1b[36;1mpnpm build\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             )
 
         ).addCommand(
@@ -556,7 +556,7 @@ program
                   
                     }
                     
-                )
+                ).catch(e=>console.log(`\x1b[31;1mCan't find module/build.Run \x1b[36;1mpnpm build\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
             )
 
@@ -582,7 +582,7 @@ program
 
                     console.log(verify(signature,hexKeys))
 
-                })
+                }).catch(e=>console.log(`\x1b[31;1mCan't find module/build.Run \x1b[36;1mpnpm build\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             )
 
         )
@@ -610,7 +610,7 @@ program
                     
                     console.log(link(deserializeRingSig(signa1)[1],deserializeRingSig(signa2)[1]))
 
-                })
+                }).catch(e=>console.log(`\x1b[31;1mCan't find module/build.Run \x1b[36;1mpnpm build\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
             )
 
