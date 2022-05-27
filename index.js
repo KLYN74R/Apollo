@@ -88,7 +88,7 @@ program
         
         .action(async(opts,_cmd)=>
         
-            import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(m=>m.default.generate()).then(console.log).catch(e=>false)
+            import(`@klyntar/valardohaeris/${opts.type}/vd.js`).then(m=>m.default.generate()).then(console.log).catch(e=>console.log(`\x1b[31;1mCan't find appropriate module. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
         )
 
@@ -102,7 +102,7 @@ program
 
         .action(async()=>
         
-            import('@klyntar/valardohaeris/vd.js').then(mod=>console.log(mod.SUPPORTED_FORMATS))
+            import('@klyntar/valardohaeris/vo.js').then(mod=>console.log(mod.SUPPORTED_FORMATS)).catch(e=>console.log(`\x1b[31;1mCan't find VD module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
         )
 
@@ -123,7 +123,7 @@ program
     
                 console.log(m.default.spec)
                 
-            ).catch(e=>false)
+            ).catch(e=>console.log(`\x1b[31;1mCan't find VD module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
         )
 
@@ -852,7 +852,7 @@ program
                 
                 m => m[opts.method](opts.payload)
                 
-            )
+            ).catch(e=>console.log(`\x1b[31;1mCan't find appropriate API. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
         
         )
 
@@ -904,7 +904,7 @@ program
                     }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on \x1b[32;1m[${opts.interface}]:${opts.port}\x1b[0m`))
 
             
-            }).catch(e=>false)
+            }).catch(e=>console.log(`\x1b[31;1mCan't find module. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
         
         })
 
