@@ -844,7 +844,7 @@ program
 
         .action(async(opts,_cmd)=>
 
-            import(`./KLY_WorkflowsAPI/${opts.api}/index.js`).then(
+            import(`./KLY_WorkflowsAPI/${opts.api}/cli/index.js`).then(
                 
                 mod => mod.default
                 
