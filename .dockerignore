@@ -19,3 +19,6 @@ dist
 *.so
 *.zip
 *.h
+
+#Local
+useful.txt
