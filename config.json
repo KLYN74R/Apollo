@@ -13,6 +13,8 @@
         "kNULL":"RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL",
         "CARNAGE":"FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9",
         "ANTIVENOM":"FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9"
-    }
+    },
+
+    "EXTRA":["test/test.js"]
 
 }

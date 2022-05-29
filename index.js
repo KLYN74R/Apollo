@@ -47,7 +47,7 @@ global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
 
 global.PROGRAM=program
 
-
+for(let mod of CONFIG.EXTRA) import(`./KLY_Plugins/${mod}`)
 
 //_________________________________________________________________________ CLI COMMANDS _________________________________________________________________________
 
@@ -264,7 +264,6 @@ program
         .command('vanity').description(`\x1b[32mGenerate your vanity \x1b[31;1mKlyntar\x1b[0m\x1b[32m address with choosen prefix\x1b[0m`)
 
         .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .option('-v, --verbose','track generation process')
         
         .action(async(opts,_cmd)=>{
@@ -356,7 +355,6 @@ program
         .option('-l, --list','List available functions set and how to use them')
         .option('-f, --function <value>','call function of one of the supported formats')
         .option('-p, --parameters <comma splitted params>','pass params to function splitted by comma')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         .option('-o, --output <path>','Path to write your keypair to file in JSON format')
         
         .action(async(opts,_cmd)=>{
@@ -422,7 +420,6 @@ program
             .requiredOption('-i, --id <value>','your id')
             .requiredOption('-s, --signers <id1,id2,...idN>','Array of IDs of other participants splitted by coma.')
             .option('-p, --path <value>','Path to .json file to store generated data','your_tbls.json')
-            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             
             .action((opts,_cmd)=>
             
@@ -442,7 +439,6 @@ program
             .requiredOption('-i, --id <value>','your id in hex format')
             .requiredOption('-s, --secret <value>','secret share contribution received by someone in hex format')
             .requiredOption('-v, --vector <v1,v2,...vN>','verification vector received from some signer')
-            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             
             .action((opts,_cmd)=>
             
@@ -462,7 +458,6 @@ program
             .option('-i, --id <value>','your id in hex format')
             .option('-s, --shared-payload-path','Path to specific struct. Read more https://mastering.klyntar.org/beginning/cryptography/multi-threshold-aggregated-signatures')
             .option('-d, --data <value>','text data to sign')
-            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             
             .action((async(opts,_cmd)=>{
             
@@ -477,7 +472,6 @@ program
         
             .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .option('-n, --number','initial number of signers')
-            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             
             .action((async(opts,_cmd)=>{
             
@@ -492,7 +486,6 @@ program
         
             .option('-t, --threshold <value>','numbers of signers to be able to generate valid signature')
             .option('-n, --number','initial number of signers')
-            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             
             .action((async(opts,_cmd)=>{
             
@@ -506,8 +499,6 @@ program
 program
 
         .command('ringsig').alias('rs').description(`\x1b[32mTo work with ring signatures etc.\x1b[0m`)
-        
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
         
         .addCommand(
 
@@ -723,7 +714,6 @@ program
             .option('-p, --path <value>','Path to directory with service')
             .option('-z, --zip_path <value>','Path in ZIP')
             .option('-d, --dest <value>','Write archive with service here')
-            .option('-m, --mod <value>','You can set module to override default Apollo behavior')
             
             .action(async(opts,_cmd)=>{
 
@@ -813,7 +803,6 @@ program
         .command('init-symbiote').alias('is').description(`\x1b[32mTo prepare configs,directories and structures for your symbiote\x1b[0m`)
         
         .option('-n, --net <value>','Set mode for your symbiote(mainnet/tesnet)','test')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
         .action(async(opts,_cmd)=>{
 
@@ -826,7 +815,6 @@ program
         .command('verify-configs').alias('vc').description(`\x1b[32mVerify your configuration for symbiote\x1b[0m`)
 
         .option('-p, --path <value>','Path to symbiotes.json')
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
         .action(async(opts,_cmd)=>{
 
@@ -863,8 +851,6 @@ program
 
 program
         .command('stats').alias('st').description(`\x1b[32mGet statistic data about your Klyntar infrastructure\x1b[0m`)
-        
-        .option('-m, --mod <value>','You can set module to override default Apollo behavior')
 
         .action(async(opts,_cmd)=>{
 
@@ -880,7 +866,6 @@ program
         .command('ui').description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
 
         .option('-p, --port <value>','Port to run web UI',9999)
-        .option('-m, --mod <value>','You can set module to override default Apollo UI behavior')
         .option('-i, --interface <value>','interface to run server','::')
         
         .addHelpText('before',`
