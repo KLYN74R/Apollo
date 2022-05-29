@@ -45,6 +45,8 @@ const banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8'
 global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
 
 
+global.PROGRAM=program
+
 
 
 //_________________________________________________________________________ CLI COMMANDS _________________________________________________________________________
