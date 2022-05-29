@@ -890,6 +890,9 @@ program
         `)
         
         .action(async(opts,_cmd)=>{
+
+            console.log('Serivces dir => ',fs.readdirSync(PATH_RESOLVE('KLY_ServicesAPI')))
+            console.log('Workflows dir => ',fs.readdirSync(PATH_RESOLVE('KLY_WorkflowsAPI')))
             
             import('uWebSockets.js').then(module=>{
 
