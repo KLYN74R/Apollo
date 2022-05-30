@@ -498,7 +498,7 @@ program
     
 program
 
-        .command('ringsig').alias('rs').description(`\x1b[32mTo work with ring signatures(linkable subtype) etc.\x1b[0m`)
+        .command('ringsig').alias('rs').description(`\x1b[32mTo work with ring signatures(linkable subtype based on \u001b[38;5;124mECDSA(ETH compatible)\x1b[0m\x1b[32m) etc.\x1b[0m`)
         
         .addCommand(
 
