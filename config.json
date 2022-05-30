@@ -1,20 +1,23 @@
 {
-    "CLUSTER":{
-        "URL":"http://localhost:11111",
-        "AUTH":"NODE_AUTH"
-    },
-    
-    "PROXY":{
-        "TYPE":"SOCKS5",
-        "URL":"http://USER:PASS@localhost:5666"
-    },
-
-    "ALIASES":{
-        "kNULL":"RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL",
-        "CARNAGE":"FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9",
-        "ANTIVENOM":"FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9"
-    },
-
-    "EXTRA":["test/test.js"]
-
+  "CLUSTER": {
+    "URL": "http://localhost:11111",
+    "AUTH": "NODE_AUTH"
+  },
+  "PROXY": {
+    "TYPE": "SOCKS5",
+    "URL": "http://USER:PASS@localhost:5666"
+  },
+  "ALIASES": {
+    "kNULL": "RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL",
+    "CARNAGE": "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9",
+    "ANTIVENOM": "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9"
+  },
+  "UPDATE_ALIASES": "https://klyntar.org/aliases-json",
+  "EXTRA": [
+    "test/test.js"
+  ],
+  "DA": [
+    "hi",
+    "hello"
+  ]
 }

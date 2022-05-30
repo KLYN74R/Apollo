@@ -869,6 +869,36 @@ program
 
 
 
+
+
+program
+        .command('update-aliases').alias('ua').description(`\x1b[32mUpdate list of aliases if some changes have occurred\x1b[0m`)
+
+        .action(async(opts,_cmd)=>{
+
+            import('node-fetch').then(
+                
+            fetch => fetch.default(CONFIG.UPDATE_ALIASES).then(r=>r.json()).then(resp=>{
+
+                    CONFIG.ALIASES=resp
+
+                    fs.writeFileSync(PATH_RESOLVE('config.json'),JSON.stringify(CONFIG,null,3))
+
+                    console.log(`\x1b[32;1mAliases were successfully updated\x1b[0m`)
+
+                }).catch(e=>
+
+                    console.log(`\x1b[31;1mOops,some problem has occurred \x1b[36;1m\n\n${e}\x1b[0m`)        
+
+                )
+
+            )
+        
+        })
+
+
+
+
 program
 
         .command('ui').description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
