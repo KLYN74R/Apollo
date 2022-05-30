@@ -45,9 +45,14 @@ const banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8'
 global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
 
 
+//_____________________________________________________________________ IMPORT EXTRA MODULES _____________________________________________________________________
+
+
 global.PROGRAM=program
 
-for(let mod of CONFIG.EXTRA) import(`./KLY_Plugins/${mod}`)
+
+for(let mod of CONFIG.EXTRA) await import(`./KLY_Modules/${mod}`)
+
 
 //_________________________________________________________________________ CLI COMMANDS _________________________________________________________________________
 
@@ -410,7 +415,7 @@ program
 
         .command('thresholdsig')
         .alias('ts')
-        .description(`\x1b[32mModule to work with threshold signatures(currently \u001b[38;5;153mTBLS\x1b[0m\x1b[32m based on \u001b[38;5;96mBLS12-381\x1b[0m\x1b[32m)\x1b[0m`)
+        .description(`\x1b[32mModule to work with threshold signatures(currently \u001b[38;5;153mTBLS\x1b[0m\x1b[32m based on \u001b[38;5;96mBLS12-381\x1b[0m\x1b[32m and \u001b[38;5;94mTED25519\x1b[0m\x1b[32m)\x1b[0m`)
 
         .addCommand(
             
@@ -882,7 +887,7 @@ program
 
                     CONFIG.ALIASES=resp
 
-                    fs.writeFileSync(PATH_RESOLVE('config.json'),JSON.stringify(CONFIG,null,3))
+                    fs.writeFileSync(PATH_RESOLVE('config.json'),JSON.stringify(CONFIG,null,4))
 
                     console.log(`\x1b[32;1mAliases were successfully updated\x1b[0m`)
 

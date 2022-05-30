@@ -8,21 +8,21 @@
     |  K  |             ╚█║████╔╝    ╚███╔███╔╝███████╗███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗    ╚█║████╔╝
     |  L  |
     |  Y  |
-    |  N  |                                     #########################################
-    |  T  |                                     #      Made on Earth for Universe       #
-    |  A  |                                     #########################################
-    |  R  |                                                 
-    |     |                                                     Apollo  
-    |     |                                                  
-   /|##!##|\                                                by KlyntarTeam
-  / |##!##| \                                                 
- /  |##!##|  \                                         https://github.com/KLYN74R  
-|  / ^ | ^ \  |  
-| /  ( | )  \ |                                             
+    |  N  |                                         #########################################
+    |  T  |                                         #      Made on Earth for Universe       #
+    |  A  |                                         #########################################
+    |  R  |                                                   
+    |     |                                                     by KlyntarTeam
+    |     |                                               
+   /|##!##|\                                              https://github.com/KLYN74R  
+  / |##!##| \
+ /  |##!##|  \                                            
+|  / ^ | ^ \  |
+| /  ( | )  \ |                                [STATUS]: Dependencies were successfully installed
 |/   ( | )   \|
-    ((   ))                                [STATUS]: Dependencies were successfully installed
+    ((   ))
    ((  :  ))
-   ((  :  )) 
+   ((  :  ))
     ((   ))
      (( ))
       ( )
