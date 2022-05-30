@@ -104,7 +104,7 @@ program
 
         .action(async()=>
         
-            import('@klyntar/valardohaeris/vo.js').then(mod=>console.log(mod.SUPPORTED_FORMATS)).catch(e=>console.log(`\x1b[31;1mCan't find VD module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
+            import('@klyntar/valardohaeris/vd.js').then(mod=>console.log(mod.SUPPORTED_FORMATS)).catch(e=>console.log(`\x1b[31;1mCan't find VD module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
             
         )
 
@@ -272,7 +272,7 @@ program
 
             if(['0','O','I','l','+','/'].some(x=>opts.prefix.includes(x))){
  
-                console.log('Be careful!. Klyntar addresses are Base58 so no symbols 0,O,I,l,+,/ in prefix are possible')
+                console.log('Be careful! Klyntar addresses are Base58 so no symbols 0,O,I,l,+,/ in prefix are possible')
  
                 process.exit()
             }
@@ -498,7 +498,7 @@ program
     
 program
 
-        .command('ringsig').alias('rs').description(`\x1b[32mTo work with ring signatures etc.\x1b[0m`)
+        .command('ringsig').alias('rs').description(`\x1b[32mTo work with ring signatures(linkable subtype) etc.\x1b[0m`)
         
         .addCommand(
 
@@ -742,16 +742,25 @@ program
 
         ).addCommand(
 
-            program.createCommand('interact').alias('i').description(`\x1b[32mTo interact with services\x1b[0m`)
-            
-            .option('-m, --mod <value>','You can set module of service API to work with it')
-            
-            .action(async(opts,_cmd)=>{
-
+            program.command('interact').alias('i').description(`\x1b[32mTo interact with services and their API\x1b[0m`)
         
-                console.log('Coming soon :)')
-            
-            })
+                .option('-a, --api <service>','You can set appropriate API to interact with symbiotes and compatible workflowss')
+                .option('-c, --payload <value>','Pass payload.Set to "usage" to get examples & manual')
+                .option('-m, --method <value>','Method to use')
+
+                .action(async(opts,_cmd)=>
+
+                import(`./KLY_ServicesAPI/${opts.api}/cli/index.js`).then(
+                
+                    mod => mod.default
+                
+                ).then(
+                
+                    m => m[opts.method](opts.payload)
+                
+                ).catch(e=>console.log(`\x1b[31;1mCan't find appropriate API. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
+        
+            )
 
         ).addCommand(
 
@@ -760,7 +769,6 @@ program
             .option('-m, --mod <value>','You can set module of service API to work with it')
             
             .action(async(opts,_cmd)=>{
-
         
                 console.log('Coming soon :)')
             
@@ -768,7 +776,7 @@ program
 
         ).addCommand(
 
-            program.createCommand('scan').alias('i').description(`\x1b[32mTo scan service directory for vulns & malware & other stuff\x1b[0m`)
+            program.createCommand('scan').alias('i').description(`\x1b[32mTo scan service for vulns & malware & other stuff\x1b[0m`)
             
             .option('-m, --mod <value>','You can set module of service API to work with it')
             
