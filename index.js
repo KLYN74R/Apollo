@@ -889,7 +889,7 @@ program
 
                     fs.writeFileSync(PATH_RESOLVE('config.json'),JSON.stringify(CONFIG,null,4))
 
-                    console.log(`\x1b[32;1mAliases were successfully updated\x1b[0m`)
+                    console.log(`\x1b[32;1mAliases were successfully updated according to the state of kNull\x1b[0m`)
 
                 }).catch(e=>
 
@@ -924,20 +924,23 @@ program
             console.log('Serivces dir => ',fs.readdirSync(PATH_RESOLVE('KLY_ServicesAPI')))
             console.log('Workflows dir => ',fs.readdirSync(PATH_RESOLVE('KLY_WorkflowsAPI')))
             
-            import('uWebSockets.js').then(module=>{
-
-                let UWS=module.default
-                
-                UWS.App()
-                
-                    .get('/',(a,q)=>{
-                    
-                        a.end(`Hello from KLYNTAR@UI`)
-                    
-                    }).listen(opts.port,opts.interface,ok=>console.log(`UI is available on \x1b[32;1m[${opts.interface}]:${opts.port}\x1b[0m`))
-
+        
+            import('fastify').then(fasModule=>{
             
-            }).catch(e=>console.log(`\x1b[31;1mCan't find module. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
+                let fastify = fasModule.default({logger: true})
+            
+                // Declare a route
+                fastify.get('/', async (request, reply) => {
+                    return { hello: 'world' }
+                })
+            
+                fastify.listen(opts.port,opts.interface).then(
+                    
+                    () => console.log(`UI is available on \x1b[32;1m[${opts.interface}]:${opts.port}\x1b[0m`)
+                    
+                )
+            
+            })
         
         })
 
