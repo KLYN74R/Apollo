@@ -17,7 +17,7 @@
     "UPDATE_ALIASES": "https://klyntar.org/aliases-json",
     
     "EXTRA": [
-        "test/cli/test.js"
+        "init/cli/init.js"
     ]
 
 }

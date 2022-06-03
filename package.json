@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "node ./npm_scripts/script.js",
-    "build": "cd ./signatures/ringsig/lrs-ecdsa && pnpm install && pnpm install typescript -g && tsc && cd ../../../ && pnpm install"
+    "build": "cd ./signatures/ringsig/lrs-ecdsa && pnpm install && pnpm install typescript -g && tsc && cd ../../../ && pnpm install --unsafe-perm"
   },
   "repository": {
     "type": "git",
