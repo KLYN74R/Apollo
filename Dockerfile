@@ -6,8 +6,8 @@ WORKDIR /root/Apollo
 COPY package*.json ./
 COPY . .
 
-ENV NODE_ENV production
-
 RUN pnpm run build
+
+ENV NODE_ENV production
 
 EXPOSE 9999
