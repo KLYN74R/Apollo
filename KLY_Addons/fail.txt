@@ -9,7 +9,7 @@
       ,|,`. A  R   `-.\
      '.||  ``-...__..-`
       |  |                           ************************************************************************
-      |__|                           *  Visit https://klyntar.org/issues/failed-build to find the solution  *
+      |__|                           *  Visit https://klyntar.org/issues/apollo-failed-build to find the solution  *
       /||\                           ************************************************************************ 
      //||\\
     // || \\
