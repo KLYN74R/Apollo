@@ -6,8 +6,8 @@ WORKDIR /root/Apollo
 COPY package*.json ./
 COPY . .
 
-RUN chmod 777 build_addons.sh index.js && pnpm run build
-
 ENV NODE_ENV production
+
+RUN pnpm run build
 
 EXPOSE 9999
