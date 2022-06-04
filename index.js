@@ -51,7 +51,7 @@ global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
 global.PROGRAM=program
 
 
-for(let mod of CONFIG.EXTRA) await import(`./KLY_Modules/${mod}`)
+for(let mod of CONFIG.EXTRA_CLI) await import(`./${mod}`)
 
 
 //_________________________________________________________________________ CLI COMMANDS _________________________________________________________________________
