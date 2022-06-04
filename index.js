@@ -45,7 +45,7 @@ const banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8'
 global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
 
 
-//_____________________________________________________________________ IMPORT EXTRA MODULES _____________________________________________________________________
+//__________________________________________________________ IMPORT EXTRA MODULES/SERVICES and WORKFLOW API ______________________________________________________
 
 
 global.PROGRAM=program
@@ -925,7 +925,7 @@ program
             console.log('Workflows dir => ',fs.readdirSync(PATH_RESOLVE('KLY_WorkflowsAPI')))
             
         
-            import('fastify').then(fasModule=>{
+            import('fastify').then(async fasModule=>{
             
                 let fastify = fasModule.default({logger: true})
             
@@ -933,7 +933,16 @@ program
                 fastify.get('/', async (request, reply) => {
                     return { hello: 'world' }
                 })
+                
+                fastify.register((await import('point-of-view')).default, {
+                    engine: {
+                      ejs: (await import('ejs')).default,
+                    },
+                  });
             
+                for(let mod of CONFIG.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,{prefix:mod.PREFIX})
+
+
                 fastify.listen(opts.port,opts.interface).then(
                     
                     () => console.log(`UI is available on \x1b[32;1m[${opts.interface}]:${opts.port}\x1b[0m`)

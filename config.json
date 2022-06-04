@@ -21,7 +21,12 @@
     ],
 
     "EXTRA_UI": [
-        "KLY_ServicesAPI/init/ui/init.js"
+        
+        {
+            "PATH":"KLY_ServicesAPI/some_service/ui/route0.js",
+            "PREFIX":"/init"
+        }
+    
     ]
 
 
