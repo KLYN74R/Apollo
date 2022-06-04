@@ -8,8 +8,8 @@ export default (fastify, options, next) => {
     })
 
     fastify.get("/hello", (req, reply) => {
-        
-        reply.view('MyProjects/Klyntar/Apollo/KLY_ServicesAPI/some_service/ui/templates/index.ejs', { text: "HELLO KLYNTAR" });
+    
+        reply.view('KLY_ServicesAPI/some_service/ui/templates/index.ejs', { text: "HELLO KLYNTAR" });
     
     });
     

@@ -20,11 +20,20 @@
         "KLY_Modules/init/cli/init.js"
     ],
 
+    "FASTIFY_OPTIONS":{
+        "logger":true
+    },
+
     "EXTRA_UI": [
         
         {
             "PATH":"KLY_ServicesAPI/some_service/ui/route0.js",
             "PREFIX":"/init"
+        },
+
+        {
+            "PATH":"KLY_Modules/init/ui/route.js",
+            "PREFIX":"/cyber"
         }
     
     ]

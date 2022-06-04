@@ -921,24 +921,26 @@ program
         
         .action(async(opts,_cmd)=>{
 
-            console.log('Serivces dir => ',fs.readdirSync(PATH_RESOLVE('KLY_ServicesAPI')))
-            console.log('Workflows dir => ',fs.readdirSync(PATH_RESOLVE('KLY_WorkflowsAPI')))
-            
         
             import('fastify').then(async fasModule=>{
             
-                let fastify = fasModule.default({logger: true})
+                let fastify = fasModule.default(CONFIG.FASTIFY_OPTIONS)
             
                 // Declare a route
                 fastify.get('/', async (request, reply) => {
                     return { hello: 'world' }
                 })
                 
+                //Set fastify plugin to use view engine. Default EJS
                 fastify.register((await import('point-of-view')).default, {
+                    
+                    root:__dirname,
+                    
                     engine: {
                       ejs: (await import('ejs')).default,
-                    },
-                  });
+                    }
+                
+                })
             
                 for(let mod of CONFIG.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,{prefix:mod.PREFIX})
 
