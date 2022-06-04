@@ -415,7 +415,7 @@ program
 
         .command('thresholdsig')
         .alias('ts')
-        .description(`\x1b[32mModule to work with threshold signatures(currently \u001b[38;5;153mTBLS\x1b[0m\x1b[32m based on \u001b[38;5;96mBLS12-381\x1b[0m\x1b[32m and \u001b[38;5;94mTED25519\x1b[0m\x1b[32m)\x1b[0m`)
+        .description(`\x1b[32mModule to work with threshold signatures(currently \u001b[38;5;153mTBLS\x1b[0m\x1b[32m based on \u001b[38;5;96mBLS12-381\x1b[0m\x1b[32m)\x1b[0m`)
 
         .addCommand(
             
