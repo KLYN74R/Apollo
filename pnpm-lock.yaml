@@ -1,7 +1,6 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@fastify/static': ^5.0.2
   '@klyntar/valardohaeris': ^17.0.0
   '@noble/bls12-381': ^1.2.0
   adm-zip: ^0.5.9
@@ -17,7 +16,6 @@ specifiers:
   point-of-view: ^6.2.1
 
 dependencies:
-  '@fastify/static': 5.0.2
   '@klyntar/valardohaeris': 17.0.0
   '@noble/bls12-381': 1.2.0
   adm-zip: 0.5.9
@@ -354,18 +352,6 @@ packages:
     resolution: {integrity: sha512-zRYRdzh4lEWwwLih1IaQCI7VtXAAqllAK4SGt62Q/phIZ208FniTXlw2qP0VI7JGSS+pw+SpwLT192SoiD0RCg==}
     dependencies:
       fast-json-stringify: 3.2.0
-    dev: false
-
-  /@fastify/static/5.0.2:
-    resolution: {integrity: sha512-HvyXZ5a7hUHoSBRq9jKUuKIUCkHMkCDcmiAeEmixXlGOx8pEWx3NYOIaiivcjWa6/NLvfdUT+t/jzfVQ2PA7Gw==}
-    dependencies:
-      content-disposition: 0.5.4
-      encoding-negotiator: 2.0.1
-      fastify-plugin: 3.0.1
-      glob: 7.2.0
-      p-limit: 3.1.0
-      readable-stream: 3.6.0
-      send: 0.17.2
     dev: false
 
   /@harmony-js/account/0.1.56:
@@ -2770,11 +2756,6 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /encoding-negotiator/2.0.1:
-    resolution: {integrity: sha512-GSK7qphNR4iPcejfAlZxKDoz3xMhnspwImK+Af5WhePS9jUpK/Oh7rUdyENWu+9rgDflOCTmAojBsgsvM8neAQ==}
-    engines: {node: '>=10.13.0'}
-    dev: false
-
   /end-of-stream/1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
     dependencies:
@@ -4845,6 +4826,7 @@ packages:
     dependencies:
       yocto-queue: 0.1.0
     dev: false
+    optional: true
 
   /p-locate/5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
@@ -6834,6 +6816,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: false
+    optional: true
 
   github.com/Digital-MOB-Filecoin/filecoin-signing-tools-js/8f8e92157cac2556d35cab866779e9a8ea8a4e25:
     resolution: {tarball: https://codeload.github.com/Digital-MOB-Filecoin/filecoin-signing-tools-js/tar.gz/8f8e92157cac2556d35cab866779e9a8ea8a4e25}

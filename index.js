@@ -925,11 +925,8 @@ program
             import('fastify').then(async fasModule=>{
             
                 let fastify = fasModule.default(CONFIG.FASTIFY_OPTIONS)
-            
-                // Declare a route
-                fastify.get('/', async (request, reply) => {
-                    return { hello: 'world' }
-                })
+        
+                
                 
                 //Set fastify plugin to use view engine. Default EJS
                 fastify.register((await import('point-of-view')).default, {
@@ -937,12 +934,16 @@ program
                     root:__dirname,
                     
                     engine: {
-                      ejs: (await import('ejs')).default,
+                    
+                        ejs: (await import('ejs')).default,
+                    
                     }
                 
                 })
             
-                for(let mod of CONFIG.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,{prefix:mod.PREFIX})
+
+                //Load modules that should be available via UI
+                for(let mod of CONFIG.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,mod.OPTIONS)
 
 
                 fastify.listen(opts.port,opts.interface).then(

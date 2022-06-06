@@ -1109,7 +1109,7 @@
   
   button.cyberpunk2077:after,
   a.cyberpunk2077:after {
-    content: "R-25";
+    content: "KLY";
     display: block;
     position: absolute;
     bottom: 0px;
@@ -1474,6 +1474,10 @@
   aside.cyberpunk ul {
     padding: 0;
     margin: 0;
+  }
+
+  .futfont{
+    font-family: 'Major Mono Display', monospace;
   }
   
   aside.cyberpunk ul li {

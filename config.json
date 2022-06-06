@@ -24,19 +24,41 @@
         "logger":true
     },
 
+
+    "WORKFLOW_MAPPING":{
+        "dev@controller":[
+
+            "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9"
+
+        ]
+    },
+
+    
+
     "EXTRA_UI": [
         
         {
             "PATH":"KLY_ServicesAPI/some_service/ui/route0.js",
-            "PREFIX":"/init"
+            
+            "OPTIONS":{
+             
+                "prefix":"/init"
+            
+            }
+
         },
 
         {
             "PATH":"KLY_Modules/init/ui/route.js",
-            "PREFIX":"/cyber"
+
+            "OPTIONS":{
+             
+                "prefix":"/"
+            
+            }
+
         }
     
     ]
-
 
 }
