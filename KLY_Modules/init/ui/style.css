@@ -1,7 +1,7 @@
 :root {
     --glitched-duration: 0.9s;
     --glitched-long-duration: 3s;
-    --yellow-color: #f9f002;
+    --yellow-color: #ffffff;
     --yellow-color-opacity: #f9f00242;
     --orange-color: #ff9800;
     --border-color: #8ae66e;
@@ -24,6 +24,19 @@
     background-color: var(--yellow-color);
     padding: 0px;
     margin: 0px;
+
+    height: 100%;
+  }
+
+  #wrap {
+    min-height: 100%;
+  }
+
+  footer {
+    margin-top: -100px;
+    /*Минус Высота футера*/
+    height: 100px;
+    /*Высота футера*/
   }
   
   body * {
@@ -1280,8 +1293,16 @@
     }
   }
   
-  /* Section */
-  section.cyberpunk {
+
+/* Section */
+section {
+
+  height: 100%;
+
+}  
+
+
+section.cyberpunk {
     background-color: var(--yellow-color);
     color: #000;
     padding: 60px 60px;
@@ -1352,7 +1373,7 @@
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 30px;
+    height: 100%;
     background-color: var(--yellow-color);
     position: absolute;
     clip-path: polygon(
@@ -1521,4 +1542,22 @@
   aside.cyberpunk a:after {
     display: none;
   }
+
+/*
+
+Centered
+
+*/
+
+#centered {
+
+      position: absolute;
+ 
+      top: 30%;
+ 
+}
+#main {
   
+  zoom:0.7;
+
+}
