@@ -908,7 +908,7 @@ program
 
         .command('ui').description(`\x1b[32mRun web UI for more comfortable use\x1b[0m`)
 
-        .option('-p, --port <value>','Port to run web UI',9999)
+        .option('-p, --port <value>','Port to run web UI',9691)
         .option('-i, --interface <value>','interface to run server','::')
         
         .addHelpText('before',`

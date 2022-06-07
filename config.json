@@ -1,6 +1,6 @@
 {
     "CLUSTER": {
-        "URL": "http://localhost:11111",
+        "URL": "http://localhost:7331",
         "AUTH": "NODE_AUTH"
     },
     "PROXY": {
