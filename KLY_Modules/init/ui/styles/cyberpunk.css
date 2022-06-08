@@ -1566,11 +1566,16 @@ section.cyberpunk {
 
   /* For image on init page */
 
-.img_init_page {
-
+  .img_init_page {
+ 
+    position: fixed;
   
-
-}
+    top: 10%;
+  
+    left: 75%;
+  
+  
+  }
 
 /*
 

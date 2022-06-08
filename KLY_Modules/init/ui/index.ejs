@@ -29,44 +29,76 @@
     <hr class="cyberpunk glitched" />
   
     <h1 class="cyberpunk glitched futfont" alight="center"><%= text %></h1>
+   
+        <!--
+    ███████╗ ██████╗ ██████╗ ██████╗ ██╗   ██╗    ██╗   ██╗███████╗██╗      █████╗ ███████╗       ██╗ 
+    ██╔════╝██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██║   ██║██╔════╝██║     ██╔══██╗██╔════╝    ██╗╚██╗
+    ███████╗██║   ██║██████╔╝██████╔╝ ╚████╔╝     ██║   ██║█████╗  ██║     ███████║███████╗    ╚═╝ ██║
+    ╚════██║██║   ██║██╔══██╗██╔══██╗  ╚██╔╝      ╚██╗ ██╔╝██╔══╝  ██║     ██╔══██║╚════██║    ██╗ ██║
+    ███████║╚██████╔╝██║  ██║██║  ██║   ██║        ╚████╔╝ ███████╗███████╗██║  ██║███████║    ╚═╝██╔╝
+    ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝         ╚═══╝  ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝       ╚═╝ 
   
+    This supercool image was taken from https://velas.com/
+  
+  -->
+    
+    <img class="img_init_page" src="https://velas.com/images/home-hero.png"/>
+
+    
+    
     <a class="cyberpunk2077" href="/basic">Start now</a>
     <a class="cyberpunk2077 blue-kly" href="https://github.com/KLYN74R/Apollo" target="_blank" rel="noopener noreferrer">View sources</a>
 
 
-    <img class="img_init_page" src=""/>
-
   </div>
 
 </section>
-  
+
+
+
+
+<!--
+
+███████╗ ██████╗██████╗ ██╗██████╗ ████████╗███████╗
+██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝██╔════╝
+███████╗██║     ██████╔╝██║██████╔╝   ██║   ███████╗
+╚════██║██║     ██╔══██╗██║██╔═══╝    ██║   ╚════██║
+███████║╚██████╗██║  ██║██║██║        ██║   ███████║
+╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝
+                                                     -->
+
 <script>
   
-  document.getElementById('theme-id').addEventListener('click',()=>{
-
-      let main=document.getElementById('main')
-
-      main.setAttribute('class',main.getAttribute('class')==='cyberpunk'?'cyberpunk black':'cyberpunk')
-
-  })
 
 
-  let isFullScreen=false
+    //Change theme handler
+    document.getElementById('theme-id').addEventListener('click',()=>{
 
-  document.getElementById('fullscreen').addEventListener('click',()=>{
+        let main=document.getElementById('main')
+
+        main.setAttribute('class',main.getAttribute('class')==='cyberpunk'?'cyberpunk black':'cyberpunk')
+
+    })
+
+
+    let isFullScreen=false
+
+
+    //Change fullscreen mode
+    document.getElementById('fullscreen').addEventListener('click',()=>{
   
 
     if(isFullScreen){
 
-      document.exitFullscreen()
+        document.exitFullscreen()
 
-      isFullScreen=false
+        isFullScreen=false
 
     }else{
 
-      document.documentElement.requestFullscreen()
+        document.documentElement.requestFullscreen()
 
-      isFullScreen=true
+        isFullScreen=true
 
     }
     
