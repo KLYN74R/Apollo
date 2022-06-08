@@ -21,7 +21,7 @@
     ],
 
     "FASTIFY_OPTIONS":{
-        "logger":true
+        "logger":false
     },
 
 

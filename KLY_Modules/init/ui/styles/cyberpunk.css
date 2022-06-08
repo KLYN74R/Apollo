@@ -7,9 +7,13 @@
     --border-color: #8ae66e;
     --red-color: #ff003c;
     --blue-color: #136377;
-    --green-color: #446d44;
+    --green-color: #3ebe53;
     --purple-color: purple;
     --neon-color: #39ff14;
+    
+    /* VC custom */
+    --blue-kly-color: rgb(30, 230, 230);
+    --orange-color: rgb(255, 156, 80);
   }
   
   @font-face {
@@ -1120,6 +1124,20 @@
     --background-color: var(--blue-color);
   }
   
+  /*
+    VC custom <a>
+  */
+
+  button.cyberpunk2077.orange,
+  a.cyberpunk2077.orange {
+    --background-color: var(--orange-color);
+  }
+
+  button.cyberpunk2077.blue-kly,
+  a.cyberpunk2077.blue-kly {
+    --background-color: var(--blue-kly-color);
+  }
+
   button.cyberpunk2077:after,
   a.cyberpunk2077:after {
     content: "KLY";
@@ -1542,6 +1560,17 @@ section.cyberpunk {
   aside.cyberpunk a:after {
     display: none;
   }
+
+
+
+
+  /* For image on init page */
+
+.img_init_page {
+
+  
+
+}
 
 /*
 
