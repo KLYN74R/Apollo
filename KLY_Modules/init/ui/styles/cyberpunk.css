@@ -1596,3 +1596,34 @@ Centered
   zoom:0.7;
 
 }
+
+
+#version{
+  
+  font-family: 'Major Mono Display',sans-serif;
+  font-weight: bold;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  
+}
+
+
+
+/* For image */
+
+.smooth_image {
+
+  opacity: 0;
+
+  animation: smoothy 3s forwards;
+
+}
+
+@keyframes smoothy {
+  
+  0% {opacity: 0;}
+  
+  100% {opacity: 1;}
+
+}

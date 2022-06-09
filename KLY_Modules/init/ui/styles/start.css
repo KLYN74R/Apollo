@@ -1,23 +1,10 @@
-.opset{
+.operations{
 
-    position: fixed;
+    position: absolute;
   
-    bottom: 0%;
+    top: 10%;
   
-    left: 75%;
-
-
-}
-
-
-
-.start_p{
-
-    position: fixed;
-  
-    bottom: 0%;
-  
-    left: 75%;
+    left: 65%;
 
 
 }

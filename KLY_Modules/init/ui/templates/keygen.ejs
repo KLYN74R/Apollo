@@ -6,6 +6,7 @@
   
   <link rel="stylesheet" href="/init/style/cyberpunk.css">  
   <link rel="stylesheet" href="/init/style/start.css">
+  <link rel="stylesheet" href="/init/style/dropdown.css">
 
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0" />
@@ -36,45 +37,38 @@
 
 
 
-    <!-- List of operations available in CLI -->
+    <!-- List of operations available in CLI
     <ul class="operations smooth">
 
         <a href="/init/keygen" class="cyberpunk2077">Generate keys</a><br/>
-        <a href="#" class="cyberpunk2077">Update aliases</a><br/>
-        <a href="#" class="cyberpunk2077">Events</a><br/>
-        <a href="/init/configs" class="cyberpunk2077">View / Change configs</a><br/>
-
-
-    </ul>
-    
-    <div id="centered">
-
-        <hr class="cyberpunk glitched" />
-
-        <h1 class="cyberpunk glitched futfont" alight="center"><%= text %></h1>
-
-
-          <!--
-      ███████╗ ██████╗ ██████╗ ██████╗ ██╗   ██╗    ██╗   ██╗███████╗██╗      █████╗ ███████╗       ██╗ 
-      ██╔════╝██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██║   ██║██╔════╝██║     ██╔══██╗██╔════╝    ██╗╚██╗
-      ███████╗██║   ██║██████╔╝██████╔╝ ╚████╔╝     ██║   ██║█████╗  ██║     ███████║███████╗    ╚═╝ ██║
-      ╚════██║██║   ██║██╔══██╗██╔══██╗  ╚██╔╝      ╚██╗ ██╔╝██╔══╝  ██║     ██╔══██║╚════██║    ██╗ ██║
-      ███████║╚██████╔╝██║  ██║██║  ██║   ██║        ╚████╔╝ ███████╗███████╗██║  ██║███████║    ╚═╝██╔╝
-      ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝         ╚═══╝  ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝       ╚═╝ 
-    
-      This supercool image was taken from https://velas.com/
-    
-    -->
       
-      <!-- <img class="img_init_page glitched" src="https://user-images.githubusercontent.com/53381472/172846349-ef66e2df-b26b-4449-8dad-61a201c59a06.png"/>
-  
-      
-      
-      <a class="cyberpunk2077" href="/basic">Start now</a>
-      <a class="cyberpunk2077 blue-kly" href="https://github.com/KLYN74R/Apollo" target="_blank" rel="noopener noreferrer">View sources</a> -->
-  
-  
-  
+
+
+    </ul> -->
+    
+    <div align="center">
+<!-- 
+        <hr class="cyberpunk glitched" /> -->
+
+        <h1 class="cyberpunk glitched futfont">Choose the keytype</h1>
+        <h5 class="cyberpunk glitched futfont">We allow you to generate different formats</h5>
+        
+        <input class="cyberpunk" list="cryptos"/><br/>
+        <button class="cyberpunk2077" href="/init/start">Generate</button>
+
+
+        <datalist id="cryptos">
+        
+            <option value="Internet Explorer">
+            <option value="Firefox">
+            <option value="Google Chrome">
+            <option value="Opera">
+            <option value="Safari">
+        
+        </datalist>
+
+        
+
     </div>
   
   </section>

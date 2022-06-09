@@ -45,6 +45,12 @@ export default (fastify, options, next) => {
         
     })
 
+    fastify.get('/keygen', (request, reply) => {
+    
+        reply.view('KLY_Modules/init/ui/templates/keygen.ejs')
+
+        
+    })
 
     //Need for tests
     fastify.get('/old', (request, reply) => {
@@ -54,6 +60,11 @@ export default (fastify, options, next) => {
     })
 
 
+    fastify.get('/configs', (request, reply) => {
+    
+        reply.send(JSON.stringify(CONFIG,null,3))
+    
+    })
 
 
 
