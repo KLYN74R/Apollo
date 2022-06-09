@@ -20,11 +20,9 @@ Hope,you'll like it 😀
 */
 
 
-
-
-
-
 import fs from 'fs'
+
+
 
 export default (fastify, options, next) => {
 
@@ -42,7 +40,7 @@ export default (fastify, options, next) => {
 
     fastify.get('/start', (request, reply) => {
     
-        reply.view('KLY_Modules/init/ui/start.ejs',{text:'Hello,this is the entry point to control Klyntar'})
+        reply.view('KLY_Modules/init/ui/templates/start.ejs',{text:'This is what you can do'})
 
         
     })

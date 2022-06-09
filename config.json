@@ -42,7 +42,7 @@
             
             "OPTIONS":{
              
-                "prefix":"/init"
+                "prefix":"/service0"
             
             }
 
@@ -53,7 +53,7 @@
 
             "OPTIONS":{
              
-                "prefix":"/"
+                "prefix":"/init"
             
             }
 
