@@ -114,6 +114,7 @@
   }
   
   select.cyberpunk {
+    text-align: center;
     width: 100%;
     appearance: none;
     position: relative;

@@ -52,6 +52,18 @@ export default (fastify, options, next) => {
         
     })
 
+    fastify.get('/key_generate/:format', (request, reply)=>{
+
+        import(`@klyntar/valardohaeris/${request.params.format}/vd.js`).then(async m=>{
+
+            reply.send(await m.default.generate())
+
+        }).catch(e=>reply.send(`Oops,some error has been occured ${e}`))
+
+    })
+    
+    
+
     //Need for tests
     fastify.get('/old', (request, reply) => {
     
