@@ -9,8 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
-
+<link rel="shrotcut icon" href="https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F2736040151-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FMlYPneLIcqHH1EOMSnny%252Ficon%252FR2CyiT04r15Bm7iCl3ij%252F%25D0%2591%25D0%25B5%25D0%25B7%2520%25D0%25BD%25D0%25B0%25D0%25B7%25D0%25B2%25D0%25B0%25D0%25BD%25D0%25B8%25D1%258F.jfif%3Falt%3Dmedia%26token%3Da1d0edc5-cfcc-4300-b1d6-d9712d23172d">
   
+
 <section class="cyberpunk antivenom-background" id="main">
     
   <a href="#">
@@ -42,12 +43,13 @@
   
   -->
     
-    <img class="img_init_page" src="https://user-images.githubusercontent.com/53381472/172846349-ef66e2df-b26b-4449-8dad-61a201c59a06.png"/>
+    <img class="img_init_page glitched" src="https://user-images.githubusercontent.com/53381472/172846349-ef66e2df-b26b-4449-8dad-61a201c59a06.png"/>
 
     
     
     <a class="cyberpunk2077" href="/basic">Start now</a>
     <a class="cyberpunk2077 blue-kly" href="https://github.com/KLYN74R/Apollo" target="_blank" rel="noopener noreferrer">View sources</a>
+
 
 
   </div>
@@ -81,24 +83,17 @@
     })
 
 
-    let isFullScreen=false
-
 
     //Change fullscreen mode
     document.getElementById('fullscreen').addEventListener('click',()=>{
-  
 
-    if(isFullScreen){
+    if(window.innerWidth == screen.width && window.innerHeight == screen.height){
 
         document.exitFullscreen()
-
-        isFullScreen=false
 
     }else{
 
         document.documentElement.requestFullscreen()
-
-        isFullScreen=true
 
     }
     

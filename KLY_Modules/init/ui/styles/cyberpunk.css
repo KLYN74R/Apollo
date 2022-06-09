@@ -4,16 +4,15 @@
     --yellow-color: #ffffff;
     --yellow-color-opacity: #f9f00242;
     --orange-color: #ff9800;
-    --border-color: #8ae66e;
+    --border-color: #ff003c;
     --red-color: #ff003c;
     --blue-color: #136377;
     --green-color: #3ebe53;
     --purple-color: purple;
-    --neon-color: #39ff14;
     
     /* VC custom */
     --blue-kly-color: rgb(30, 230, 230);
-    --orange-color: rgb(255, 156, 80);
+    --orange-color: rgb(255, 123, 22);
   }
   
   @font-face {
@@ -1573,6 +1572,8 @@ section.cyberpunk {
     bottom: -5%;
   
     right: -5%;
+
+    
   
   
   }
