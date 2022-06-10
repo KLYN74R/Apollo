@@ -6,7 +6,6 @@
   
 <link rel="stylesheet" href="/init/style/cyberpunk.css">  
 <link rel="stylesheet" href="/init/style/start.css">
-<link rel="stylesheet" href="/init/style/cryptoland.css">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,50 +39,33 @@
         <h3 class="cyberpunk futfont">You can discover all the available crypto specific features here</h3><br/><br/><br/>
 
     </div>
-
-<!-- 
-    <form id="sg1">
-        <label class="overlabel" for="SelectOEM">Select OEM:<select class="land" id="SelectOEM"><option>Please select</option></select></label>
-       <label class="overlabel" for="CopyFrom">Copy From:<select class="land" id="CopyFrom"><option>Please select</option></select></label>
-       <label class="overlabel" for="member3">member 3 <input class="land" name="member3" id="member3" value="jackson" /></label>
-       <label class="overlabel" for="member4">member 4 <input class="land" name="member4" id="member4" value="tielk" /></label>   
-   </form> -->
    
+    <label for="scope_selector" class="cyberpunk futfont">
+        choose the scope
+    </label><br/><br/>
 
-    <label for="scope_selector" class="cyberpunk futfont overlabel" id="scopeExplain">
-        Choose the scope
-        <br/><select class="cyberpunk futfont land" id="scope_selector" style="max-width: 500px">
+    <select class="cyberpunk futfont land" id="scope_selector" style="max-width: 500px">
+
+    <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
+
+    </select><br/><br/><br/><br/>
+
+    
+    <label for="operation_selector" class="cyberpunk futfont">
+        choose operation
+    </label><br/><br/>
+    <select class="cyberpunk futfont land" id="operation_selector" style="max-width: 500px">
 
             <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
     
-        </select>
-        
-    </label>
+    </select>
     
-    <label for="operation_selector" class="cyberpunk futfont overlabel" id="operationExplain">
-        Choose operation
-        <select class="cyberpunk futfont land" id="operation_selector" style="max-width: 500px">
+    <br/><br/><br/>
 
-            <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
-    
-        </select>
-    
-    </label><br/><br/><br/>
-
-    <input class="cyberpunk futfont" type="checkbox" checked="checked" id="shouldstore" onClick="changeExplain()"/>
-
-
-    <label for="shouldstore" class="cyberpunk" id="checkboxExplain">
-        Store keypair to KEYSTORE(Current: <b>YES</b>,Apollo will store all generated keys)
-    </label><br/>
-      
-    <br/><br/><br/><br/>
-      
+  
     <button class="cyberpunk2077 blue-kly" href="/init/start" onClick="generateKeyPair()">Generate</button>
 
     <br/><br/><br/><br/>
-
-    <p class="cyberpunk2077" align="center" id="output">Hello</p>
 
   
   </section>
