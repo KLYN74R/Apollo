@@ -76,7 +76,7 @@ export default (fastify, options, next) => {
 
         import(`@klyntar/valardohaeris/${request.params.format}/vd.js`).then(async m=>{
 
-            let keypair=await m.default.generate().catch(e=>false)
+            let keypair=await m.default.generate()
 
             if(keypair&&request.params.checked==='true'){
 
@@ -230,6 +230,12 @@ export default (fastify, options, next) => {
     fastify.get('/style/:style', (request, reply) => {
     
         reply.view(`KLY_Modules/init/ui/styles/${request.params.style}`)
+    
+    })
+
+    fastify.get('/scripts/:script', (request, reply) => {
+    
+        reply.view(`KLY_Modules/init/ui/scripts/${request.params.script}`)
     
     })
 

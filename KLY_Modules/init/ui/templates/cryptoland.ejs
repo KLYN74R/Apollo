@@ -41,7 +41,7 @@
     </div>
    
     <label for="scope_selector" class="cyberpunk futfont">
-        choose the scope
+        Choose the scope
     </label><br/><br/>
 
     <select class="cyberpunk futfont land" id="scope_selector" style="max-width: 500px">
@@ -52,7 +52,7 @@
 
     
     <label for="operation_selector" class="cyberpunk futfont">
-        choose operation
+        Choose operation
     </label><br/><br/>
     <select class="cyberpunk futfont land" id="operation_selector" style="max-width: 500px">
 
@@ -83,27 +83,9 @@
   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝
                                                        -->
   
-  <script>
-    
-  
-    //Change theme handler
-    document.getElementById('theme-id').addEventListener('click',()=>{
-  
-        let main=document.getElementById('main')
-  
-        main.setAttribute('class',main.getAttribute('class')==='cyberpunk'?'cyberpunk black':'cyberpunk')
-  
-    })
-  
-  
-  
-    //Change fullscreen mode
-    document.getElementById('fullscreen').addEventListener('click',()=>
+<script src="/init/scripts/upitems.js"></script>
 
-        window.innerWidth == screen.width && window.innerHeight == screen.height ? document.exitFullscreen():document.documentElement.requestFullscreen()
-
-    )
-
+<script>
 
     //Create values for selectors with keytypes supported by Klyntar & Apollo
 
