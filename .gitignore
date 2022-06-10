@@ -26,5 +26,4 @@ useful.txt
 
 #All your keys
 KEYSTORE/
-
-!todo.txt
+!KEYSTORE/README.md
