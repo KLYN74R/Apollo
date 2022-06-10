@@ -45,10 +45,19 @@ export default (fastify, options, next) => {
         
     })
 
+
+    // ██╗  ██╗███████╗██╗   ██╗ ██████╗ ███████╗███╗   ██╗
+    // ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔════╝ ██╔════╝████╗  ██║
+    // █████╔╝ █████╗   ╚████╔╝ ██║  ███╗█████╗  ██╔██╗ ██║
+    // ██╔═██╗ ██╔══╝    ╚██╔╝  ██║   ██║██╔══╝  ██║╚██╗██║
+    // ██║  ██╗███████╗   ██║   ╚██████╔╝███████╗██║ ╚████║
+    // ╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═══╝
+    
+    
+
     fastify.get('/keygen', (request, reply) => {
     
         reply.view('KLY_Modules/init/ui/templates/keygen.ejs')
-
         
     })
 
@@ -62,22 +71,132 @@ export default (fastify, options, next) => {
 
     })
     
-    
 
-    //Need for tests
-    fastify.get('/old', (request, reply) => {
+    //  ██████╗██████╗ ██╗   ██╗██████╗ ████████╗ ██████╗ ██╗      █████╗ ███╗   ██╗██████╗ 
+    // ██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗╚══██╔══╝██╔═══██╗██║     ██╔══██╗████╗  ██║██╔══██╗
+    // ██║     ██████╔╝ ╚████╔╝ ██████╔╝   ██║   ██║   ██║██║     ███████║██╔██╗ ██║██║  ██║
+    // ██║     ██╔══██╗  ╚██╔╝  ██╔═══╝    ██║   ██║   ██║██║     ██╔══██║██║╚██╗██║██║  ██║
+    // ╚██████╗██║  ██║   ██║   ██║        ██║   ╚██████╔╝███████╗██║  ██║██║ ╚████║██████╔╝
+    //  ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ 
+
+    fastify.get('/cryptoland', (request, reply) => {
     
-        reply.view('./test.ejs',{text:'Hello,this is the entry point to control Klyntar'})
+        reply.view('KLY_Modules/init/ui/templates/cryptoland.ejs')
+
+    })
+
+    // ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗███████╗
+    // ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝██╔════╝
+    // ███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗  ███████╗
+    // ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝  ╚════██║
+    // ███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗███████║
+    // ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝╚══════╝
     
+    fastify.get('/services', (request, reply) => {
+    
+        reply.view('KLY_Modules/init/ui/templates/services.ejs')
+        
     })
 
 
-    fastify.get('/configs', (request, reply) => {
+    fastify.get('/services/build', (request, reply) => {
+    
+        reply.view('KLY_Modules/init/ui/templates/services.ejs')
+        
+    })
+
+    fastify.get('/services/interact', (request, reply) => {
+    
+        reply.view('KLY_Modules/init/ui/templates/services.ejs')
+        
+    })
+
+    // ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗
+    // ██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔════╝
+    // █████╗  ██║   ██║█████╗  ██╔██╗ ██║   ██║   ███████╗
+    // ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ╚════██║
+    // ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
+    // ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
+
+    fastify.get('/events', (request, reply) => {
+    
+        reply.view('KLY_Modules/init/ui/templates/events.ejs')
+        
+    })
+
+
+    // ███╗   ███╗██╗   ██╗    ███████╗███╗   ███╗██████╗ ██╗██████╗ ███████╗
+    // ████╗ ████║╚██╗ ██╔╝    ██╔════╝████╗ ████║██╔══██╗██║██╔══██╗██╔════╝
+    // ██╔████╔██║ ╚████╔╝     █████╗  ██╔████╔██║██████╔╝██║██████╔╝█████╗  
+    // ██║╚██╔╝██║  ╚██╔╝      ██╔══╝  ██║╚██╔╝██║██╔═══╝ ██║██╔══██╗██╔══╝  
+    // ██║ ╚═╝ ██║   ██║       ███████╗██║ ╚═╝ ██║██║     ██║██║  ██║███████╗
+    // ╚═╝     ╚═╝   ╚═╝       ╚══════╝╚═╝     ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝
+
+    fastify.get('/empire', (request, reply) => {
     
         reply.send(JSON.stringify(CONFIG,null,3))
     
     })
 
+
+    // ███╗   ███╗██╗███████╗ ██████╗
+    // ████╗ ████║██║██╔════╝██╔════╝
+    // ██╔████╔██║██║███████╗██║        
+    // ██║╚██╔╝██║██║╚════██║██║     
+    // ██║ ╚═╝ ██║██║███████║╚██████╗
+    // ╚═╝     ╚═╝╚═╝╚══════╝ ╚═════╝
+                                                                      
+
+    fastify.get('/misc', (request, reply) => {
+    
+        reply.send(JSON.stringify(CONFIG,null,3))
+    
+    })
+
+
+    fastify.get('/misc/checkrepo', (request, reply) => {
+    
+        reply.send(JSON.stringify(CONFIG,null,3))
+    
+    })
+
+    fastify.get('/misc/configs', (request, reply) => {
+    
+        reply.send(JSON.stringify(CONFIG,null,3))
+    
+    })
+
+    fastify.get('/misc/update_aliases', (request, reply) => {
+    
+        reply.send(JSON.stringify(CONFIG,null,3))
+    
+    })
+
+    fastify.get('/misc/unobtanium', (request, reply) => {
+    
+        reply.send(JSON.stringify(CONFIG,null,3))
+    
+    })
+
+    fastify.get('/misc/whatsnew', (request, reply) => {
+    
+        reply.send(JSON.stringify(CONFIG,null,3))
+    
+    })
+
+    //_________________________ UPDATE ALIASES _____________________
+
+
+
+
+
+    //Need for tests
+    fastify.get('/old', (request, reply) => {
+    
+        reply.view('./test.ejs',{text:'Hello,this is the entry point to control Klyntar'})
+        
+    })
+    
 
 
 

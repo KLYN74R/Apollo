@@ -1,0 +1,162 @@
+<head>
+
+    <title>Apollo</title>
+  
+</head>
+  
+<link rel="stylesheet" href="/init/style/cyberpunk.css">  
+<link rel="stylesheet" href="/init/style/start.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+<link rel="shrotcut icon" href="https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F2736040151-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FMlYPneLIcqHH1EOMSnny%252Ficon%252FR2CyiT04r15Bm7iCl3ij%252F%25D0%2591%25D0%25B5%25D0%25B7%2520%25D0%25BD%25D0%25B0%25D0%25B7%25D0%25B2%25D0%25B0%25D0%25BD%25D0%25B8%25D1%258F.jfif%3Falt%3Dmedia%26token%3Da1d0edc5-cfcc-4300-b1d6-d9712d23172d">
+    
+  
+<section class="cyberpunk antivenom-background" id="main">
+      
+    <a href="#">
+        <span class="material-symbols-outlined" id="theme-id">nightlight</span>
+    </a>
+    
+    <br/><br/>
+    
+    <a href="#">
+        <span class="material-symbols-outlined" id="fullscreen">desktop_windows</span>
+    </a>
+
+    <br/><br/>
+
+    <a href="/init">
+        <span class="material-symbols-outlined">home</span>
+    </a>
+
+    
+    <div align="center">
+
+        <h1 class="cyberpunk glitched futfont">Choose the keytype</h1>
+        <h5 class="cyberpunk glitched futfont">We allow you to generate different formats</h5><br/><br/><br/>
+        
+        <!-- <input class="cyberpunk" list="cryptos"/><br/> -->
+        <select class="cyberpunk futfont" id="key_selector" style="max-width: 500px">
+
+            <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
+
+        </select><br/>
+        
+        <input class="cyberpunk futfont" type="checkbox" checked="checked" id="shouldstore" onClick="changeExplain()"/>
+
+
+        <label for="shouldstore" class="cyberpunk" id="checkboxExplain">
+            Store keypair to KEYSTORE(Current: <b>YES</b>,Apollo will store all generated keys)
+        </label><br/>
+          
+        <br/><br/>
+          
+        <button class="cyberpunk2077" href="/init/start" onClick="generateKeyPair()">Generate</button>
+
+        <br/><br/><br/><br/>
+
+        <p class="cyberpunk2077" align="center" id="output">Hello</p>
+
+
+    </div>
+  
+  </section>
+  
+  <p id="version">Apollo  v0.2.0</p>
+  
+  
+  <!--
+  
+  ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗███████╗
+  ██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝██╔════╝
+  ███████╗██║     ██████╔╝██║██████╔╝   ██║   ███████╗
+  ╚════██║██║     ██╔══██╗██║██╔═══╝    ██║   ╚════██║
+  ███████║╚██████╗██║  ██║██║██║        ██║   ███████║
+  ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝
+                                                       -->
+  
+  <script>
+    
+  
+    //Change theme handler
+    document.getElementById('theme-id').addEventListener('click',()=>{
+  
+        let main=document.getElementById('main')
+  
+        main.setAttribute('class',main.getAttribute('class')==='cyberpunk'?'cyberpunk black':'cyberpunk')
+  
+    })
+  
+  
+  
+    //Change fullscreen mode
+    document.getElementById('fullscreen').addEventListener('click',()=>
+
+        window.innerWidth == screen.width && window.innerHeight == screen.height ? document.exitFullscreen():document.documentElement.requestFullscreen()
+
+    )
+
+
+    //Create values for selectors with keytypes supported by Klyntar & Apollo
+
+    let keySelector=document.getElementById('key_selector')
+
+    let formats=[
+
+        'klyntar',          'algorand',
+        'arweave',          'binance_chain',
+        'bitcoin',          'cosmos',
+        'eos',              'eth_like',
+        'filecoin',         'polkadot',
+        'harmony',          'helium',
+        'mina',             'xrp',
+        'solana',           'stellar',
+        'zilliqa',          'terra',
+        'dfinity',          'kusama',
+        'substrate format', 'ton'
+    
+    ]
+    
+    
+    formats.forEach(format=>{
+
+        let newbiew=document.createElement('option')
+
+        newbiew.innerHTML=format
+
+        keySelector.appendChild(newbiew)
+
+    })
+
+
+
+
+
+    let generateKeyPair=async()=>{
+
+        let output=document.getElementById('output')
+
+        output.innerHTML=JSON.stringify(await fetch(`/init/key_generate/${document.getElementById('key_selector').value}`).then(r=>r.json()),null,3)
+
+    }
+
+
+
+    let changeExplain=()=>{
+
+        let lable=document.getElementById('checkboxExplain')
+
+
+        lable.innerHTML=`Store keypair to KEYSTORE(Current: ${document.getElementById('shouldstore').checked?"<b>YES</b>,Apollo will store all generated keys":"<b>NO</b>,generated keys won't be stored"})`
+
+    }
+    
+
+
+
+
+</script>
