@@ -1,0 +1,13 @@
+select.land {
+    display: inline-block;
+
+}
+
+label.overlabel {
+    display: inline-block;
+    /* width: 10em; */
+    margin-right: .5em;
+    margin-bottom:  3.5em;
+    padding-top: 1.5em;
+    text-align:center;
+}
