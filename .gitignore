@@ -25,5 +25,5 @@ useful.txt
 
 
 #All your keys
-KEYSTORE/
+KEYSTORE/*
 !KEYSTORE/README.md
