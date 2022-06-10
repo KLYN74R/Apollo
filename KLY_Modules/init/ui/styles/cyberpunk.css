@@ -1602,14 +1602,13 @@ Centered
 #version{
   
   font-family: 'Major Mono Display',sans-serif;
-  font-weight: bold;
+  font-weight:bold;
+  font-size: 24px;
   position: absolute;
-  bottom: 5%;
-  left: 5%;
+  bottom: 15%;
+  left: 4%;
   
 }
-
-
 
 /* For image */
 
