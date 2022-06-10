@@ -22,3 +22,9 @@ dist
 
 #Local
 useful.txt
+
+
+#All your keys
+KEYSTORE/
+
+!todo.txt

@@ -22,6 +22,17 @@ Hope,you'll like it 😀
 
 import fs from 'fs'
 
+let {hash}=await import('blake3-wasm'),
+
+    BLAKE3=v=>hash(v).toString('hex')
+
+
+const PATH_RESOLVE=path=>__dirname+'/'+path
+
+
+
+
+
 
 
 export default (fastify, options, next) => {
@@ -63,11 +74,22 @@ export default (fastify, options, next) => {
 
     fastify.get('/key_generate/:format/:checked', (request, reply)=>{
 
-        console.log(request.params.checked)
-
         import(`@klyntar/valardohaeris/${request.params.format}/vd.js`).then(async m=>{
 
-            reply.send(await m.default.generate())
+            let keypair=await m.default.generate().catch(e=>false)
+
+            if(keypair&&request.params.checked==='true'){
+
+                let kp=JSON.stringify(keypair)
+
+
+                !fs.existsSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`)) && fs.mkdirSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`))
+
+                fs.writeFileSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}/${BLAKE3(kp)}.json`),kp)
+
+            }
+
+            reply.send(keypair)
 
         }).catch(e=>reply.send(`Oops,some error has been occured ${e}`))
 
