@@ -15,8 +15,6 @@
     },
     
     "UPDATE_ALIASES": "https://klyntar.org/aliases-json",
-
-    "STORE_TO_KEYSTORE":false,
     
     "EXTRA_CLI": [
         "KLY_Modules/init/cli/init.js"

@@ -42,7 +42,7 @@ const banner=fs.readFileSync(PATH_RESOLVE('images/banner.txt')).toString('utf-8'
 
 
 
-global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
+global.CONFIGURATION=JSON.parse(fs.readFileSync(PATH_RESOLVE('./configuration.json')))
 
 
 //__________________________________________________________ IMPORT EXTRA MODULES/SERVICES and WORKFLOW API ______________________________________________________
@@ -51,7 +51,7 @@ global.CONFIG=JSON.parse(fs.readFileSync(PATH_RESOLVE('./config.json')))
 global.PROGRAM=program
 
 
-for(let mod of CONFIG.EXTRA_CLI) await import(`./${mod}`)
+for(let mod of CONFIGURATION.EXTRA_CLI) await import(`./${mod}`)
 
 
 //_________________________________________________________________________ CLI COMMANDS _________________________________________________________________________
@@ -883,11 +883,11 @@ program
 
             import('node-fetch').then(
                 
-            fetch => fetch.default(CONFIG.UPDATE_ALIASES).then(r=>r.json()).then(resp=>{
+            fetch => fetch.default(CONFIGURATION.UPDATE_ALIASES).then(r=>r.json()).then(resp=>{
 
-                    CONFIG.ALIASES=resp
+                    CONFIGURATION.ALIASES=resp
 
-                    fs.writeFileSync(PATH_RESOLVE('config.json'),JSON.stringify(CONFIG,null,4))
+                    fs.writeFileSync(PATH_RESOLVE('configuration.json'),JSON.stringify(CONFIGURATION,null,4))
 
                     console.log(`\x1b[32;1mAliases were successfully updated according to the state of kNull\x1b[0m`)
 
@@ -924,7 +924,7 @@ program
         
             import('fastify').then(async fasModule=>{
             
-                let fastify = fasModule.default(CONFIG.FASTIFY_OPTIONS)
+                let fastify = fasModule.default(CONFIGURATION.FASTIFY_OPTIONS)
         
                 
                 
@@ -943,7 +943,7 @@ program
             
 
                 //Load modules that should be available via UI
-                for(let mod of CONFIG.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,mod.OPTIONS)
+                for(let mod of CONFIGURATION.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,mod.OPTIONS)
 
 
                 fastify.listen(opts.port,opts.interface).then(

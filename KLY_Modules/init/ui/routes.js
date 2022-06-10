@@ -61,7 +61,9 @@ export default (fastify, options, next) => {
         
     })
 
-    fastify.get('/key_generate/:format', (request, reply)=>{
+    fastify.get('/key_generate/:format/:checked', (request, reply)=>{
+
+        console.log(request.params.checked)
 
         import(`@klyntar/valardohaeris/${request.params.format}/vd.js`).then(async m=>{
 
@@ -134,7 +136,7 @@ export default (fastify, options, next) => {
 
     fastify.get('/empire', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIG,null,3))
+        reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
 
@@ -149,38 +151,38 @@ export default (fastify, options, next) => {
 
     fastify.get('/misc', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIG,null,3))
+        reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
 
 
     fastify.get('/misc/checkrepo', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIG,null,3))
+        reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
 
     fastify.get('/misc/configs', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIG,null,3))
+        reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
 
     fastify.get('/misc/update_aliases', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIG,null,3))
+        reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
 
     fastify.get('/misc/unobtanium', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIG,null,3))
+        reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
 
     fastify.get('/misc/whatsnew', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIG,null,3))
+        reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
 

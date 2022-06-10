@@ -48,11 +48,11 @@
 
         </select><br/>
         
-        <input class="cyberpunk futfont" type="checkbox" checked="checked" id="shouldstore" onClick="changeExplain()"/>
+        <input class="cyberpunk futfont" type="checkbox" id="shouldstore" onClick="changeExplain()"/>
 
 
         <label for="shouldstore" class="cyberpunk" id="checkboxExplain">
-            Store keypair to KEYSTORE(Current: <b>YES</b>,Apollo will store all generated keys)
+            Store keypair to KEYSTORE(Current: <b>NO</b>,generated keys won't be stored)
         </label><br/>
           
         <br/><br/>
@@ -156,7 +156,7 @@
 
         generated.id='generated'
 
-        generated.innerHTML=JSON.stringify(await fetch(`/init/key_generate/${document.getElementById('key_selector').value}`).then(r=>r.json()),null,3)
+        generated.innerHTML=JSON.stringify(await fetch(`/init/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}`).then(r=>r.json()).catch(e=>'😕Some error occured'),null,3)
 
         block.replaceChild(generated,loader)
 

@@ -32,12 +32,12 @@ export default {
 
                 [path,recepient,amount,alias] = cmdPayload.split(','),
             
-                symbiote=CONFIG.ALIASES[alias],
+                symbiote=CONFIGURATION.ALIASES[alias],
 
                 {publicKey,privateKey}=JSON.parse(fs.readFileSync(path))
 
 
-            let nonce=await fetch(`${CONFIG.CLUSTER.URL}/account/${symbiote}/${publicKey}`).then(r=>r.json()).then(d=>d.N+1)
+            let nonce=await fetch(`${CONFIGURATION.CLUSTER.URL}/account/${symbiote}/${publicKey}`).then(r=>r.json()).then(d=>d.N+1)
 
             amount=+amount//string => number
             
@@ -58,7 +58,7 @@ export default {
             console.log(event)
             console.log(await VD.verify(JSON.stringify(event.p)+symbiote+nonce+'TX',event.s,event.c))
 
-            fetch(`${CONFIG.CLUSTER.URL}/event`,{method:'POST',body:JSON.stringify({symbiote,event})}).then(d=>d.text()).then(console.log)
+            fetch(`${CONFIGURATION.CLUSTER.URL}/event`,{method:'POST',body:JSON.stringify({symbiote,event})}).then(d=>d.text()).then(console.log)
 
 
         }
