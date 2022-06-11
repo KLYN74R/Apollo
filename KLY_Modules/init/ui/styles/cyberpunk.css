@@ -35,12 +35,7 @@
     min-height: 100%;
   }
 
-  footer {
-    margin-top: -100px;
-    /*Минус Высота футера*/
-    height: 100px;
-    /*Высота футера*/
-  }
+
   
   body * {
     font-family: "Advent Pro", arial;

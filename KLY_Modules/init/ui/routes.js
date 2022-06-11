@@ -173,7 +173,7 @@ export default (fastify, options, next) => {
 
     fastify.get('/misc', (request, reply) => {
     
-        reply.send(JSON.stringify(CONFIGURATION,null,3))
+        reply.view('KLY_Modules/init/ui/templates/misc.ejs')
     
     })
 

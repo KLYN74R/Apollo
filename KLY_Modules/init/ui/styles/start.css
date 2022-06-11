@@ -25,3 +25,15 @@
     100% {opacity: 1;}
 
 }
+
+
+
+#service-image {
+
+    position: absolute;
+  
+    top: 5%;
+  
+    left: 5%;
+
+}
