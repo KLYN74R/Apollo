@@ -877,14 +877,27 @@ program
 
 
 program
-        .command('update-aliases').alias('ua').description(`\x1b[32mUpdate list of aliases if some changes have occurred\x1b[0m`)
+        .command('update-symbiotes').alias('us').description(`\x1b[32mUpdate aliases,workflows of sybmiotes if some changes have occurred\x1b[0m`)
 
         .action(async(opts,_cmd)=>{
 
             import('node-fetch').then(
                 
-            fetch => fetch.default(CONFIGURATION.UPDATE_ALIASES).then(r=>r.json()).then(resp=>{
+            fetch => fetch.default(CONFIGURATION.UPDATES).then(r=>r.json()).then(resp=>{
 
+                    /*
+                    Response will look like
+                    
+                    {
+                        "symbiote_id":{
+                            "ALIAS":<value>,
+                            "WORKFLOW":<workflow_id>,
+
+                        }
+                    }
+
+                    
+                    */
                     CONFIGURATION.ALIASES=resp
 
                     fs.writeFileSync(PATH_RESOLVE('configuration.json'),JSON.stringify(CONFIGURATION,null,4))

@@ -86,7 +86,33 @@
 
 <script>
 
-    //Create values for selectors with keytypes supported by Klyntar & Apollo
+    let cryptoland={
+
+        encryption:[],
+
+        default_signatures:[
+            "sign",
+            "verify"
+        ],
+
+        multisig:[
+            "generate",
+            "sign",
+            "verify"
+        ],
+        ringsig:[
+            "generate",
+            "sign",
+            "verify"
+        ],
+        thresholdsig:[
+            "generate",
+            "sign",
+            "verify"
+        ],
+
+
+    }
 
     let keySelector=document.getElementById('key_selector')
 

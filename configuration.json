@@ -1,39 +1,37 @@
 {
-    "CLUSTER": {
-        "URL": "http://localhost:7331",
-        "AUTH": "NODE_AUTH"
+    "DEFAULT":{
+        "LANG":"EN"
     },
-    "PROXY": {
-        "TYPE": "SOCKS5",
-        "URL": "http://USER:PASS@localhost:5666"
-    },
-  
-    "ALIASES": {
-        "kNULL": "RqtrnrLAdxpUkjqKS42RKbgN1ryXad3NeJrPTBZpdyVL",
-        "CARNAGE": "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9",
-        "ANTIVENOM": "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9"
-    },
-    
-    "UPDATE_ALIASES": "https://klyntar.org/aliases-json",
-    
-    "EXTRA_CLI": [
-        "KLY_Modules/init/cli/init.js"
-    ],
 
     "FASTIFY_OPTIONS":{
         "logger":false
     },
 
+    "SYMBIOTES":{
 
-    "WORKFLOW_MAPPING":{
-        "dev@controller":[
-
-            "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9"
-
-        ]
+        "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9":{
+      
+            "UPDATES": "https://knull.klyntar.org/updates",
+            "WORKFLOW":"dev_controller",
+            "ALIAS":"kNULL",
+            "CLUSTER": {
+                "URL": "http://localhost:7331",
+                "AUTH": "NODE_AUTH"
+            },                
+            "PROXY": {
+                "TYPE": "SOCKS5",
+                "URL": "http://USER:PASS@localhost:5666"
+            }
+            
+        }
+        
     },
 
-    
+
+
+    "EXTRA_CLI": [
+        "KLY_Modules/init/cli/init.js"
+    ],
 
     "EXTRA_UI": [
         
@@ -58,7 +56,7 @@
             }
 
         }
-    
+        
     ]
 
 }
