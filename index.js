@@ -953,7 +953,24 @@ program
                     }
                 
                 })
-            
+
+
+                //Enabling CORS plugin to more flexibility
+                fastify.register((await import('@fastify/cors')).default,(instance) => (req, callback) => {
+                    let corsOptions;
+                    // do not include CORS headers for requests from localhost
+                    if (/localhost/.test(origin)) {
+                      corsOptions = { origin: false }
+                    } else {
+                      corsOptions = { origin: true }
+                    }
+                    callback(null, corsOptions) // callback expects two parameters: error and options
+                  }
+                  
+                )
+         
+
+
 
                 //Load modules that should be available via UI
                 for(let mod of CONFIGURATION.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,mod.OPTIONS)

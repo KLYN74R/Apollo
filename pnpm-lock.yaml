@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@fastify/cors': ^8.0.0
   '@klyntar/valardohaeris': ^17.0.0
   '@noble/bls12-381': ^1.2.0
   adm-zip: ^0.5.9
@@ -16,6 +17,7 @@ specifiers:
   point-of-view: ^6.2.1
 
 dependencies:
+  '@fastify/cors': 8.0.0
   '@klyntar/valardohaeris': 17.0.0
   '@noble/bls12-381': 1.2.0
   adm-zip: 0.5.9
@@ -342,6 +344,13 @@ packages:
       ajv: 8.11.0
       ajv-formats: 2.1.1
       fast-uri: 1.0.1
+    dev: false
+
+  /@fastify/cors/8.0.0:
+    resolution: {integrity: sha512-mB2GsA7aVwq7XG6B2OM1FMpcaiXY69ZbM1h/xDJxLEVu5ITGcs5XYrBIYTMNU2dQtzO6mzXhGd2dEKaCnB7UgQ==}
+    dependencies:
+      fastify-plugin: 3.0.1
+      vary: 1.1.2
     dev: false
 
   /@fastify/error/3.0.0:
@@ -5241,7 +5250,7 @@ packages:
     dev: false
 
   /react-native-securerandom/0.1.1:
-    resolution: {integrity: sha1-8TBiOkEsM4sK+t7bwgTFy7i/IHA=}
+    resolution: {integrity: sha512-CozcCx0lpBLevxiXEb86kwLRalBCHNjiGPlw3P7Fi27U6ZLdfjOCNRHD1LtBKcvPvI3TvkBXB3GOtLvqaYJLGw==}
     requiresBuild: true
     peerDependencies:
       react-native: '*'

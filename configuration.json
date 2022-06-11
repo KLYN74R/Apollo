@@ -1,6 +1,7 @@
 {
     "DEFAULT":{
-        "LANG":"EN"
+        "LANG":"EN",
+        "MODE":"light"
     },
 
     "FASTIFY_OPTIONS":{
