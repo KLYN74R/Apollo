@@ -29,7 +29,6 @@
   },
   "homepage": "https://github.com/KLYN74R/Apollo#readme",
   "dependencies": {
-    "@fastify/cors": "^8.0.0",
     "@klyntar/valardohaeris": "^17.0.0",
     "@noble/bls12-381": "^1.2.0",
     "adm-zip": "^0.5.9",

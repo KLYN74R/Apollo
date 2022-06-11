@@ -270,7 +270,8 @@ program
 
         .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
         .option('-v, --verbose','track generation process')
-        
+        .option('-m, --mix','Mix symbols e.g homoglyphs, leetcode and so on')
+
         .action(async(opts,_cmd)=>{
 
             let {isMainThread,Worker} = await import('worker_threads')
@@ -953,22 +954,6 @@ program
                     }
                 
                 })
-
-
-                //Enabling CORS plugin to more flexibility
-                fastify.register((await import('@fastify/cors')).default,(instance) => (req, callback) => {
-                    let corsOptions;
-                    // do not include CORS headers for requests from localhost
-                    if (/localhost/.test(origin)) {
-                      corsOptions = { origin: false }
-                    } else {
-                      corsOptions = { origin: true }
-                    }
-                    callback(null, corsOptions) // callback expects two parameters: error and options
-                  }
-                  
-                )
-         
 
 
 

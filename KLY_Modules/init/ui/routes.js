@@ -142,9 +142,9 @@ export default (fastify, options, next) => {
     // ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
     // ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
 
-    fastify.get('/events', (request, reply) => {
+    fastify.get('/symbiotes', (request, reply) => {
     
-        reply.view('KLY_Modules/init/ui/templates/events.ejs')
+        reply.view('KLY_Modules/init/ui/templates/symbiotes.ejs')
         
     })
 
@@ -190,7 +190,7 @@ export default (fastify, options, next) => {
     
     })
 
-    fastify.get('/misc/update_aliases', (request, reply) => {
+    fastify.get('/misc/update_symbiotes', (request, reply) => {
     
         reply.send(JSON.stringify(CONFIGURATION,null,3))
     
