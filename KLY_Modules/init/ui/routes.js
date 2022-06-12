@@ -109,6 +109,27 @@ export default (fastify, options, next) => {
 
     })
 
+    
+    fastify.get('/cryptoland/:scope/:operation/:params', (request, reply) => {
+    
+        if(request.params.scope==='mutlisig'){
+
+            if(request.params.operation==='generate'){
+ 
+                let MOD = (await import('../../../signatures/multisig/bls.js')).default,
+
+                privateKey = await MOD.generatePrivateKey(),
+
+                pubKey=MOD.derivePubKey(privateKey)
+
+                reply.send({privateKey,pubKey})
+
+            }
+
+        }
+
+    })
+
     // ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗███████╗
     // ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝██╔════╝
     // ███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗  ███████╗

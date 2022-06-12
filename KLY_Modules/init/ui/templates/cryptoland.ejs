@@ -14,7 +14,7 @@
 <link rel="shrotcut icon" href="https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F2736040151-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FMlYPneLIcqHH1EOMSnny%252Ficon%252FR2CyiT04r15Bm7iCl3ij%252F%25D0%2591%25D0%25B5%25D0%25B7%2520%25D0%25BD%25D0%25B0%25D0%25B7%25D0%25B2%25D0%25B0%25D0%25BD%25D0%25B8%25D1%258F.jfif%3Falt%3Dmedia%26token%3Da1d0edc5-cfcc-4300-b1d6-d9712d23172d">
     
   
-<section class="cyberpunk" id="main" style="height:120%">
+<section class="cyberpunk" id="main" style="height:200%">
       
     <a href="#">
         <span class="material-symbols-outlined" id="theme-id">nightlight</span>
@@ -63,19 +63,18 @@
     
     <br/><br/><br/><br/>
 
-    <label for="parameters" class="cyberpunk futfont" style="font-weight:bold;">
+
+    <label for="params" class="cyberpunk futfont" style="font-weight:bold;" id="params_label" hidden>
         Add parameters
     </label><br/><br/>
-    <select class="cyberpunk futfont land" id="parameters" style="max-width: 500px">
+    <!-- <textarea class="cyberpunk" id="parameters" placeholder="paste parameters here..."></textarea>
 
-            <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
-    
-    </select>
-    
-    <br/><br/><br/>
+    <br/><br/><br/> -->
+    <div id="params">
 
+    </div>
   
-    <button class="cyberpunk2077 blue-kly" onClick="generateKeyPair()">Generate</button>
+    <button class="cyberpunk2077 blue-kly" onClick="generateKeyPair()">Let's do it</button>
 
   
     <p style="bottom: 8%; left: 3%;" id="version">Apollo  v0.2.0</p>
@@ -99,38 +98,113 @@
 
     let cryptoland={
 
-        encryption:[
-            'encrypt',
-            'decrypt',
-        ],
+        encryption:{
 
-        default_signatures:[
-            "sign",
-            "verify"
-        ],
+            encrypt:param=>{
 
-        multisig:[
-            "generate",
-            "sign",
-            "verify"
-        ],
-        ringsig:[
-            "generate",
-            "sign",
-            "verify"
-        ],
-        thresholdsig:[
-            "generate",
-            "sign",
-            "verify"
-        ],
+                if(param==='prompt'){
 
-        post_quantum:[
-            'generate',
-            'sign',
-            'verify',
-        ]
+                    let params=document.getElementById('params')
 
+                    let privateKey=document.createElement('input')
+
+                    privateKey.type="text"
+                    privateKey.className="cyberpunk"
+                    privateKey.placeholder="Your generated private key"
+
+
+                    let password=document.createElement('input')
+
+                    password.type="text"
+                    password.placeholder="Your password for AES-256"
+                    password.className="cyberpunk"
+
+                    params.appendChild(privateKey)
+                    params.appendChild(password)
+
+
+                }else{
+                    //Logic after button clicked
+                }
+                 
+            },
+            decrypt:param=>{
+
+
+                 if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+                    let cipherTextOfPrivate=document.createElement('input')
+
+                    cipherTextOfPrivate.type="text"
+                    cipherTextOfPrivate.className="cyberpunk"
+                    cipherTextOfPrivate.placeholder="Ciphertext of your private key"
+
+                    let password=document.createElement('input')
+
+                    password.type="text"
+                    password.placeholder="Your password for AES-256"
+                    password.className="cyberpunk"
+
+                    params.appendChild(cipherTextOfPrivate)
+                    params.appendChild(password)
+
+
+                }else{
+                    //Logic after button clicked
+                }
+                
+
+            }
+        
+        },
+
+        default_signatures:{
+            
+            sign:param=>{
+
+            },
+            verify:param=>{}
+        
+        },
+        
+        multisig:{
+            generate:param=>{
+
+                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+
+            },
+            sign:param=>{},
+            verify:param=>{}
+        },
+        
+        ringsig:{
+            generate:param=>{
+
+                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+
+            },
+            sign:param=>{},
+            verify:param=>{}
+        },
+        
+        thresholdsig:{
+            generate:param=>{
+                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+            },
+            sign:param=>{},
+            verify:param=>{}
+        },
+        
+        post_quantum:{
+            generate:param=>{
+                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+            },
+            sign:param=>{},
+            verify:param=>{}
+        }
+    
     }
 
 
@@ -138,6 +212,19 @@
     let scopeSelector=document.getElementById('scope_selector')
 
     let operationSelector=document.getElementById('operation_selector')
+
+
+    // SET PROMPT
+    let newbiew=document.createElement('option')
+
+    newbiew.value=""
+    newbiew.disabled=true
+    newbiew.selected=true
+    newbiew.hidden=true
+    newbiew.innerHTML='Press here'
+
+    scopeSelector.appendChild(newbiew)
+//___________________________________________
 
 
     //FIll the selector to allow you to choose everything you need
@@ -164,9 +251,21 @@
 
         
         operationSelector.replaceChildren()
-        
+
+        // SET PROMPT
+        let newbiew=document.createElement('option')
+
+        newbiew.value=""
+        newbiew.disabled=true
+        newbiew.selected=true
+        newbiew.hidden=true
+        newbiew.innerHTML='now choose operation'
+
+        operationSelector.appendChild(newbiew)
+        //___________________________________________
+
         //FIll the selector to allow you to choose everything you need
-        cryptoland[scopeSelectorValue].forEach(func=>{
+        Object.keys(cryptoland[scopeSelectorValue]).forEach(func=>{
 
             let newbiew=document.createElement('option')
 
@@ -183,10 +282,18 @@
     //Set handler to change events of scope
     document.getElementById('operation_selector').addEventListener('change',()=>{
 
-        //Fill the selectors
-        let parameters=document.getElementById('parameters')
 
+        document.getElementById('params').replaceChildren()
 
+        //Get the value of scope
+        let scopeSelectorValue=document.getElementById('scope_selector').value
+
+        //Get the operation
+        let operationSelector=document.getElementById('operation_selector').value
+
+        cryptoland[scopeSelectorValue][operationSelector]('prompt')
+
+        document.getElementById('params_label').hidden = false
 
     })
     
