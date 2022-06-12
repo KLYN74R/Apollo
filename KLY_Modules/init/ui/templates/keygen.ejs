@@ -140,6 +140,8 @@
 
         generated.id='generated'
 
+        generated.style="font-weight:bold;"
+
         generated.innerHTML=JSON.stringify(await fetch(`/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}`).then(r=>r.json()).catch(e=>'😕Some error occured'),null,3)
 
         block.replaceChild(generated,loader)

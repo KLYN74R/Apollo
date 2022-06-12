@@ -37,8 +37,6 @@
 
         <h1 class="cyberpunk glitched futfont">Choose what you want to do</h1>
         <h3 class="cyberpunk futfont">You can discover all the available crypto specific features here</h3><br/><br/><br/>
-
-    </div>
    
 
     <label for="scope_selector" class="cyberpunk futfont" style="font-weight:bold;">
@@ -73,11 +71,13 @@
     <div id="params">
     </div>
 
+    <p class="futfont" style="font-weight:bold">Result(will be bellow):</p>
 
-    <p style="font-weight:bold" id="result"></p>    
+    <p style="font-weight:bold" id="result"></p>    <br/><br/><br/><br/>
   
     <button class="cyberpunk2077 blue-kly" onClick="letsDoIt()">Let's do it</button>
 
+</div>
   
     <p style="bottom: 8%; left: 3%;" id="version">Apollo  v0.2.0</p>
 
@@ -299,6 +299,7 @@
     //Set handler to change events of scope
     document.getElementById('operation_selector').addEventListener('change',()=>{
 
+        document.getElementById('params_label').hidden=true
 
         document.getElementById('params').replaceChildren()
 
