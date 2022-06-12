@@ -71,10 +71,12 @@
 
     <br/><br/><br/> -->
     <div id="params">
-
     </div>
+
+
+    <p style="font-weight:bold" id="result"></p>    
   
-    <button class="cyberpunk2077 blue-kly" onClick="generateKeyPair()">Let's do it</button>
+    <button class="cyberpunk2077 blue-kly" onClick="letsDoIt()">Let's do it</button>
 
   
     <p style="bottom: 8%; left: 3%;" id="version">Apollo  v0.2.0</p>
@@ -170,9 +172,17 @@
         },
         
         multisig:{
-            generate:param=>{
+            generate:async param=>{
 
-                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+                if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+
+                else{
+
+                    let pair=await fetch('/cryptoland/multisig/generate/a').then(r=>r.json())
+
+                    document.getElementById('result').innerHTML=JSON.stringify(pair)
+
+                }
 
             },
             sign:param=>{},
@@ -182,7 +192,7 @@
         ringsig:{
             generate:param=>{
 
-                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+                if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
 
             },
             sign:param=>{},
@@ -191,15 +201,22 @@
         
         thresholdsig:{
             generate:param=>{
-                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+                
+                if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+            
             },
             sign:param=>{},
             verify:param=>{}
         },
         
         post_quantum:{
+            
             generate:param=>{
-                document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+           
+                if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+           
+
+           
             },
             sign:param=>{},
             verify:param=>{}
@@ -296,6 +313,19 @@
         document.getElementById('params_label').hidden = false
 
     })
+
+
+    let letsDoIt=()=>{
+      
+        //Get the value of scope
+        let scopeSelectorValue=document.getElementById('scope_selector').value
+
+        //Get the operation
+        let operationSelector=document.getElementById('operation_selector').value
+
+        cryptoland[scopeSelectorValue][operationSelector]()
+        
+    }
     
 
 

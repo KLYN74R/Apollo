@@ -110,18 +110,23 @@ export default (fastify, options, next) => {
     })
 
     
-    fastify.get('/cryptoland/:scope/:operation/:params', (request, reply) => {
-    
-        if(request.params.scope==='mutlisig'){
+    fastify.get('/cryptoland/:scope/:operation/:params', async(request, reply) => {
 
+        console.log('Accepted')
+   
+        if(request.params.scope==='multisig'){
+            console.log('Accepted2')
+            console.log(request.params.operation)
             if(request.params.operation==='generate'){
  
                 let MOD = (await import('../../../signatures/multisig/bls.js')).default,
 
-                privateKey = await MOD.generatePrivateKey(),
+                    privateKey = await MOD.generatePrivateKey(),
 
-                pubKey=MOD.derivePubKey(privateKey)
+                    pubKey=MOD.derivePubKey(privateKey)
 
+                console.log({privateKey,pubKey})
+                console.log('DADAD')
                 reply.send({privateKey,pubKey})
 
             }
