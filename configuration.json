@@ -29,6 +29,10 @@
     },
 
 
+    "EMPIRE":[
+        "https://1.mynode.com",
+        "https://dead::beaf:6336"
+    ],
 
     "EXTRA_CLI": [
         "KLY_Modules/init/cli/init.js"
@@ -37,6 +41,11 @@
     "EXTRA_UI": [
         
         {
+
+            "TYPE":"service",
+            
+            "ALIAS":"Service 0",
+
             "PATH":"KLY_ServicesAPI/some_service/ui/route0.js",
             
             "OPTIONS":{
@@ -48,11 +57,12 @@
         },
 
         {
+
             "PATH":"KLY_Modules/init/ui/routes.js",
 
             "OPTIONS":{
              
-                "prefix":"/init"
+                "prefix":"/"
             
             }
 

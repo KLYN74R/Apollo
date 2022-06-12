@@ -4,10 +4,8 @@
   
 </head>
   
-<link rel="stylesheet" href="/init/style/cyberpunk.css">  
-<link rel="stylesheet" href="/init/style/start.css">
-<link rel="stylesheet" href="/init/style/misc.css">
-
+<link rel="stylesheet" href="/style/cyberpunk.css">  
+<link rel="stylesheet" href="/style/start.css">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +14,7 @@
 <link rel="shrotcut icon" href="https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F2736040151-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FMlYPneLIcqHH1EOMSnny%252Ficon%252FR2CyiT04r15Bm7iCl3ij%252F%25D0%2591%25D0%25B5%25D0%25B7%2520%25D0%25BD%25D0%25B0%25D0%25B7%25D0%25B2%25D0%25B0%25D0%25BD%25D0%25B8%25D1%258F.jfif%3Falt%3Dmedia%26token%3Da1d0edc5-cfcc-4300-b1d6-d9712d23172d">
     
   
-<section class="cyberpunk" id="main">
+<section class="cyberpunk" id="main" style="height:120%">
       
     <a href="#">
         <span class="material-symbols-outlined" id="theme-id">nightlight</span>
@@ -30,7 +28,7 @@
 
     <br/><br/>
 
-    <a href="/init">
+    <a href="/">
         <span class="material-symbols-outlined">home</span>
     </a>
 
@@ -42,6 +40,7 @@
 
     </div>
    
+
     <label for="scope_selector" class="cyberpunk futfont" style="font-weight:bold;">
         Choose the scope
     </label><br/><br/>
@@ -62,17 +61,27 @@
     
     </select>
     
+    <br/><br/><br/><br/>
+
+    <label for="parameters" class="cyberpunk futfont" style="font-weight:bold;">
+        Add parameters
+    </label><br/><br/>
+    <select class="cyberpunk futfont land" id="parameters" style="max-width: 500px">
+
+            <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
+    
+    </select>
+    
     <br/><br/><br/>
 
   
-    <button class="cyberpunk2077 blue-kly" href="/init/start" onClick="generateKeyPair()">Generate</button>
+    <button class="cyberpunk2077 blue-kly" onClick="generateKeyPair()">Generate</button>
 
-    <br/><br/><br/><br/>
+  
+    <p style="bottom: 8%; left: 3%;" id="version">Apollo  v0.2.0</p>
 
-    <p id="version">Apollo  v0.2.0</p>
   
   </section>
-   
   
   <!--
   
@@ -84,13 +93,16 @@
   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝
                                                        -->
   
-<script src="/init/scripts/upitems.js"></script>
+<script src="/scripts/upitems.js"></script>
 
 <script>
 
     let cryptoland={
 
-        encryption:[],
+        encryption:[
+            'encrypt',
+            'decrypt',
+        ],
 
         default_signatures:[
             "sign",
@@ -113,63 +125,71 @@
             "verify"
         ],
 
+        post_quantum:[
+            'generate',
+            'sign',
+            'verify',
+        ]
 
     }
 
-    let keySelector=document.getElementById('key_selector')
 
-    let formats=[
+    //Fill the selectors
+    let scopeSelector=document.getElementById('scope_selector')
 
-        'klyntar',          'algorand',
-        'arweave',          'binance_chain',
-        'bitcoin',          'cosmos',
-        'eos',              'eth_like',
-        'filecoin',         'polkadot',
-        'harmony',          'helium',
-        'mina',             'xrp',
-        'solana',           'stellar',
-        'zilliqa',          'terra',
-        'dfinity',          'kusama',
-        'substrate format', 'ton'
-    
-    ]
-    
-    
-    formats.forEach(format=>{
+    let operationSelector=document.getElementById('operation_selector')
+
+
+    //FIll the selector to allow you to choose everything you need
+    Object.keys(cryptoland).forEach(scope=>{
 
         let newbiew=document.createElement('option')
 
-        newbiew.innerHTML=format
+        newbiew.innerHTML=scope
 
-        keySelector.appendChild(newbiew)
+        scopeSelector.appendChild(newbiew)
+
 
     })
 
 
+    //Set handler for change events of scope
+    document.getElementById('scope_selector').addEventListener('change',()=>{
+
+        //Get the value of scope
+        let scopeSelectorValue=document.getElementById('scope_selector').value
+
+        //Get node to fill it
+        let operationSelector=document.getElementById('operation_selector')
+
+        
+        operationSelector.replaceChildren()
+        
+        //FIll the selector to allow you to choose everything you need
+        cryptoland[scopeSelectorValue].forEach(func=>{
+
+            let newbiew=document.createElement('option')
+
+            newbiew.innerHTML=func
+
+            operationSelector.appendChild(newbiew)
+
+        })
+
+
+    })
+
+
+    //Set handler to change events of scope
+    document.getElementById('operation_selector').addEventListener('change',()=>{
+
+        //Fill the selectors
+        let parameters=document.getElementById('parameters')
 
 
 
-    let generateKeyPair=async()=>{
-
-        let output=document.getElementById('output')
-
-        output.innerHTML=JSON.stringify(await fetch(`/init/key_generate/${document.getElementById('key_selector').value}`).then(r=>r.json()),null,3)
-
-    }
-
-
-
-    let changeExplain=()=>{
-
-        let lable=document.getElementById('checkboxExplain')
-
-
-        lable.innerHTML=`Store keypair to KEYSTORE(Current: ${document.getElementById('shouldstore').checked?"<b>YES</b>,Apollo will store all generated keys":"<b>NO</b>,generated keys won't be stored"})`
-
-    }
+    })
     
-
-
 
 
 </script>

@@ -1,3 +1,12 @@
+/*
+
+
+More info at https://github.com/tj/commander.js
+
+
+*/
+
+
 PROGRAM
 
 .command('testmodule')
