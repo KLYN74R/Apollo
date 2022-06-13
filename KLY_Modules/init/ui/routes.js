@@ -111,8 +111,18 @@ export default (fastify, options, next) => {
 
     
     fastify.get('/cryptoland/:scope/:operation/:params', async(request, reply) => {
-   
-        if(request.params.scope==='multisig'){
+
+    
+        if(request.params.scope==='crypt'){
+
+            if(request.params.operation==='encrypt'){
+        
+            }else{
+                
+            }
+
+        
+        }else if(request.params.scope==='multisig'){
 
             if(request.params.operation==='generate'){
  

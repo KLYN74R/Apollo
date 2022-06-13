@@ -113,20 +113,27 @@
                     privateKey.type="text"
                     privateKey.className="cyberpunk"
                     privateKey.placeholder="Your generated private key"
-
+                    privateKey.id='privateKey'
 
                     let password=document.createElement('input')
 
                     password.type="text"
                     password.placeholder="Your password for AES-256"
                     password.className="cyberpunk"
-
+                    password.id='password'
+                    
                     params.appendChild(privateKey)
                     params.appendChild(password)
 
 
                 }else{
+                          
                     //Logic after button clicked
+
+                    let cipherTextPrivateKey=await fetch(`/cryptoland/crypt/encrypt/${document.getElementById('privateKey').value}:${document.getElementById('password').value}`).then(r=>r.json())
+
+                    document.getElementById('result').innerHTML=cipherTextPrivateKey
+                
                 }
                  
             },
@@ -142,6 +149,7 @@
                     cipherTextOfPrivate.type="text"
                     cipherTextOfPrivate.className="cyberpunk"
                     cipherTextOfPrivate.placeholder="Ciphertext of your private key"
+                    cipherTextOfPrivate.id='cipherText'
 
                     let password=document.createElement('input')
 
@@ -154,7 +162,14 @@
 
 
                 }else{
+
                     //Logic after button clicked
+
+                    let plainTextPrivateKey=await fetch(`/cryptoland/crypt/decrypt/${document.getElementById('cipherText').value}:${document.getElementById('password').value}`).then(r=>r.json())
+
+                    document.getElementById('result').innerHTML=plainTextPrivateKey
+                
+                
                 }
                 
 

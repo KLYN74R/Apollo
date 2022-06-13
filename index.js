@@ -200,30 +200,17 @@ program
         .requiredOption('-s, --privatekey <value>','private key to encrypt')
         .requiredOption('-p, --password <value>','password for AES encryption')
         
-        .action(async(opts,_cmd)=>{
+        .action(async(opts,_cmd)=>
 
 
-            let crypto=await import('crypto')
-            
-            //_____________________________________________Prepare key and initialization vector_____________________________________________
-            
-            
-            let password_hash = crypto.createHash('sha256').update(opts.password,'utf-8').digest('hex'),
-            
-                IV=Buffer.from(password_hash.slice(32),'hex')//Get second 16 bytes of SHA256 hash
-            
-                password_hash=password_hash.slice(0,32)//We need first 16 bytes
-            
-            
-            //_______________________________________________________Start encryption________________________________________________________
-            
-            
-            let cipher = crypto.createCipheriv('aes-256-cbc',password_hash,IV)
-            
-            console.log(cipher.update(opts.privatekey,'utf8','hex') + cipher.final('hex'))
+            import('./common.js').then(async mod=>
+                
+                console.log(await mod.default.encrypt(opts.password,opts.privatekey))
+                
+            )
 
         
-        })
+        )
 
 
 program
@@ -235,32 +222,15 @@ program
         .requiredOption('-e, --encprv <cipherText>','Encrypted private key')
         .requiredOption('-p, --password <value>','password for AES decryption')
         
-        .action(async(opts,_cmd)=>{
+        .action(async(opts,_cmd)=>
 
-            let crypto=await import('crypto')
-               
-            //_____________________________________________Prepare key and initialization vector_____________________________________________
-            
-            
-            let password_hash = crypto.createHash('sha256').update(opts.password,'utf-8').digest('hex'),
-            
-                IV=Buffer.from(password_hash.slice(32),'hex')//Get second 16 bytes of SHA256 hash
-            
-                password_hash=password_hash.slice(0,32)//We need first 16 bytes
-                       
-            
-            //________________________________________________________Decrypt values_________________________________________________________
-            
-            try{
-            
-                let decipher = crypto.createDecipheriv('aes-256-cbc',password_hash,IV)
-            
-                console.log(decipher.update(opts.encprv,'hex','utf8')+decipher.final('utf8'))
-
-            }catch{ console.log('\x1b[31;1mFailed\x1b[0m') }
-
+            import('./common.js').then(async mod=>
+                
+                console.log(await mod.default.decrypt(opts.password,opts.encprv))
+                
+            )
         
-        })
+        )
         
 
 
