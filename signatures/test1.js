@@ -2,7 +2,7 @@
 //Для отправки приватных данных можно использовать ассиметричное постквантовое шифрование NTRU encrypt или например симметричный AES-256 в каком-то из безопасных режимов
 //
 
-import * as dkg from './tbls_index.js'
+import * as dkg from './threshold/tbls_index.js'
 import blsA from 'bls-wasm'
 
 

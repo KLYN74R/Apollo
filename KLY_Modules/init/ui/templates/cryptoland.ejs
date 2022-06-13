@@ -190,9 +190,16 @@
         },
         
         ringsig:{
-            generate:param=>{
+            generate:async param=>{
 
                 if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+                else{
+
+                    let pair=await fetch('/cryptoland/ringsig/generate/a').then(r=>r.json())
+
+                    document.getElementById('result').innerHTML=JSON.stringify(pair)
+
+                }
 
             },
             sign:param=>{},
@@ -200,10 +207,18 @@
         },
         
         thresholdsig:{
-            generate:param=>{
+            generate:async param=>{
                 
                 if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
-            
+                else{
+
+                    let pair=await fetch('/cryptoland/tsig/generate/a').then(r=>r.json())
+
+                    document.getElementById('result').innerHTML=JSON.stringify(pair)
+
+                }
+
+
             },
             sign:param=>{},
             verify:param=>{}
@@ -211,10 +226,16 @@
         
         post_quantum:{
             
-            generate:param=>{
+            generate:async param=>{
            
                 if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
-           
+                else{
+
+                    let pair=await fetch('/cryptoland/pqc/generate/{TYPE}').then(r=>r.json())
+
+                    document.getElementById('result').innerHTML=JSON.stringify(pair)
+
+                }
 
            
             },

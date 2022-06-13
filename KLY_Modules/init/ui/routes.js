@@ -111,12 +111,9 @@ export default (fastify, options, next) => {
 
     
     fastify.get('/cryptoland/:scope/:operation/:params', async(request, reply) => {
-
-        console.log('Accepted')
    
         if(request.params.scope==='multisig'){
-            console.log('Accepted2')
-            console.log(request.params.operation)
+
             if(request.params.operation==='generate'){
  
                 let MOD = (await import('../../../signatures/multisig/bls.js')).default,
@@ -124,10 +121,53 @@ export default (fastify, options, next) => {
                     privateKey = await MOD.generatePrivateKey(),
 
                     pubKey=MOD.derivePubKey(privateKey)
-
-                console.log({privateKey,pubKey})
-                console.log('DADAD')
+                
                 reply.send({privateKey,pubKey})
+
+            }
+
+        }else if(request.params.scope==='ringsig'){
+
+            if(request.params.operation==='generate'){
+                console.log('Here')
+
+                let wallet=await import('module').then(
+                
+                    mod => mod.createRequire(import.meta.url)
+                
+                ).then(require=>
+               
+                    require('../../../signatures/ringsig/lrs-ecdsa/export.js').Wallet.createRandom()
+
+                )
+
+                reply.send({
+                    privateKey: wallet.privateKey,
+                    publicKey: wallet.signingKey.publicKey,
+                    address:wallet.address
+                })
+
+            }
+
+        }else if(request.params.scope==='tsig'){
+
+            if(request.params.operation==='generate'){
+ 
+                import('./signatures/threshold/tbls.js').then(
+
+                    bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(',')))
+
+                )
+
+            }
+
+        }else if(request.params.scope==='pqc'){
+
+            if(request.params.operation==='generate'){
+ 
+                let index=(await import('../../../KLY_Addons/index.js')).default
+    
+                opts.list?index.list():index.action(opts.function,opts.parameters)//call function and pass params if function need it
 
             }
 
