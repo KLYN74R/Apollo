@@ -115,11 +115,11 @@ export default (fastify, options, next) => {
     
         if(request.params.scope==='crypt'){
 
-            if(request.params.operation==='encrypt'){
-        
-            }else{
-                
-            }
+            let mod=(await import('../../../common.js')).default,
+
+                [password,privateKey]=request.params.params.split(':')
+
+            reply.send(await mod[request.params.operation](password,privateKey))
 
         
         }else if(request.params.scope==='multisig'){

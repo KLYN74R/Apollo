@@ -102,7 +102,7 @@
 
         encryption:{
 
-            encrypt:param=>{
+            encrypt:async param=>{
 
                 if(param==='prompt'){
 
@@ -121,7 +121,7 @@
                     password.placeholder="Your password for AES-256"
                     password.className="cyberpunk"
                     password.id='password'
-                    
+
                     params.appendChild(privateKey)
                     params.appendChild(password)
 
@@ -130,14 +130,14 @@
                           
                     //Logic after button clicked
 
-                    let cipherTextPrivateKey=await fetch(`/cryptoland/crypt/encrypt/${document.getElementById('privateKey').value}:${document.getElementById('password').value}`).then(r=>r.json())
+                    let cipherTextPrivateKey=await fetch(`/cryptoland/crypt/encrypt/${document.getElementById('password').value}:${document.getElementById('privateKey').value}`).then(r=>r.text())
 
                     document.getElementById('result').innerHTML=cipherTextPrivateKey
                 
                 }
                  
             },
-            decrypt:param=>{
+            decrypt:async param=>{
 
 
                  if(param==='prompt'){
@@ -156,6 +156,7 @@
                     password.type="text"
                     password.placeholder="Your password for AES-256"
                     password.className="cyberpunk"
+                    password.id='password'
 
                     params.appendChild(cipherTextOfPrivate)
                     params.appendChild(password)
@@ -165,7 +166,7 @@
 
                     //Logic after button clicked
 
-                    let plainTextPrivateKey=await fetch(`/cryptoland/crypt/decrypt/${document.getElementById('cipherText').value}:${document.getElementById('password').value}`).then(r=>r.json())
+                    let plainTextPrivateKey=await fetch(`/cryptoland/crypt/decrypt/${document.getElementById('password').value}:${document.getElementById('cipherText').value}`).then(r=>r.text())
 
                     document.getElementById('result').innerHTML=plainTextPrivateKey
                 
