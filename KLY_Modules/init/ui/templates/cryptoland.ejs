@@ -224,6 +224,7 @@
                     threshold.className="cyberpunk"
                     threshold.placeholder="Threshold for t/n"
                     threshold.id="threshold"
+                    threshold.min=1
 
                     let myId=document.createElement('input')
 
@@ -236,7 +237,7 @@
                     let idsArray=document.createElement('input')
 
                     idsArray.type="text"
-                    idsArray.placeholder="IDs of other members. Example 1,2,3 or David,Nancy,Alex"
+                    idsArray.placeholder="IDs of other members. Example 1,2,3 or David,Nancy,Alex. Your ID also must be here"
                     idsArray.className="cyberpunk"
                     idsArray.id="idsArray"
 
@@ -255,15 +256,32 @@
 
                     let tblsCreds=await fetch(`/cryptoland/tsig/generate/${document.getElementById('threshold').value}:${document.getElementById('myId').value}:${document.getElementById('idsArray').value}`).then(r=>r.json())
 
-                    document.getElementById('result').innerHTML=JSON.stringify(tblsCreds)+'<br/>'+'<br/>'+'<br/>'+'Send this to other members:'+'<br/>'+`${JSON.stringify(tblsCreds.verificationVector)}`+'<br/>'+'<br/>'+'<br/>'
+                    let result=document.getElementById('result')
 
-                    tblsCreds.secretShares
+                    result.innerHTML=JSON.stringify(tblsCreds)+'<br/><br/><br/><br/>'+'<span align="center" class="futfont">Send this to all other members:</span>'+'<br/><br/>'+`${JSON.stringify(tblsCreds.verificationVector)}`+'<br/><br/><br/>'
 
+
+                    //Log shares to share among other sides
+                    result.innerHTML+=`<br/><br/><span class="futfont">Your shares:</span><br/><br/>  <ul>`
+
+
+                    let ids=document.getElementById('idsArray').value.split(',')
+
+                    tblsCreds.secretShares.forEach((share,index)=>{
+
+                        result.innerHTML+=`<li>For user with id ${ids[index]} => ${share}`+'</li>'
+                        
+                    })
+
+                    result.innerHTML+=`</ul><br/><span class="futfont">Your new id: </span>${tblsCreds.id}<br/><br/>`
 
                 }
 
             },
-            sign:param=>{},
+            verifyShare:param=>{},
+            deriveGroupPub:param=>{},
+            signaShare:param=>{},
+            buildFullSignature:param=>{},
             verify:param=>{}
         },
         

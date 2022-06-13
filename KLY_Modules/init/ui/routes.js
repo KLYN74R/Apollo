@@ -150,17 +150,29 @@ export default (fastify, options, next) => {
 
         }else if(request.params.scope==='tsig'){
 
+            //To generate t/n TBLS creds we need threshold,array of ids and your id
+            //! Note: Pass array of ids as values like in CSV format e.g 1,2,3 or David,Nancy,Alex ...(and so on)
+            let [threshold,myId,idsArray]=request.params.params.split(':')
+
+
             if(request.params.operation==='generate'){
                 
-                //To generate t/n TBLS creds we need threshold,array of ids and your id
-                //! Note: Pass array of ids as values like in CSV format e.g 1,2,3 or David,Nancy,Alex ...(and so on)
-                let [threshold,myId,idsArray]=request.params.params.split(':'),
+                idsArray=idsArray.split(',')
 
-                    tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
+                if(!idsArray.includes(myId)){
 
-                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray.split(','))
+                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
 
-                reply.send(creds)
+                }else{
+
+                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
+
+                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
+
+                    reply.send(creds)
+
+
+                }
             
             }
 
