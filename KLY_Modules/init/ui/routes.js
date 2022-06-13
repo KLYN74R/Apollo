@@ -116,11 +116,11 @@ export default (fastify, options, next) => {
 
             if(request.params.operation==='generate'){
  
-                let MOD = (await import('../../../signatures/multisig/bls.js')).default,
+                let mod = (await import('../../../signatures/multisig/bls.js')).default,
 
-                    privateKey = await MOD.generatePrivateKey(),
+                    privateKey = await mod.generatePrivateKey(),
 
-                    pubKey=MOD.derivePubKey(privateKey)
+                    pubKey=mod.derivePubKey(privateKey)
                 
                 reply.send({privateKey,pubKey})
 
@@ -129,7 +129,6 @@ export default (fastify, options, next) => {
         }else if(request.params.scope==='ringsig'){
 
             if(request.params.operation==='generate'){
-                console.log('Here')
 
                 let wallet=await import('module').then(
                 
@@ -152,8 +151,15 @@ export default (fastify, options, next) => {
         }else if(request.params.scope==='tsig'){
 
             if(request.params.operation==='generate'){
+                
+                //To generate t/n TBLS creds
+                let [t,n]=request.params.params.split(':')
+
+                //String => Number
+                t=+t
+                n=+n
  
-                import('./signatures/threshold/tbls.js').then(
+                let MOD=import('./signatures/threshold/tbls.js').then(
 
                     bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(',')))
 
