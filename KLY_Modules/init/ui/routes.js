@@ -152,19 +152,18 @@ export default (fastify, options, next) => {
 
             if(request.params.operation==='generate'){
                 
-                //To generate t/n TBLS creds
-                let [t,n]=request.params.params.split(':')
+                //To generate t/n TBLS creds we need threshold,array of ids and your id
+                //! Note: Pass array of ids as values like in CSV format e.g 1,2,3 or David,Nancy,Alex ...(and so on)
+                let [threshold,myId,idsArray]=request.params.params.split(':'),
 
-                //String => Number
-                t=+t
-                n=+n
- 
-                let MOD=import('./signatures/threshold/tbls.js').then(
+                    tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
 
-                    bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(',')))
+                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray.split(','))
 
-                )
+                console.log(creds)
 
+                reply.send({cool:true})
+            
             }
 
         }else if(request.params.scope==='pqc'){

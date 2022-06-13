@@ -172,6 +172,7 @@
         },
         
         multisig:{
+            
             generate:async param=>{
 
                 if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
@@ -190,6 +191,7 @@
         },
         
         ringsig:{
+            
             generate:async param=>{
 
                 if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
@@ -207,17 +209,47 @@
         },
         
         thresholdsig:{
+            
             generate:async param=>{
                 
-                if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+                if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+                    let threshold=document.createElement('input')
+
+                    threshold.type="number"
+                    threshold.className="cyberpunk"
+                    threshold.placeholder="Threshold for t/n"
+                    threshold.id="threshold"
+
+                    let myId=document.createElement('input')
+
+                    myId.type="text"
+                    myId.placeholder="Your ID"
+                    myId.className="cyberpunk"
+                    myId.id="myId"
+
+
+                    let idsArray=document.createElement('input')
+
+                    idsArray.type="text"
+                    idsArray.placeholder="IDs of other members. Example 1,2,3 or David,Nancy,Alex"
+                    idsArray.className="cyberpunk"
+                    idsArray.id="idsArray"
+
+                    params.appendChild(threshold)
+                    params.appendChild(myId)
+                    params.appendChild(idsArray)
+
+                }
                 else{
 
-                    let pair=await fetch('/cryptoland/tsig/generate/a').then(r=>r.json())
+                    let pair=await fetch(`/cryptoland/tsig/generate/${document.getElementById('threshold').value}:${document.getElementById('myId').value}:${document.getElementById('idsArray').value}`).then(r=>r.json())
 
                     document.getElementById('result').innerHTML=JSON.stringify(pair)
 
                 }
-
 
             },
             sign:param=>{},
