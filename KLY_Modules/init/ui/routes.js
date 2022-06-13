@@ -160,9 +160,7 @@ export default (fastify, options, next) => {
 
                     creds=tblsMod.generateTBLS(+threshold,myId,idsArray.split(','))
 
-                console.log(creds)
-
-                reply.send({cool:true})
+                reply.send(creds)
             
             }
 

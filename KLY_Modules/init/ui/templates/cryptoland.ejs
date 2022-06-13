@@ -214,6 +214,8 @@
                 
                 if(param==='prompt'){
 
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
                     let params=document.getElementById('params')
 
                     let threshold=document.createElement('input')
@@ -238,16 +240,25 @@
                     idsArray.className="cyberpunk"
                     idsArray.id="idsArray"
 
+                    let explainTip=document.createElement('label')
+                    explainTip.className="cyberpunk futfont"
+                    explainTip.for="idsArray"
+                    explainTip.style="font-weight:bold;"
+
                     params.appendChild(threshold)
                     params.appendChild(myId)
                     params.appendChild(idsArray)
+                    params.appendChild(explainTip)
 
                 }
                 else{
 
-                    let pair=await fetch(`/cryptoland/tsig/generate/${document.getElementById('threshold').value}:${document.getElementById('myId').value}:${document.getElementById('idsArray').value}`).then(r=>r.json())
+                    let tblsCreds=await fetch(`/cryptoland/tsig/generate/${document.getElementById('threshold').value}:${document.getElementById('myId').value}:${document.getElementById('idsArray').value}`).then(r=>r.json())
 
-                    document.getElementById('result').innerHTML=JSON.stringify(pair)
+                    document.getElementById('result').innerHTML=JSON.stringify(tblsCreds)+'<br/>'+'<br/>'+'<br/>'+'Send this to other members:'+'<br/>'+`${JSON.stringify(tblsCreds.verificationVector)}`+'<br/>'+'<br/>'+'<br/>'
+
+                    tblsCreds.secretShares
+
 
                 }
 
@@ -312,6 +323,8 @@
 
     //Set handler for change events of scope
     document.getElementById('scope_selector').addEventListener('change',()=>{
+
+        document.getElementById('params_label').hidden=true
 
         //Get the value of scope
         let scopeSelectorValue=document.getElementById('scope_selector').value
