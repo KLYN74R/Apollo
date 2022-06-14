@@ -34,7 +34,6 @@ const PATH_RESOLVE=path=>__dirname+'/'+path
 
 
 
-
 export default (fastify, options, next) => {
 
     //_______________________________________ DEFAULT ROUTES ________________________________________
@@ -43,6 +42,8 @@ export default (fastify, options, next) => {
 
     //Start page
     fastify.get('/', (request, reply) => {
+
+        console.log(request.headers)
     
         reply.view('KLY_Modules/init/ui/templates/index.ejs',{text:'Hello,this is the entry point to control Klyntar'})
 
