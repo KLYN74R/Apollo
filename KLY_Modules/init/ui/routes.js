@@ -44,6 +44,22 @@ let csrfGenerator=()=>new Promise((resolve, reject)=>{
 
 
 
+//Pool for CSRF tokens to allow you to work async even in different tabs
+let tokenPool=new Set()
+
+
+let handler=(reply,path,extra)=>{
+
+    csrfGenerator().then(token=>{
+
+        reply.view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
+
+    })
+
+}
+
+
+
 
 export default (fastify, options, next) => {
 
@@ -54,14 +70,13 @@ export default (fastify, options, next) => {
     //Start page
     fastify.get('/',(request, reply) =>
     
-        reply.view('KLY_Modules/init/ui/templates/index.ejs',{text:'Hello,this is the entry point to control Klyntar'})
+        handler(reply,'KLY_Modules/init/ui/templates/index.ejs',{text:'Hello,this is the entry point to control Klyntar'})
 
     )
 
     fastify.get('/start', (request, reply) => {
     
-        reply.view('KLY_Modules/init/ui/templates/start.ejs',{text:'This is what you can do'})
-
+        handler(reply,'KLY_Modules/init/ui/templates/start.ejs',{text:'This is what you can do'})
         
     })
 
@@ -75,10 +90,14 @@ export default (fastify, options, next) => {
     
     
 
-    fastify.get('/keygen', (request, reply) => {
-    
-        reply.view('KLY_Modules/init/ui/templates/keygen.ejs')
-        
+    fastify.get('/keygen',(request,reply) => {
+
+        csrfGenerator().then(token=>{
+
+            reply.view('KLY_Modules/init/ui/templates/keygen.ejs',{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex')})
+
+        })
+            
     })
 
     fastify.get('/key_generate/:format/:checked', (request, reply)=>{
@@ -90,7 +109,6 @@ export default (fastify, options, next) => {
             if(keypair&&request.params.checked==='true'){
 
                 let kp=JSON.stringify(keypair)
-
 
                 !fs.existsSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`)) && fs.mkdirSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`))
 

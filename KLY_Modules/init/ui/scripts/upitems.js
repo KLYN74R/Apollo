@@ -1,3 +1,22 @@
+
+//To decode JSON from hex format
+function hexToUtf8(s)
+{
+  return decodeURIComponent(
+     s.replace(/\s+/g, '') // remove spaces
+      .replace(/[0-9a-f]{2}/g, '%$&') // add '%' before each 2 characters
+  );
+}
+
+
+
+
+let settings=JSON.parse(hexToUtf8(document.getElementById('settings').content))
+
+
+main.setAttribute('class',settings.MODE==='light'?'cyberpunk':'cyberpunk black')
+
+
 //Change theme handler
 document.getElementById('theme-id').addEventListener('click',()=>{
 
