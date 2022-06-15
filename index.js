@@ -935,6 +935,14 @@ program
                 })
 
 
+                fastify.register((await import('@fastify/cookie')).default, {
+                
+                    secret: "Apollo v0.2.0", // for cookies signature
+                    parseOptions: {}     // options for parsing cookies
+                  
+                })
+
+
 
                 //Load modules that should be available via UI
                 for(let mod of CONFIGURATION.EXTRA_UI) fastify.register((await import(`./${mod.PATH}`)).default,mod.OPTIONS)
