@@ -65,7 +65,7 @@ let {hash}=await import('blake3-wasm'),
 
         csrfGenerator().then(token=>
 
-            reply.view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
+            reply.cookie('bar','baz').cookie('hello','world').view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
 
         )
 
