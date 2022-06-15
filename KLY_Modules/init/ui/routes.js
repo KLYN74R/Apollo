@@ -19,8 +19,9 @@ Hope,you'll like it 😀
 
 */
 
-
+import crypto from 'crypto'
 import fs from 'fs'
+
 
 let {hash}=await import('blake3-wasm'),
 
@@ -30,6 +31,16 @@ let {hash}=await import('blake3-wasm'),
 const PATH_RESOLVE=path=>__dirname+'/'+path
 
 
+//We'll use 32bytes tokens
+let csrfGenerator=()=>new Promise((resolve, reject)=>{
+
+    crypto.randomBytes(32,(e,buffer)=>
+
+        resolve(buffer.toString('hex'))
+
+    )
+
+})
 
 
 
@@ -41,14 +52,11 @@ export default (fastify, options, next) => {
 
 
     //Start page
-    fastify.get('/', (request, reply) => {
-
-        console.log(request.headers)
+    fastify.get('/',(request, reply) =>
     
         reply.view('KLY_Modules/init/ui/templates/index.ejs',{text:'Hello,this is the entry point to control Klyntar'})
 
-        
-    })
+    )
 
     fastify.get('/start', (request, reply) => {
     
