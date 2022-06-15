@@ -6,7 +6,8 @@
 
     "FASTIFY_OPTIONS":{
         "logger":false,
-        "http2":true
+        "http2":false,
+        "https":false
     },
 
     "SYMBIOTES":{

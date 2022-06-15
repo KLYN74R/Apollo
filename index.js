@@ -908,18 +908,18 @@ program
         
             import('fastify').then(async fasModule=>{
             
-                let fastify = fasModule.default({
-                    
-                    ...CONFIGURATION.FASTIFY_OPTIONS,
-                    https:{
-                        key: fs.readFileSync(PATH_RESOLVE('./resources/cert.key')),
-                        cert: fs.readFileSync(PATH_RESOLVE('./resources/cert.pem'))
-                      
-                    }
-                
-                })
+
+                //In configs you should store only path
+                if(CONFIGURATION.FASTIFY_OPTIONS.https){
+
+                    CONFIGURATION.FASTIFY_OPTIONS.https.key=fs.readFileSync(CONFIGURATION.FASTIFY_OPTIONS.https.key)
+                    CONFIGURATION.FASTIFY_OPTIONS.https.cert=fs.readFileSync(CONFIGURATION.FASTIFY_OPTIONS.https.cert)
+
+                }
+
+                //Create an instance
+                let fastify = fasModule.default(CONFIGURATION.FASTIFY_OPTIONS)
         
-                
                 
                 //Set fastify plugin to use view engine. Default EJS
                 fastify.register((await import('point-of-view')).default, {
