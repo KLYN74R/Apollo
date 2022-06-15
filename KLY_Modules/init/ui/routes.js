@@ -19,45 +19,60 @@ Hope,you'll like it 😀
 
 */
 
+
+/*
+
+
+███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗    ██████╗  ██████╗  ██████╗ ██╗     
+██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝    ██╔══██╗██╔═══██╗██╔═══██╗██║     
+█████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗    ██████╔╝██║   ██║██║   ██║██║     
+██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║    ██╔═══╝ ██║   ██║██║   ██║██║     
+██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║    ██║     ╚██████╔╝╚██████╔╝███████╗
+╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝    ╚═╝      ╚═════╝  ╚═════╝ ╚══════╝
+                                                                                                               
+
+*/
+
+
 import crypto from 'crypto'
 import fs from 'fs'
 
 
 let {hash}=await import('blake3-wasm'),
 
-    BLAKE3=v=>hash(v).toString('hex')
+    BLAKE3=v=>hash(v).toString('hex'),
 
+    PATH_RESOLVE=path=>__dirname+'/'+path,
 
-const PATH_RESOLVE=path=>__dirname+'/'+path
+    //We'll use 32bytes tokens
+    csrfGenerator=()=>new Promise((resolve, reject)=>{
 
+        crypto.randomBytes(32,(e,buffer)=>
 
-//We'll use 32bytes tokens
-let csrfGenerator=()=>new Promise((resolve, reject)=>{
+            resolve(buffer.toString('hex'))
 
-    crypto.randomBytes(32,(e,buffer)=>
+        )
 
-        resolve(buffer.toString('hex'))
-
-    )
-
-})
+    }),
 
 
 
-//Pool for CSRF tokens to allow you to work async even in different tabs
-let tokenPool=new Set()
+    //Pool for CSRF tokens to allow you to work async even in different tabs
+    tokenPool=new Set()
 
 
-let handler=(reply,path,extra)=>{
+    handler=(reply,path,extra)=>
 
-    csrfGenerator().then(token=>{
+        csrfGenerator().then(token=>
 
-        reply.view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
+            reply.view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
 
-    })
+        )
 
-}
 
+
+
+        
 
 
 
