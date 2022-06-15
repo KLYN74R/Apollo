@@ -8,6 +8,7 @@ test*
 
 #No keys
 *.pem
+resources/
 
 #Builds
 dist

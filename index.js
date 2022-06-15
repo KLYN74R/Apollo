@@ -908,7 +908,16 @@ program
         
             import('fastify').then(async fasModule=>{
             
-                let fastify = fasModule.default(CONFIGURATION.FASTIFY_OPTIONS)
+                let fastify = fasModule.default({
+                    
+                    ...CONFIGURATION.FASTIFY_OPTIONS,
+                    https:{
+                        key: fs.readFileSync(PATH_RESOLVE('./resources/cert.key')),
+                        cert: fs.readFileSync(PATH_RESOLVE('./resources/cert.pem'))
+                      
+                    }
+                
+                })
         
                 
                 

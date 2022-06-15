@@ -58,7 +58,7 @@ let {hash}=await import('blake3-wasm'),
 
 
     //Pool for CSRF tokens to allow you to work async even in different tabs
-    tokenPool=new Set()
+    tokenPool=new Set(),
 
 
     handler=(reply,path,extra)=>
@@ -72,7 +72,7 @@ let {hash}=await import('blake3-wasm'),
 
 
 
-        
+
 
 
 
@@ -89,11 +89,11 @@ export default (fastify, options, next) => {
 
     )
 
-    fastify.get('/start', (request, reply) => {
+    fastify.get('/start',(request, reply)=>
     
         handler(reply,'KLY_Modules/init/ui/templates/start.ejs',{text:'This is what you can do'})
         
-    })
+    )
 
 
     // ██╗  ██╗███████╗██╗   ██╗ ██████╗ ███████╗███╗   ██╗
@@ -105,15 +105,11 @@ export default (fastify, options, next) => {
     
     
 
-    fastify.get('/keygen',(request,reply) => {
+    fastify.get('/keygen',(request,reply) => 
 
-        csrfGenerator().then(token=>{
-
-            reply.view('KLY_Modules/init/ui/templates/keygen.ejs',{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex')})
-
-        })
+        handler(reply,'KLY_Modules/init/ui/templates/keygen.ejs')
             
-    })
+    )
 
     fastify.get('/key_generate/:format/:checked', (request, reply)=>{
 
@@ -145,11 +141,11 @@ export default (fastify, options, next) => {
     // ╚██████╗██║  ██║   ██║   ██║        ██║   ╚██████╔╝███████╗██║  ██║██║ ╚████║██████╔╝
     //  ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ 
 
-    fastify.get('/cryptoland', (request, reply) => {
+    fastify.get('/cryptoland',(request,reply)=>
     
-        reply.view('KLY_Modules/init/ui/templates/cryptoland.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/cryptoland.ejs')
 
-    })
+    )
 
     
     fastify.get('/cryptoland/:scope/:operation/:params', async(request, reply) => {
@@ -242,6 +238,8 @@ export default (fastify, options, next) => {
 
     })
 
+
+
     // ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗███████╗
     // ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝██╔════╝
     // ███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗  ███████╗
@@ -249,37 +247,37 @@ export default (fastify, options, next) => {
     // ███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗███████║
     // ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝╚══════╝
     
-    fastify.get('/services', (request, reply) => {
+    fastify.get('/services',(request, reply)=>
     
-        reply.view('KLY_Modules/init/ui/templates/services.ejs')
+        handler('KLY_Modules/init/ui/templates/services.ejs')
         
-    })
+    )
 
 
-    fastify.get('/services/build', (request, reply) => {
+    fastify.get('/services/build',(request, reply)=>
     
-        reply.view('KLY_Modules/init/ui/templates/services.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/services.ejs')
         
-    })
+    )
 
-    fastify.get('/services/interact', (request, reply) => {
+    fastify.get('/services/interact',(request, reply)=>
     
-        reply.view('KLY_Modules/init/ui/templates/services.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/services.ejs')
         
-    })
+    )
 
-    // ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗
-    // ██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔════╝
-    // █████╗  ██║   ██║█████╗  ██╔██╗ ██║   ██║   ███████╗
-    // ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ╚════██║
-    // ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
-    // ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
+    // ███████╗██╗   ██╗███╗   ███╗██████╗ ██╗ ██████╗ ████████╗███████╗███████╗
+    // ██╔════╝╚██╗ ██╔╝████╗ ████║██╔══██╗██║██╔═══██╗╚══██╔══╝██╔════╝██╔════╝
+    // ███████╗ ╚████╔╝ ██╔████╔██║██████╔╝██║██║   ██║   ██║   █████╗  ███████╗
+    // ╚════██║  ╚██╔╝  ██║╚██╔╝██║██╔══██╗██║██║   ██║   ██║   ██╔══╝  ╚════██║
+    // ███████║   ██║   ██║ ╚═╝ ██║██████╔╝██║╚██████╔╝   ██║   ███████╗███████║
+    // ╚══════╝   ╚═╝   ╚═╝     ╚═╝╚═════╝ ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝
 
-    fastify.get('/symbiotes', (request, reply) => {
+    fastify.get('/symbiotes', (request, reply) =>
     
-        reply.view('KLY_Modules/init/ui/templates/symbiotes.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/symbiotes.ejs')
         
-    })
+    )
 
 
     // ███╗   ███╗██╗   ██╗    ███████╗███╗   ███╗██████╗ ██╗██████╗ ███████╗
@@ -289,11 +287,11 @@ export default (fastify, options, next) => {
     // ██║ ╚═╝ ██║   ██║       ███████╗██║ ╚═╝ ██║██║     ██║██║  ██║███████╗
     // ╚═╝     ╚═╝   ╚═╝       ╚══════╝╚═╝     ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝
 
-    fastify.get('/empire', (request, reply) => {
+    fastify.get('/empire',(request, reply)=>
     
         reply.send(JSON.stringify(CONFIGURATION,null,3))
     
-    })
+    )
 
 
     // ███╗   ███╗██╗███████╗ ██████╗
