@@ -113,9 +113,23 @@ export default (fastify, options, next) => {
 
     fastify.get('/key_generate/:format/:checked', (request, reply)=>{
 
-        import(`@klyntar/valardohaeris/${request.params.format}/vd.js`).then(async m=>{
+        let format=request.params.format
+
+        if(format==='kusama' || format==='substrate format'){
+
+            format='polkadot'
+
+        }
+
+        import(`@klyntar/valardohaeris/${format}/vd.js`).then(async m=>{
 
             let keypair=await m.default.generate()
+            
+
+            if(request.params.format==='substrate format') keypair.address=m.default.toSubstrate(keypair.publicKey)
+            else if(request.params.format==='kusama') keypair.address=m.default.toKusama(keypair.publicKey)
+
+            console.log(keypair)
 
             if(keypair&&request.params.checked==='true'){
 
