@@ -102,6 +102,16 @@
 
 <script>
 
+
+function toHex(str) {
+    var result = '';
+    for (var i=0; i<str.length; i++) {
+      result += str.charCodeAt(i).toString(16);
+    }
+    return result;
+  }
+
+
     let cryptoland={
 
         encryption:{
@@ -144,7 +154,7 @@
             decrypt:async param=>{
 
 
-                 if(param==='prompt'){
+                if(param==='prompt'){
 
                     let params=document.getElementById('params')
 
@@ -184,8 +194,84 @@
 
         default_signatures:{
             
-            sign:param=>{
+            sign:async param=>{
 
+                if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+
+                    //Create field text to sign
+                    let textToSign=document.createElement('input')
+
+                    textToSign.type="text"
+                    textToSign.className="cyberpunk"
+                    textToSign.placeholder="Enter anything you want to sign"
+                    textToSign.id='toSign'
+
+
+                    //Create field for private key
+                    let privateKey=document.createElement('input')
+
+                    privateKey.type="text"
+                    privateKey.placeholder="Your private key"
+                    privateKey.className="cyberpunk"
+                    privateKey.id='privateKey'
+
+
+                    //To choose keytype for ValarDohaeris 
+                    let availableKeys=document.createElement('select')
+                    availableKeys.className="cyberpunk futfont"
+                    availableKeys.id="key_selector"
+                    availableKeys.style="max-width: 500px"
+
+
+                    //Create values for selectors with keytypes supported by Klyntar & Apollo
+
+                    let formats=[
+
+                        'klyntar',          'algorand',
+                        'arweave',          'binance_chain',
+                        'bitcoin',          'cosmos',
+                        'eos',              'eth_like',
+                        'filecoin',         'polkadot',
+                        'harmony',          'helium',
+                        'mina',             'xrp',
+                        'solana',           'stellar',
+                        'zilliqa',          'terra',
+                        'dfinity',          'kusama',
+                        'substrate format', 'ton'
+    
+                    ]
+    
+    
+                    formats.forEach(format=>{
+
+                        let newbiew=document.createElement('option')
+
+                        newbiew.innerHTML=format
+
+                        availableKeys.appendChild(newbiew)
+
+                    })
+
+
+                    //Finally add them to DOM
+                    params.appendChild(textToSign)
+                    params.appendChild(privateKey)
+                    params.appendChild(availableKeys)
+
+                }else{
+
+                    //Logic after button clicked
+
+                    let signa=await fetch(`/cryptoland/default_signatures/sign/${document.getElementById('toSign').value}:${ document.getElementById('privateKey').value}:${document.getElementById('key_selector').value}`).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=signa
+                
+                
+                }
+                
 
 
             },

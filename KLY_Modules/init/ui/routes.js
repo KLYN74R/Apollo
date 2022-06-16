@@ -65,7 +65,7 @@ let {hash}=await import('blake3-wasm'),
 
         csrfGenerator().then(token=>
 
-            reply.cookie('bar','baz').cookie('hello','world').view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
+            reply.view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
 
         )
 
@@ -148,21 +148,24 @@ export default (fastify, options, next) => {
     )
 
     
-    fastify.get('/cryptoland/:scope/:operation/:params', async(request, reply) => {
+    fastify.post('/cryptoland', async(request, reply) => {
 
+
+        //Parse body
+        let {scope,operation,params}=JSON.parse(request.body)
     
-        if(request.params.scope==='crypt'){
+        if(scope==='crypt'){
 
             let mod=(await import('../../../common.js')).default,
 
-                [password,privateKey]=request.params.params.split(':')
+                [password,privateKey]=params.split(':')
 
-            reply.send(await mod[request.params.operation](password,privateKey))
+            reply.send(await mod[operation](password,privateKey))
 
         
-        }else if(request.params.scope==='multisig'){
+        }else if(scope==='multisig'){
 
-            if(request.params.operation==='generate'){
+            if(operation==='generate'){
  
                 let mod = (await import('../../../signatures/multisig/bls.js')).default,
 
@@ -174,9 +177,9 @@ export default (fastify, options, next) => {
 
             }
 
-        }else if(request.params.scope==='ringsig'){
+        }else if(scope==='ringsig'){
 
-            if(request.params.operation==='generate'){
+            if(operation==='generate'){
 
                 let wallet=await import('module').then(
                 
@@ -196,14 +199,14 @@ export default (fastify, options, next) => {
 
             }
 
-        }else if(request.params.scope==='tsig'){
+        }else if(scope==='tsig'){
 
             //To generate t/n TBLS creds we need threshold,array of ids and your id
             //! Note: Pass array of ids as values like in CSV format e.g 1,2,3 or David,Nancy,Alex ...(and so on)
-            let [threshold,myId,idsArray]=request.params.params.split(':')
+            let [threshold,myId,idsArray]=params.split(':')
 
 
-            if(request.params.operation==='generate'){
+            if(operation==='generate'){
                 
                 idsArray=idsArray.split(',')
 
@@ -224,13 +227,30 @@ export default (fastify, options, next) => {
             
             }
 
-        }else if(request.params.scope==='pqc'){
+        }else if(scope==='pqc'){
 
-            if(request.params.operation==='generate'){
+            if(operation==='generate'){
  
                 let index=(await import('../../../KLY_Addons/index.js')).default
     
                 opts.list?index.list():index.action(opts.function,opts.parameters)//call function and pass params if function need it
+
+            }
+
+        }else if(scope==='default_signatures'){
+
+
+            console.log('Accrp')
+
+            if(operation==='sign'){
+
+                let [text,keyType,privateKey]=operation.split(':')
+ 
+                let vd=(await import(`@klyntar/valardohaeris/${keyType}/vd.js`)).default,mod
+
+                    signa=await vd.sign(text,privateKey)
+    
+                    reply.send(signa)
 
             }
 
@@ -249,7 +269,7 @@ export default (fastify, options, next) => {
     
     fastify.get('/services',(request, reply)=>
     
-        handler('KLY_Modules/init/ui/templates/services.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/services.ejs')
         
     )
 
@@ -302,11 +322,11 @@ export default (fastify, options, next) => {
     // ╚═╝     ╚═╝╚═╝╚══════╝ ╚═════╝
                                                                       
 
-    fastify.get('/misc', (request, reply) => {
-    
-        reply.view('KLY_Modules/init/ui/templates/misc.ejs')
-    
-    })
+    fastify.get('/misc',(request,reply)=>
+
+        handler(request,'KLY_Modules/init/ui/templates/misc.ejs')
+        
+    )
 
 
     fastify.get('/misc/checkrepo', (request, reply) => {
@@ -370,6 +390,14 @@ export default (fastify, options, next) => {
     
     })
 
+
+    fastify.get('/update/:param/:value', (request, reply) => {
+    
+        CONFIGURATION.DEFAULT[request.params.param]=request.params.value
+
+        reply.send(1)
+    
+    })
    
     next()
 

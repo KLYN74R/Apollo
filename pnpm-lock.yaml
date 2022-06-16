@@ -1,7 +1,6 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@fastify/cookie': ^7.0.0
   '@klyntar/valardohaeris': ^17.0.0
   '@noble/bls12-381': ^1.2.0
   adm-zip: ^0.5.9
@@ -17,7 +16,6 @@ specifiers:
   point-of-view: ^6.2.1
 
 dependencies:
-  '@fastify/cookie': 7.0.0
   '@klyntar/valardohaeris': 17.0.0
   '@noble/bls12-381': 1.2.0
   adm-zip: 0.5.9
@@ -344,13 +342,6 @@ packages:
       ajv: 8.11.0
       ajv-formats: 2.1.1
       fast-uri: 1.0.1
-    dev: false
-
-  /@fastify/cookie/7.0.0:
-    resolution: {integrity: sha512-/JQcHR4bsFGRo39esT1GTxB0MsMd3loJxNfHYV0MRduXvdiDJd94okiCBlPOesRxwA5dJCqFNo80J7muHG+T+w==}
-    dependencies:
-      cookie-signature: 1.2.0
-      fastify-plugin: 3.0.1
     dev: false
 
   /@fastify/error/3.0.0:
@@ -2340,11 +2331,6 @@ packages:
 
   /cookie-signature/1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
-    dev: false
-
-  /cookie-signature/1.2.0:
-    resolution: {integrity: sha512-R0BOPfLGTitaKhgKROKZQN6iyq2iDQcH1DOF8nJoaWapguX5bC2w+Q/I9NmmM5lfcvEarnLZr+cCvmEYYSXvYA==}
-    engines: {node: '>=6.6.0'}
     dev: false
 
   /cookie/0.4.2:
