@@ -239,20 +239,16 @@ export default (fastify, options, next) => {
 
         }else if(scope==='default_signatures'){
 
+            let [payload,key,keyType,maybeSigna]=params.split(':')
 
-            console.log('Accrp')
+            console.log(params.split(':'))
 
-            if(operation==='sign'){
+            let vd=(await import(`@klyntar/valardohaeris/${keyType}/vd.js`)).default,
 
-                let [text,keyType,privateKey]=operation.split(':')
- 
-                let vd=(await import(`@klyntar/valardohaeris/${keyType}/vd.js`)).default,mod
+                sendBack=await (operation==='sign' ? vd.sign(payload,key) : vd.verify(payload,maybeSigna,key))
 
-                    signa=await vd.sign(text,privateKey)
-    
-                    reply.send(signa)
 
-            }
+            reply.send(sendBack)
 
         }
 

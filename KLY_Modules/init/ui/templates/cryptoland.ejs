@@ -102,14 +102,23 @@
 
 <script>
 
+    //Create values for selectors with keytypes supported by Klyntar & Apollo
 
-function toHex(str) {
-    var result = '';
-    for (var i=0; i<str.length; i++) {
-      result += str.charCodeAt(i).toString(16);
-    }
-    return result;
-  }
+    let formats=[
+
+        'klyntar',          'algorand',
+        'arweave',          'binance_chain',
+        'bitcoin',          'cosmos',
+        'eos',              'eth_like',
+        'filecoin',         'polkadot',
+        'harmony',          'helium',
+        'mina',             'xrp',
+        'solana',           'stellar',
+        'zilliqa',          'terra',
+        'dfinity',          'kusama',
+        'substrate format', 'ton'
+    
+    ]
 
 
     let cryptoland={
@@ -144,8 +153,18 @@ function toHex(str) {
                           
                     //Logic after button clicked
 
-                    let cipherTextPrivateKey=await fetch(`/cryptoland/crypt/encrypt/${document.getElementById('password').value}:${document.getElementById('privateKey').value}`).then(r=>r.text())
+                    let cipherTextPrivateKey=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'crypt',
+                                operation:'encrypt',
+                                params:`${document.getElementById('password').value}:${document.getElementById('privateKey').value}`
+                            }
+                        )
 
+                    }).then(r=>r.text())
+                                        
                     document.getElementById('result').innerHTML=cipherTextPrivateKey
                 
                 }
@@ -179,11 +198,19 @@ function toHex(str) {
                 }else{
 
                     //Logic after button clicked
+                    let plainTextPrivateKey=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'crypt',
+                                operation:'decrypt',
+                                params:`${document.getElementById('password').value}:${document.getElementById('cipherText').value}`
+                            }
+                        )
 
-                    let plainTextPrivateKey=await fetch(`/cryptoland/crypt/decrypt/${document.getElementById('password').value}:${document.getElementById('cipherText').value}`).then(r=>r.text())
+                    }).then(r=>r.text())
 
                     document.getElementById('result').innerHTML=plainTextPrivateKey
-                
                 
                 }
                 
@@ -224,25 +251,6 @@ function toHex(str) {
                     availableKeys.className="cyberpunk futfont"
                     availableKeys.id="key_selector"
                     availableKeys.style="max-width: 500px"
-
-
-                    //Create values for selectors with keytypes supported by Klyntar & Apollo
-
-                    let formats=[
-
-                        'klyntar',          'algorand',
-                        'arweave',          'binance_chain',
-                        'bitcoin',          'cosmos',
-                        'eos',              'eth_like',
-                        'filecoin',         'polkadot',
-                        'harmony',          'helium',
-                        'mina',             'xrp',
-                        'solana',           'stellar',
-                        'zilliqa',          'terra',
-                        'dfinity',          'kusama',
-                        'substrate format', 'ton'
-    
-                    ]
     
     
                     formats.forEach(format=>{
@@ -265,17 +273,102 @@ function toHex(str) {
 
                     //Logic after button clicked
 
-                    let signa=await fetch(`/cryptoland/default_signatures/sign/${document.getElementById('toSign').value}:${ document.getElementById('privateKey').value}:${document.getElementById('key_selector').value}`).then(r=>r.text())
+                    let signa=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'default_signatures',
+                                operation:'sign',
+                                params:`${document.getElementById('toSign').value}:${ document.getElementById('privateKey').value}:${document.getElementById('key_selector').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
 
                     document.getElementById('result').innerHTML=signa
                 
-                
                 }
-                
-
 
             },
-            verify:param=>{}
+            verify:async param => {
+
+
+                if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+
+                    //Create field for signature to verify it
+                    let signature=document.createElement('input')
+
+                    signature.type="text"
+                    signature.className="cyberpunk"
+                    signature.placeholder="Enter signature you want to verify"
+                    signature.id='signa'
+
+
+                    //Create field for private key
+                    let publicKey=document.createElement('input')
+
+                    publicKey.type="text"
+                    publicKey.placeholder="Public key / Address of signer"
+                    publicKey.className="cyberpunk"
+                    publicKey.id='publicKey'
+
+                                        //Create field for private key
+                    let plainText=document.createElement('input')
+
+                    plainText.type="text"
+                    plainText.placeholder="Text you want to verify"
+                    plainText.className="cyberpunk"
+                    plainText.id='plainText'
+
+                    //To choose keytype for ValarDohaeris 
+                    let availableKeys=document.createElement('select')
+                    availableKeys.className="cyberpunk futfont"
+                    availableKeys.id="key_selector"
+                    availableKeys.style="max-width: 500px"
+    
+    
+                    formats.forEach(format=>{
+
+                        let newbiew=document.createElement('option')
+
+                        newbiew.innerHTML=format
+
+                        availableKeys.appendChild(newbiew)
+
+                    })
+
+
+                    //Finally add them to DOM
+                    params.appendChild(signature)
+                    params.appendChild(publicKey)
+                    params.appendChild(plainText)
+                    params.appendChild(availableKeys)
+
+                }else{
+
+                    //Logic after button clicked
+
+                    let signa=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'default_signatures',
+                                operation:'verify',
+                                params:`${document.getElementById('plainText').value}:${ document.getElementById('publicKey').value}:${document.getElementById('key_selector').value}:${document.getElementById('signa').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=signa
+                
+                }
+
+
+            }
         
         },
         
