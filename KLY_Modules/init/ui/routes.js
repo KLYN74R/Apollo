@@ -305,12 +305,88 @@ export default (fastify, options, next) => {
 
         }else if(scope==='tsig'){
 
-            //To generate t/n TBLS creds we need threshold,array of ids and your id
-            //! Note: Pass array of ids as values like in CSV format e.g 1,2,3 or David,Nancy,Alex ...(and so on)
-            let [threshold,myId,idsArray]=params.split(':')
 
+            let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default
 
             if(operation==='generate'){
+                
+                //To generate t/n TBLS creds we need threshold,array of ids and your id
+                //! Note: Pass array of ids as values like in CSV format e.g 1,2,3 or David,Nancy,Alex ...(and so on)
+                let [threshold,myId,idsArray]=params.split(':')
+
+                idsArray=idsArray.split(',')
+
+                if(!idsArray.includes(myId)){
+
+                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
+
+                }else{
+
+                    let creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
+
+                    reply.send(creds)
+
+
+                }
+            
+            }else if(operation==='verifyShare'){
+                
+                let [hexMyId,hexSomeSignerSecretKeyContribution,hexSomeSignerVerificationVector]=params.split(':')
+
+                if(!idsArray.includes(myId)){
+
+                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
+
+                }else{
+
+                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
+
+                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
+
+                    reply.send(creds)
+
+
+                }
+            
+            }else if(operation==='sign'){
+                
+                idsArray=idsArray.split(',')
+
+                if(!idsArray.includes(myId)){
+
+                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
+
+                }else{
+
+                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
+
+                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
+
+                    reply.send(creds)
+
+
+                }
+            
+            }else if(operation==='verify'){
+                
+                idsArray=idsArray.split(',')
+
+                if(!idsArray.includes(myId)){
+
+                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
+
+                }else{
+
+                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
+
+                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
+
+                    reply.send(creds)
+
+
+                }
+            
+            }else if(operation===''){
                 
                 idsArray=idsArray.split(',')
 
