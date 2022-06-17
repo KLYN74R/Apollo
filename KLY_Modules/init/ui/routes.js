@@ -331,81 +331,90 @@ export default (fastify, options, next) => {
             
             }else if(operation==='verifyShare'){
                 
-                let [hexMyId,hexSomeSignerSecretKeyContribution,hexSomeSignerVerificationVector]=params.split(':')
+                let [hexMyId,hexSomeSignerSecretKeyContribution]=params.split(':')
 
-                if(!idsArray.includes(myId)){
+                reply.send(tblsMod.verifyShareTBLS(hexMyId,hexSomeSignerSecretKeyContribution,JSON.parse(request.body).vv))
 
-                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
-
-                }else{
-
-                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
-
-                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
-
-                    reply.send(creds)
-
-
-                }
-            
-            }else if(operation==='sign'){
                 
-                idsArray=idsArray.split(',')
-
-                if(!idsArray.includes(myId)){
-
-                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
-
-                }else{
-
-                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
-
-                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
-
-                    reply.send(creds)
-
-
-                }
-            
-            }else if(operation==='verify'){
+            }else if(operation==='deriveGroupPub'){
                 
-                idsArray=idsArray.split(',')
-
-                if(!idsArray.includes(myId)){
-
-                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
-
-                }else{
-
-                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
-
-                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
-
-                    reply.send(creds)
-
-
-                }
+                reply.send(tblsMod.deriveGroupPubTBLS(params))
             
-            }else if(operation===''){
+            }else if(operation==='signaShare'){
                 
-                idsArray=idsArray.split(',')
+                /*
 
-                if(!idsArray.includes(myId)){
+                    На вход поступают данные вида
 
-                    reply.send({error:'Your ID should be included in array of ids.Be careful'})
+                    {
+                    
+                        hexMyId - id из первоначального массива signers из generateTBLS
+                        sharedPayload:[
+                            {
+                                verificationVector://VV of signer1 - array of hex values
+                                secretKeyShare://share received from signer1 - hex value
+                            },
+                            {
+                                verificationVector://VV of signer2
+                                secretKeyShare://share received from signer2
+                            },
+                            ...,
+                            {
+                                verificationVector://VV of signerN
+                                secretKeyShare://share received from signerN
+                            
+                            }
+                        ]
+                    
+                    }
+                
+                */
+                let [hexMyId,message] = params.split(':'),
 
-                }else{
-
-                    let tblsMod=(await import('../../../signatures/threshold/tbls.js')).default,
-
-                    creds=tblsMod.generateTBLS(+threshold,myId,idsArray)
-
-                    reply.send(creds)
+                    vvList=JSON.parse(request.body).vv,
+                
+                    sharesArray = JSON.parse(request.body).sharesArray
 
 
-                }
+                //Build the structure we need
+                let sharedPayload=vvList.map(
+
+                    (vv,index) => ({verificationVector:vv,secretKeyShare:sharesArray[index]})
+
+                )
+                
+                reply.send(tblsMod.signTBLS(hexMyId,sharedPayload,message))
+
+
+            }else if(operation==='buildFullSignature'){
+                
+
+                 /*
+
+                    signaturesArray - [ {sigShare:signedShareA,id:hexIdA}, {sigShare:signedShareB,id:hexIdB},... {sigShare:signedShareX,id:hexIdX} ]
+
+                */
+
+                reply.send(tblsMod.buildSignature(params))
             
             }
+            else if(operation==='verify'){
+                
+                let [hexGroupPubKey,hexMasterSignature,signedMessage]=params.split(':')
+                
+                reply.send(tblsMod.verifyTBLS(hexGroupPubKey,hexMasterSignature,signedMessage))
+            
+            }
+
+
+
+
+
+
+
+
+
+
 
         }else if(scope==='pqc'){
 
@@ -416,20 +425,7 @@ export default (fastify, options, next) => {
                 opts.list?index.list():index.action(opts.function,opts.parameters)//call function and pass params if function need it
 
             }
-
-        }else if(scope==='default_signatures'){
-
-            let [payload,key,keyType,maybeSigna]=params.split(':')
-
-            console.log(params.split(':'))
-
-            let vd=(await import(`@klyntar/valardohaeris/${keyType}/vd.js`)).default,
-
-                sendBack=await (operation==='sign' ? vd.sign(payload,key) : vd.verify(payload,maybeSigna,key))
-
-
-            reply.send(sendBack)
-
+        
         }
 
     })

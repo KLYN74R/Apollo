@@ -311,6 +311,9 @@ console.log(`Builded signature is ${finalSig}`)
 //_______________________ Verification _______________________
 
 
+console.log(derivedPub)
+console.log(finalSig)
+
 console.log(verifyTBLS(derivedPub,finalSig,'HELLO KLYNTAR'))
 
 // let verificationVector = ["85de76c71640bd43d43bb904da358148a4042e5c24380b59ce9cb1a2c813100030922fe76eab63455b8f9254da8f497d116255bc41bc033d8424e08a28a57614","23075d8f8712fed159338e5c40c93b77a4b3e8abfd26c283b0e72d2db657981539a93e12c9d0f9ed9c5e24e26f63df7903a079b1a5bcd5b275ca6c2adbebcf1d","d61cf280c8179be8ad69787e62471c45e8237a1a840788b55313443c227f5a225bf844ecc59334996881bc85716ee870c2a0982e6802971ce7f21efeca6f6e17"]

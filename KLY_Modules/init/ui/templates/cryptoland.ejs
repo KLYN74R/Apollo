@@ -129,6 +129,8 @@
 
                 if(param==='prompt'){
 
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
                     let params=document.getElementById('params')
 
                     let privateKey=document.createElement('input')
@@ -174,6 +176,8 @@
 
 
                 if(param==='prompt'){
+
+                    document.getElementById('params_label').innerHTML='Add parameters'
 
                     let params=document.getElementById('params')
 
@@ -224,6 +228,8 @@
             sign:async param=>{
 
                 if(param==='prompt'){
+
+                    document.getElementById('params_label').innerHTML='Add parameters'
 
                     let params=document.getElementById('params')
 
@@ -294,6 +300,8 @@
 
 
                 if(param==='prompt'){
+
+                    document.getElementById('params_label').innerHTML='Add parameters'
 
                     let params=document.getElementById('params')
 
@@ -398,9 +406,11 @@
             },
             sign:async param=>{
 
-                 if(param==='prompt'){
+                if(param==='prompt'){
 
-                   let params=document.getElementById('params')
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
 
 
                     //Create field msg to sign
@@ -447,9 +457,11 @@
             },
             verify:async param=>{
 
-                   if(param==='prompt'){
+                if(param==='prompt'){
 
-                  let params=document.getElementById('params')
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
 
 
                     //Create field for signature to verify it
@@ -506,6 +518,8 @@
 
                    if(param==='prompt'){
 
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
                     let params=document.getElementById('params')
 
 
@@ -542,6 +556,8 @@
             aggregatePubKeys:async param=>{
 
                    if(param==='prompt'){
+
+                    document.getElementById('params_label').innerHTML='Add parameters'
 
                     let params=document.getElementById('params')
 
@@ -605,7 +621,9 @@
 
                 if(param==='prompt'){
 
-                   let params=document.getElementById('params')
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
 
 
                     //Create field msg to sign
@@ -663,6 +681,8 @@
 
                 if(param==='prompt'){
 
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
                     let params=document.getElementById('params')
 
 
@@ -711,6 +731,8 @@
 
 
                 if(param==='prompt'){
+
+                    document.getElementById('params_label').innerHTML='Add parameters'
 
                     let params=document.getElementById('params')
 
@@ -815,11 +837,11 @@
 
                     let result=document.getElementById('result')
 
-                    result.innerHTML=JSON.stringify(tblsCreds)+'<br/><br/><br/><br/>'+'<span align="center" class="futfont">Send this to all other members:</span>'+'<br/><br/>'+`${JSON.stringify(tblsCreds.verificationVector)}`+'<br/><br/><br/>'
+                    result.innerHTML='<br/><br/><br/><br/>'+'<span align="center" class="futfont">send this verification vector to all other members:</span>'+'<br/><br/>'+`${JSON.stringify(tblsCreds.verificationVector)}`+'<br/><br/><br/>'
 
 
                     //Log shares to share among other sides
-                    result.innerHTML+=`<br/><br/><span class="futfont">Your shares:</span><br/><br/>  <ul>`
+                    result.innerHTML+=`<br/><br/><span class="futfont">Shares:</span><br/><br/>  <ul>`
 
 
                     let ids=document.getElementById('idsArray').value.split(',')
@@ -835,11 +857,294 @@
                 }
 
             },
-            verifyShare:param=>{},
-            deriveGroupPub:param=>{},
-            signaShare:param=>{},
-            buildFullSignature:param=>{},
-            verify:param=>{}
+            verifyShare:async param=>{
+
+                if(param==='prompt'){
+                    
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
+
+                    let hexMyId=document.createElement('input')
+
+                    hexMyId.type="text"
+                    hexMyId.className="cyberpunk"
+                    hexMyId.placeholder="Your ID in hex format"
+                    hexMyId.id="hexMyId"
+
+                    let hexSomeSignerSecretKeyContribution=document.createElement('input')
+
+                    hexSomeSignerSecretKeyContribution.type="text"
+                    hexSomeSignerSecretKeyContribution.placeholder="Share received from someone X"
+                    hexSomeSignerSecretKeyContribution.className="cyberpunk"
+                    hexSomeSignerSecretKeyContribution.id="hexSomeSignerSecretKeyContribution"
+
+
+                    let verificationVector=document.createElement('input')
+
+                    verificationVector.type="text"
+                    verificationVector.placeholder="Verification vector of someone who want to prove vaility of share"
+                    verificationVector.className="cyberpunk"
+                    verificationVector.id="vv"
+
+                    params.appendChild(hexMyId)
+                    params.appendChild(hexSomeSignerSecretKeyContribution)
+                    params.appendChild(verificationVector)
+                    
+                }
+                else{
+
+                    
+                    let isValidShare=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'tsig',
+                            operation:'verifyShare',
+                            params:`${document.getElementById('hexMyId').value}:${document.getElementById('hexSomeSignerSecretKeyContribution').value}`,
+                            vv:JSON.parse(document.getElementById('vv').value)
+
+                        })
+
+                    }).then(r=>r.json())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=isValidShare
+
+                }
+
+            },
+            deriveGroupPub:async param=>{
+
+                
+                if(param==='prompt'){
+                    
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
+
+                    let vvsList=document.createElement('textarea')
+
+                    vvsList.className="cyberpunk"
+                    vvsList.placeholder="Enter verification vectors of all members in form of VV1 / VV2 ... /VVn"
+                    vvsList.id="vvs_list"
+
+                    params.appendChild(vvsList)
+                    
+                }
+                else{
+
+                    
+                    let derivedMasterKey=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'tsig',
+                            operation:'deriveGroupPub',
+                            params:document.getElementById('vvs_list').value.split('/').map(JSON.parse)
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=derivedMasterKey
+
+                }
+
+            },
+            signaShare:async param=>{
+                        
+                if(param==='prompt'){
+                    
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
+
+                    let vvsList=document.createElement('textarea')
+
+                    vvsList.className="cyberpunk"
+                    vvsList.placeholder="Enter verification vectors of all members in form of VV1/VV2 ... /VVn"
+                    vvsList.id="vvs_list"
+                    
+                    let sigSharesList=document.createElement('textarea')
+
+                    sigSharesList.className="cyberpunk"
+                    sigSharesList.placeholder="Enter shares received from another members in form of SHARE1/SHARE2 ... /SHAREn"
+                    sigSharesList.id="shares_list"
+
+                    
+                    let hexMyId=document.createElement('input')
+
+                    hexMyId.type="text"
+                    hexMyId.className="cyberpunk"
+                    hexMyId.placeholder="Your ID in hex format"
+                    hexMyId.id="hexMyId"
+
+
+                    let message=document.createElement('input')
+
+                    message.type="text"
+                    message.className="cyberpunk"
+                    message.placeholder="Message to sign"
+                    message.id="msg"
+
+
+                    params.appendChild(vvsList)
+                    params.appendChild(sigSharesList)
+                    params.appendChild(hexMyId)
+                    params.appendChild(message)
+
+                }
+                else{
+
+                    
+                    let sigShare=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'tsig',
+                            operation:'signaShare',
+                            params:`${document.getElementById('hexMyId').value}:${document.getElementById('msg').value}`,
+                            vv:document.getElementById('vvs_list').value.split('/').map(JSON.parse),
+                            sharesArray:document.getElementById('shares_list').value.split('/')
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=sigShare
+
+                }
+
+            },
+            buildFullSignature:async param=>{
+
+                if(param==='prompt'){
+                    
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
+
+                    let sigShares=document.createElement('textarea')
+
+                    sigShares.className="cyberpunk"
+                    sigShares.placeholder="Enter signature shares of all members in form of Ssa/Ssb ... /Ssx"
+                    sigShares.id="sigShares"
+                    
+                    let hexIdsList=document.createElement('textarea')
+
+                    hexIdsList.className="cyberpunk"
+                    hexIdsList.placeholder="Enter appropriate your hex IDs IDa/IDb ... /IDx"
+                    hexIdsList.id="hexIdsList"
+
+                
+                    params.appendChild(sigShares)
+                    params.appendChild(hexIdsList)
+                   
+                }
+                else{
+                    
+                    /*
+
+                        signaturesArray - [ {sigShare:signedShareA,id:hexIdA}, {sigShare:signedShareB,id:hexIdB},... {sigShare:signedShareX,id:hexIdX} ]
+
+                    */
+
+                    let partialSignatures=document.getElementById('sigShares').value.split('/'),
+
+                        hexIdsArray=document.getElementById('hexIdsList').value.split('/')
+
+                    let payloadToSend=partialSignatures.map(
+                        
+                        (value,index) => ({sigShare:value,id:hexIdsArray[index]})
+                        
+                    )
+                    
+                    let fullSignature=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'tsig',
+                            operation:'buildFullSignature',
+                            params:payloadToSend
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=fullSignature
+
+                }
+
+            },
+            verify:async param=>{
+
+                if(param==='prompt'){
+                    
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
+
+                    let masterPubKey=document.createElement('input')
+
+                    masterPubKey.type="text"
+                    masterPubKey.className="cyberpunk"
+                    masterPubKey.placeholder="Enter master pubkey"
+                    masterPubKey.id="masterPubKey"
+                    
+                    let masterSignature=document.createElement('input')
+
+                    masterSignature.type="text"
+                    masterSignature.className="cyberpunk"
+                    masterSignature.placeholder="Enter master signature"
+                    masterSignature.id="masterSig"
+
+                    let message=document.createElement('input')
+
+                    message.type="text"
+                    message.className="cyberpunk"
+                    message.placeholder="Enter message to sign"
+                    message.id="message"
+
+                
+                    params.appendChild(masterPubKey)
+                    params.appendChild(masterSignature)
+                    params.appendChild(message)
+                   
+                }
+                else{
+                    
+                    let isVerifiedMasterSig=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'tsig',
+                            operation:'verify',
+                            params:`${document.getElementById('masterPubKey').value}:${document.getElementById('masterSig').value}:${document.getElementById('message').value}`
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=isVerifiedMasterSig
+
+                }
+
+            }
         },
         
         post_quantum:{
