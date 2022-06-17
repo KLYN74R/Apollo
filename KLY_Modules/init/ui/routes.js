@@ -129,8 +129,6 @@ export default (fastify, options, next) => {
             if(request.params.format==='substrate format') keypair.address=m.default.toSubstrate(keypair.publicKey)
             else if(request.params.format==='kusama') keypair.address=m.default.toKusama(keypair.publicKey)
 
-            console.log(keypair)
-
             if(keypair&&request.params.checked==='true'){
 
                 let kp=JSON.stringify(keypair)
@@ -186,7 +184,8 @@ export default (fastify, options, next) => {
                     privateKey = await mod.generatePrivateKey(),
 
                     pubKey=mod.derivePubKey(privateKey)
-                
+                   
+                    
                 reply.send({privateKey,pubKey})
 
             }

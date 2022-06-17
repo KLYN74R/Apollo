@@ -53,7 +53,7 @@ export default {
    * @param {Number} n - total number of signers
    * 
    */
-    verify_M_N_signature:(pubKeysIn,pubKeysOut,originalGroupPub,data,aggregatedSignaIn,m,n)=>{
+    verify_M_N_signature:async(pubKeysIn,pubKeysOut,originalGroupPub,data,aggregatedSignaIn,m,n)=>{
 
         //0.Get aggregated key of pubkeys who has signed this data
         let signersIn=bls.aggregatePublicKeys(pubKeysIn),
@@ -65,23 +65,11 @@ export default {
             verifiedSignature=await bls.verify(aggregatedSignaIn,data,signersIn)
 
 
-        return verifiedSignature && generalPubKey === originalGroupPub && pubKeysIn.length+pubKeysOut.length === n && pubKeysIn.length === m
+        return verifiedSignature && generalPubKey === originalGroupPub
+                                 && 
+                                 (!m || pubKeysIn.length+pubKeysOut.length === n && pubKeysIn.length === m)//if m and n are undefined-we don't interest in number of participants
     
-    },
+    }
 
 
 }
-
-
-
-// let privateKey=await TEST.generatePrivateKey()
-// let publicKey=await TEST.derivePubKey(privateKey)
-
-// console.log(privateKey)
-// console.log(`Your 48 bytes base58 encoded pubkey => `,publicKey)
-
-// let signa=await TEST.singleSig('Hello Klyntar',privateKey)
-
-// console.log(`Single signa is `,Buffer.from(signa,'base64').length)
-
-// console.log('Signle verify ',await TEST.singleVerify('Hello Klyntar',publicKey,signa))
