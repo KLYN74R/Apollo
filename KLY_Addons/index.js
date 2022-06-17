@@ -57,15 +57,19 @@ export default {
 
     action:(funcName,paramsArr)=>{
 
-        let params=paramsArr?.split(',')
+        let params=paramsArr?.split(','),creds
 
         if(['gen_DIL','gen_BLISS'].includes(funcName)){
 
             let [pubKey,privateKey]=ADDONS[funcName]().split(':')
 
-            console.log({pubKey,privateKey,address:BLAKE3(pubKey)})
+            creds={pubKey,privateKey,address:BLAKE3(pubKey)}
 
-        }else console.log(ADDONS[funcName]?.(...(params||[])))
+            console.log(creds)
+
+        }else creds=ADDONS[funcName]?.(...(params||[]))
+
+        return creds
 
     }
 

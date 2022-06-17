@@ -343,7 +343,7 @@ program
                 let index=(await import('./KLY_Addons/index.js')).default
     
                 opts.list?index.list():index.action(opts.function,opts.parameters)//call function and pass params if function need it
-    
+
             } else console.log('\x1b[31;1mPost-quantum cryptography available only in Linux env.Please,compile addons and try again\x1b[0m')
 
         })
