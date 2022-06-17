@@ -76,7 +76,7 @@
 
     <p class="futfont" style="font-weight:bold">Result(will be below):</p>
 
-    <p style="font-weight:bold" id="result"></p>    <br/><br/><br/><br/>
+    <p style="font-weight:bold;font-size: larger;" id="result"></p>    <br/><br/><br/><br/>
   
     <button class="cyberpunk2077 blue-kly" onClick="letsDoIt()">Let's do it</button>
 
@@ -596,14 +596,161 @@
 
                     }).then(r=>r.json())
 
-                    document.getElementById('result').innerHTML=JSON.stringify(pair)
+                    document.getElementById('result').innerHTML=JSON.stringify(pair,null,32)
 
                 }
 
             },
-            sign:param=>{},
-            verify:param=>{},
-            link:param=>{}
+            ringSign:async param=>{
+
+                if(param==='prompt'){
+
+                   let params=document.getElementById('params')
+
+
+                    //Create field msg to sign
+                    let textToSign=document.createElement('input')
+
+                    textToSign.type="text"
+                    textToSign.className="cyberpunk"
+                    textToSign.placeholder="Enter anything you want to sign"
+                    textToSign.id='toSign'
+
+
+                    //Create field for private key
+                    let privateKey=document.createElement('input')
+
+                    privateKey.type="text"
+                    privateKey.placeholder="Your ringsig private key"
+                    privateKey.className="cyberpunk"
+                    privateKey.id='privateKey'
+ 
+                    //Area to enumerate pukeys for ring
+                    let ring=document.createElement('textArea')
+
+                    ring.type="text"
+                    ring.className="cyberpunk"
+                    ring.placeholder="Ring of pubkeys (Pub1:Pub2:...:PubN)"
+                    ring.id='ring'
+                    
+                    //Finally add them to DOM
+                    params.appendChild(textToSign)
+                    params.appendChild(privateKey)
+                    params.appendChild(ring)
+
+
+                }else{
+
+                    let signature=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'ringsig',
+                                operation:'sign',
+                                params:`${document.getElementById('toSign').value},${document.getElementById('privateKey').value},${document.getElementById('ring').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=signature
+                    
+
+                }
+
+            },
+            ringVerify:async param=>{
+
+                if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+
+                    //Create field for signature to verify it
+                    let signature=document.createElement('input')
+
+                    signature.type="text"
+                    signature.className="cyberpunk"
+                    signature.placeholder="Enter signature you want to verify"
+                    signature.id='signa'
+
+
+                    let ring=document.createElement('textarea')
+
+                    ring.type="text"
+                    ring.placeholder="Ring of pubkeys (Pub1:Pub2:...:PubN)"
+                    ring.className="cyberpunk"
+                    ring.id='ring'
+
+
+                    //Finally add them to DOM
+                    params.appendChild(signature)
+                    params.appendChild(ring)
+
+                }else{
+
+                    let isVerified=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'ringsig',
+                                operation:'verify',
+                                params:`${document.getElementById('signa').value},${document.getElementById('ring').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=isVerified
+                    
+                }
+
+
+            },
+            link:async param=>{
+
+
+                if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+                    let fields=['1','2']
+
+                    fields.forEach(field=>{
+
+                        //Create field for signature1
+                        let signature=document.createElement('input')
+                    
+                        signature.type="text"
+                        signature.className="cyberpunk"
+                        signature.placeholder=`Enter signature${field} to link`
+                        signature.id='signa'+field
+
+                        //Finally add them to DOM
+                        params.appendChild(signature)
+
+                    })
+ 
+                }else{
+
+                    let isLinked=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'ringsig',
+                                operation:'link',
+                                params:`${document.getElementById('signa1').value}:${document.getElementById('signa2').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=isLinked
+                    
+                }
+
+            }
+
         },
         
         thresholdsig:{

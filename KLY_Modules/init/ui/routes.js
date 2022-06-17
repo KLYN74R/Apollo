@@ -238,29 +238,70 @@ export default (fastify, options, next) => {
             }
 
 
+        }
+        
+        
+        
+        
+        else if(scope==='ringsig'){
 
+            let mod=await import('module').then(
+                
+                mod => mod.createRequire(import.meta.url)
+            
+            ).then(require=>
+           
+                require('../../../signatures/ringsig/lrs-ecdsa/export.js')
 
-        }else if(scope==='ringsig'){
+            )
 
             if(operation==='generate'){
 
-                let wallet=await import('module').then(
-                
-                    mod => mod.createRequire(import.meta.url)
-                
-                ).then(require=>
-               
-                    require('../../../signatures/ringsig/lrs-ecdsa/export.js').Wallet.createRandom()
-
-                )
+                let wallet=mod.Wallet.createRandom()
 
                 reply.send({
                     privateKey: wallet.privateKey,
                     publicKey: wallet.signingKey.publicKey,
-                    address:wallet.address
+                    address: wallet.address
                 })
 
+
+            }else if (operation==='sign'){
+                
+                let [msg,privateKey,ring]=params.split(',')
+                       
+                reply.send(mod.serializeRingSigtoHex(mod.sign(msg,privateKey,ring.split(':'))))
+
+            }else if (operation==='verify'){
+
+
+                let [signa,ring]=params.split(','),
+
+                    [_,signature]=mod.deserializeRingSig(JSON.parse(Buffer.from(signa,'hex')))
+    
+                    
+                reply.send(mod.verify(signature,ring.split(':')))
+
+            }else if (operation==='link'){
+
+                
+                let [signa1,signa2]=params.split(':').map(hexSignature=>
+                    
+                    mod.deserializeRingSig(
+                        
+                        JSON.parse(Buffer.from(hexSignature,'hex'))
+                        
+                    )[1]
+                    
+                )
+            
+                reply.send(mod.link(signa1,signa2))
+
             }
+
+
+
+
 
         }else if(scope==='tsig'){
 
