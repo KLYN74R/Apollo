@@ -1258,7 +1258,7 @@
 
                             scope:'pqc',
                             operation:document.getElementById('alg_selector').value,
-                            params:`${document.getElementById('privateKey').value}:${document.getElementById('message').value}`
+                            params:`${document.getElementById('privateKey').value},${document.getElementById('message').value}`
                             
                         })
 
@@ -1336,7 +1336,7 @@
 
                             scope:'pqc',
                             operation:document.getElementById('alg_selector').value,
-                            params:`${document.getElementById('message').value}:${document.getElementById('publicKey').value}:${document.getElementById('signa').value}`
+                            params:`${document.getElementById('message').value},${document.getElementById('publicKey').value},${document.getElementById('signa').value}`
                             
                         })
 
