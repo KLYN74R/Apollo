@@ -177,18 +177,68 @@ export default (fastify, options, next) => {
         
         }else if(scope==='multisig'){
 
+            let mod = (await import('../../../signatures/multisig/bls.js')).default
+
             if(operation==='generate'){
  
-                let mod = (await import('../../../signatures/multisig/bls.js')).default,
-
-                    privateKey = await mod.generatePrivateKey(),
+                let privateKey = await mod.generatePrivateKey(),
 
                     pubKey=mod.derivePubKey(privateKey)
                    
                     
                 reply.send({privateKey,pubKey})
 
+            }else if(operation==='sign'){
+ 
+                let [msg,privateKey]=params.split(':')
+                       
+                reply.send(await mod.singleSig(msg,privateKey))
+
+            }else if (operation==='verify'){
+
+                let [msg,publicKey,signa]=params.split(':')
+                       
+                reply.send(await mod.singleVerify(msg,publicKey,signa))
+
+            }else if(operation==='aggregateSignatures'){
+
+                // Here params are array of signatures: sig1:sig2:...:sigN
+                //sigX is base64 encoded,so we need to retrieve buffer form to aggregate
+
+                reply.send(
+                    
+                    Buffer.from(
+                        
+                        mod.aggregateSignatures(params.split(':').map(
+                            
+                            sig => Buffer.from(sig,'base64')) //retrieve buffer from base64 encoded signature
+                        
+                        )
+                        
+                    ).toString('base64')//master signature is also base64 encoded
+                    
+                )
+
+            }else if(operation==='aggregatePubKeys'){
+                
+                let Base58=(await import('base-58')).default
+
+                // Here params are array of public keys: pub1:pub2:...:pubN
+
+                reply.send(
+                    
+                    Base58.encode(
+                        
+                        mod.aggregatePublicKeys(params.split(':').map(Base58.decode))// .map because we need raw buffer(uint arrays) instead of base58 encoding
+                        
+                    )
+                    
+                )
+
             }
+
+
+
 
         }else if(scope==='ringsig'){
 

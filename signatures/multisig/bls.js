@@ -29,11 +29,9 @@ export default {
         
         Buffer.from(msg,'utf-8').toString('hex'),Buffer.from(privateKey,'hex')
         
-        
-        
     ).then(b=>Buffer.from(b,'utf-8').toString('base64')),
 
-    
+    //async
     singleVerify:(msg,pubKey,signa)=>bls.verify(Buffer.from(signa,'base64'),Buffer.from(msg,'utf-8').toString('hex'),Base58.decode(pubKey)),
 
 

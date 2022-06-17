@@ -396,10 +396,186 @@
                 }
 
             },
-            sign:param=>{},
-            verify:param=>{},
-            aggregateSignatures:param=>{},
-            aggregatePubKeys:param=>{},
+            sign:async param=>{
+
+                 if(param==='prompt'){
+
+                   let params=document.getElementById('params')
+
+
+                    //Create field msg to sign
+                    let textToSign=document.createElement('input')
+
+                    textToSign.type="text"
+                    textToSign.className="cyberpunk"
+                    textToSign.placeholder="Enter anything you want to sign"
+                    textToSign.id='toSign'
+
+
+                    //Create field for private key
+                    let privateKey=document.createElement('input')
+
+                    privateKey.type="text"
+                    privateKey.placeholder="Your BLS multisig private key"
+                    privateKey.className="cyberpunk"
+                    privateKey.id='privateKey'
+ 
+                    
+                    //Finally add them to DOM
+                    params.appendChild(textToSign)
+                    params.appendChild(privateKey)
+
+                }else{
+
+                    let signature=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'multisig',
+                                operation:'sign',
+                                params:`${document.getElementById('toSign').value}:${document.getElementById('privateKey').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=signature
+                    
+
+                }
+
+            },
+            verify:async param=>{
+
+                   if(param==='prompt'){
+
+                  let params=document.getElementById('params')
+
+
+                    //Create field for signature to verify it
+                    let signature=document.createElement('input')
+
+                    signature.type="text"
+                    signature.className="cyberpunk"
+                    signature.placeholder="Enter signature you want to verify / Master signature(aggregated)"
+                    signature.id='signa'
+
+
+                    //Create field for private key
+                    let publicKey=document.createElement('input')
+
+                    publicKey.type="text"
+                    publicKey.placeholder="Public key of signer / Master pubkey(aggregated)"
+                    publicKey.className="cyberpunk"
+                    publicKey.id='publicKey'
+
+                                        //Create field for private key
+                    let plainText=document.createElement('input')
+
+                    plainText.type="text"
+                    plainText.placeholder="Message you want to verify"
+                    plainText.className="cyberpunk"
+                    plainText.id='plainText'
+
+
+                    //Finally add them to DOM
+                    params.appendChild(signature)
+                    params.appendChild(publicKey)
+                    params.appendChild(plainText)
+
+                }else{
+
+                    let isVerified=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'multisig',
+                                operation:'verify',
+                                params:`${document.getElementById('plainText').value}:${document.getElementById('publicKey').value}:${document.getElementById('signa').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=isVerified
+                    
+                }
+
+            },
+            aggregateSignatures:async param=>{
+
+                   if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+
+                    //Create field to enumerate signatures to get master signature
+                    let signatures=document.createElement('textArea')
+
+                    signatures.type="text"
+                    signatures.className="cyberpunk"
+                    signatures.placeholder="Signa1:Signa2:...:SignaN"
+                    signatures.id='signatures'
+
+                    //Finally add them to DOM
+                    params.appendChild(signatures)
+
+                }else{
+
+                    let masterSignature=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'multisig',
+                                operation:'aggregateSignatures',
+                                params:`${document.getElementById('signatures').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=masterSignature
+                    
+                }
+
+            },
+            aggregatePubKeys:async param=>{
+
+                   if(param==='prompt'){
+
+                    let params=document.getElementById('params')
+
+
+                    //Create field to enumerate signatures to get master signature
+                    let pubKeysToAggregate=document.createElement('textArea')
+
+                    pubKeysToAggregate.type="text"
+                    pubKeysToAggregate.className="cyberpunk"
+                    pubKeysToAggregate.placeholder="PubKey1:PubKey2:...:PubKeyN"
+                    pubKeysToAggregate.id='pubkeys'
+
+                    //Finally add them to DOM
+                    params.appendChild(pubKeysToAggregate)
+
+                }else{
+                    
+                    let masterPubKey=await fetch('/cryptoland',{
+                        method:'POST',
+                        body:JSON.stringify(
+                            {
+                                scope:'multisig',
+                                operation:'aggregatePubKeys',
+                                params:`${document.getElementById('pubkeys').value}`
+                            }
+                        )
+
+                    }).then(r=>r.text())
+
+                    document.getElementById('result').innerHTML=masterPubKey
+
+                }
+
+            },
         },
         
         ringsig:{
