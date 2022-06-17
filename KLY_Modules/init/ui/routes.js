@@ -111,7 +111,7 @@ export default (fastify, options, next) => {
             
     )
 
-    fastify.get('/key_generate/:format/:checked', (request, reply)=>{
+    fastify.get('/key_generate/:format/:checked/:alias', (request, reply)=>{
 
         let format=request.params.format
 
@@ -133,9 +133,11 @@ export default (fastify, options, next) => {
 
                 let kp=JSON.stringify(keypair)
 
+                let alias = request.params.alias!=='1337' ? request.params.alias : BLAKE3(kp) // assign alias or hashed value to filename
+
                 !fs.existsSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`)) && fs.mkdirSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`))
 
-                fs.writeFileSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}/${BLAKE3(kp)}.json`),kp)
+                fs.writeFileSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}/${alias}.json`),kp)
 
             }
 

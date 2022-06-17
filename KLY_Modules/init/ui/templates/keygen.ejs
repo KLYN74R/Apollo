@@ -46,20 +46,32 @@
 
             <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
 
-        </select><br/>
+        </select><br/><br/>
         
-        <input class="cyberpunk futfont" type="checkbox" id="shouldstore" onClick="changeExplain()"/>
+        <div id="hodler">
+        
+            <input class="cyberpunk futfont" type="checkbox" id="shouldstore" onClick="changeExplain()"/>
 
+            <label for="shouldstore" class="cyberpunk" id="checkboxExplain" style="font-size: large;">
+                Store keypair to KEYSTORE(Current: <b>NO</b>,generated keys won't be stored)
+            </label><br/>
 
-        <label for="shouldstore" class="cyberpunk" id="checkboxExplain">
-            Store keypair to KEYSTORE(Current: <b>NO</b>,generated keys won't be stored)
-        </label><br/>
-          
+            <div id="inner_hodler">
+                <!-- Container for alias -->
+            </div>
+
+        </div>
+
         <br/><br/>
-          
         <button class="cyberpunk2077" href="/start" onClick="generateKeyPair()">Generate</button>
 
         <br/><br/><br/><br/>
+
+        <!-- Result -->
+
+        <p class="futfont" style="font-weight:bold">Result(will be below):</p>
+
+        <p style="font-weight:bold;font-size: larger;" id="result"></p>    <br/>
 
     </div>
   
@@ -144,7 +156,7 @@
 
         generated.style="font-weight:bold;"
 
-        generated.innerHTML=JSON.stringify(await fetch(`/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}`).then(r=>r.json()).catch(e=>'😕Some error occured'),null,3)
+        generated.innerHTML=JSON.stringify(await fetch(`/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}/${document.getElementById('alias')?.value || 1337}`).then(r=>r.json()).catch(e=>'😕Some error occured'),null,3)
 
         block.replaceChild(generated,loader)
 
@@ -154,9 +166,36 @@
 
     let changeExplain=()=>{
 
-        let lable=document.getElementById('checkboxExplain')
+        let lable=document.getElementById('checkboxExplain'),
+        
+            isChecked=document.getElementById('shouldstore').checked
 
-        lable.innerHTML=`Store keypair to KEYSTORE(Current: ${document.getElementById('shouldstore').checked?"<b>YES</b>,Apollo will store all generated keys":"<b>NO</b>,generated keys won't be stored"})`
+
+        lable.innerHTML=`Store keypair to KEYSTORE(Current: ${isChecked?"<b>YES</b>,Apollo will store all generated keys":"<b>NO</b>,generated keys won't be stored"})`
+
+
+        //Main block
+        let hodler=document.getElementById('inner_hodler')
+
+        if(isChecked){
+
+            let aliasField=document.createElement('input')
+
+            aliasField.type="text"
+            aliasField.className="cyberpunk"
+            aliasField.placeholder="Enter alias for your keypair"
+            aliasField.id="alias"
+            aliasField.style="max-width: 500px"
+
+
+            //Add some <br> firstly
+            hodler.appendChild(document.createElement('br'))
+            hodler.appendChild(document.createElement('br'))
+
+            hodler.appendChild(aliasField)
+
+        }
+        else hodler.replaceChildren()
 
     }
     
