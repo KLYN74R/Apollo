@@ -1147,23 +1147,209 @@
             }
         },
         
+
+
+
         post_quantum:{
-            
-            generate:async param=>{
-           
+
+            gen_DIL:async param=>{
+
                 if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
                 else{
 
-                    let pair=await fetch('/cryptoland/pqc/generate/{TYPE}').then(r=>r.json())
+                    let isVerifiedMasterSig=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
 
-                    document.getElementById('result').innerHTML=JSON.stringify(pair)
+                            scope:'pqc',
+                            operation:'gen_DIL'
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=isVerifiedMasterSig
 
                 }
 
-           
             },
-            sign:param=>{},
-            verify:param=>{}
+
+            gen_BLISS:async param=>{
+
+                if(param==='prompt') document.getElementById('params_label').innerHTML='no params needed,just press the button 🚀'
+                else{
+
+                    let isVerifiedMasterSig=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'pqc',
+                            operation:'gen_BLISS'
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=isVerifiedMasterSig
+
+                }
+
+            },
+            
+            sign:async param=>{
+
+                if(param==='prompt'){
+                    
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
+
+
+                    let privateKey=document.createElement('input')
+
+                    privateKey.type="text"
+                    privateKey.className="cyberpunk"
+                    privateKey.placeholder="Enter PQC private key"
+                    privateKey.id="privateKey"
+                    
+                    let message=document.createElement('input')
+
+                    message.type="text"
+                    message.className="cyberpunk"
+                    message.placeholder="Enter message to sign"
+                    message.id="message"
+
+
+                    // BLISS or DILITHIUM
+                    let availableAlgs=document.createElement('select')
+                    availableAlgs.className="cyberpunk futfont"
+                    availableAlgs.id="alg_selector"
+                    availableAlgs.style="max-width: 500px"
+    
+                    let algs=['sign_DIL','sign_BLISS']
+    
+                    algs.forEach(format=>{
+
+                        let newbiew=document.createElement('option')
+
+                        newbiew.innerHTML=format
+
+                        availableAlgs.appendChild(newbiew)
+
+                    })
+
+                    params.appendChild(privateKey)
+                    params.appendChild(message)
+                    params.appendChild(availableAlgs)
+                   
+                }
+                else{
+                    
+                    let signature=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'pqc',
+                            operation:document.getElementById('alg_selector').value,
+                            params:`${document.getElementById('privateKey').value}:${document.getElementById('message').value}`
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=signature
+
+                }
+
+
+            },
+            
+            verify:async param=>{
+
+                if(param==='prompt'){
+                    
+                    document.getElementById('params_label').innerHTML='Add parameters'
+
+                    let params=document.getElementById('params')
+
+
+                    let publicKey=document.createElement('input')
+
+                    publicKey.type="text"
+                    publicKey.className="cyberpunk"
+                    publicKey.placeholder="Enter PQC pubkey"
+                    publicKey.id="publicKey"
+                    
+                    let message=document.createElement('input')
+
+                    message.type="text"
+                    message.className="cyberpunk"
+                    message.placeholder="Enter message to verify"
+                    message.id="message"
+
+                    let signa=document.createElement('input')
+
+                    message.type="text"
+                    message.className="cyberpunk"
+                    message.placeholder="Enter signature to verify"
+                    message.id="signa"
+
+                    // BLISS or DILITHIUM
+                    let availableAlgs=document.createElement('select')
+                    availableAlgs.className="cyberpunk futfont"
+                    availableAlgs.id="alg_selector"
+                    availableAlgs.style="max-width: 500px"
+    
+                    let algs=['verify_DIL','verify_BLISS']
+    
+                    algs.forEach(format=>{
+
+                        let newbiew=document.createElement('option')
+
+                        newbiew.innerHTML=format
+
+                        availableAlgs.appendChild(newbiew)
+
+                    })
+
+                    params.appendChild(publicKey)
+                    params.appendChild(message)
+                    params.appendChild(signa)
+                    params.appendChild(availableAlgs)
+                   
+                }
+                else{
+                    
+                    let isVerified=await fetch('/cryptoland',{
+                        
+                        method:'POST',
+                        body:JSON.stringify({
+
+                            scope:'pqc',
+                            operation:document.getElementById('alg_selector').value,
+                            params:`${document.getElementById('message').value}:${document.getElementById('publicKey').value}:${document.getElementById('signa').value}`
+                            
+                        })
+
+                    }).then(r=>r.text())
+
+                    let result=document.getElementById('result')
+
+                    result.innerHTML=isVerified
+
+                }
+
+            },
+        
         }
     
     }

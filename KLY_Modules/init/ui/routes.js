@@ -406,26 +406,17 @@ export default (fastify, options, next) => {
             
             }
 
-
-
-
-
-
-
-
-
-
-
-        }else if(scope==='pqc'){
-
-            if(operation==='generate'){
- 
-                let index=(await import('../../../KLY_Addons/index.js')).default
-    
-                opts.list?index.list():index.action(opts.function,opts.parameters)//call function and pass params if function need it
-
-            }
+        }
         
+        
+        
+        
+        else if(scope==='pqc'){
+
+            let index=(await import('../../../KLY_Addons/index.js')).default
+
+            return index.action(operation,params)
+            
         }
 
     })
