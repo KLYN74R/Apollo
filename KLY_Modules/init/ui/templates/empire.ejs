@@ -36,28 +36,38 @@
 <div class="content">
     
     <h1 align="center" class="futfont">This is your current empire</h1><br/><br/>
-
-    <h3 style="font-size:large;" class="futfont">Empire working plugin</h3>
-    <p class="futfont">dev_empire@v0.13.37</p>
-    
+   
     <br/><br/>
 
-    <section class="cyberpunk" id="main">
-        <h1 style="font-size:48px;" class="futfont cyberpunk glitched">nodes</h1>
+    <section class="cyberpunk" style="height: 150%;" id="main">
+
+        <br/><br/>
+
+
+        <h3 style="font-size:48px;" class="futfont">Empire working plugin</h3>
+        <p class="futfont" style="font-weight:bold;">Init v.0.1.0</p>
+        
+        <br/><br/>
+
+        <h1 style="font-size:48px;" class="futfont cyberpunk glitched">Nodes</h1>
         <ul class="cyberpunk">
-            <li>Node1</li>
-            <li>Node2</li>
-            <li>Node3</li>
+            <li>node1</li>
+            <li>node2</li>
+            <li>node3</li>
         </ul>
         
         <br/><br/><br/>
 
         <h1 style="font-size:48px;" class="futfont cyberpunk glitched">Clusters</h1>
         <ul class="cyberpunk">
-            <li>Venom-Carnage</li>
-            <li>Service-BTC-SOL</li>
+            <li>venom-carnage</li>
+            <li>service-btc-sol</li>
             
         </ul>
+
+        <h1 style="font-size:48px;" class="futfont cyberpunk glitched">General Klyntar activity & events</h1>
+
+        <canvas id="myChart"></canvas>
 
     </section>
 
@@ -75,4 +85,38 @@
                                                      -->
 
 <script src="/scripts/no_self_xss.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
+<script>
+    const labels = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+    ];
+  
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [0, 10, 5, 2, 20, 30, 45],
+      }]
+    };
+  
+    const config = {
+      type: 'line',
+      data: data,
+      options: {}
+    };
+
+
+    const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+
+  </script>

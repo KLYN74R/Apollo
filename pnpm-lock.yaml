@@ -8,6 +8,7 @@ specifiers:
   blake3-wasm: ^2.1.5
   bls-wasm: ^0.4.8
   chalk: ^5.0.1
+  chart.js: ^3.8.0
   commander: ^9.2.0
   ejs: ^3.1.8
   fastify: 4.0.0-rc.4
@@ -23,6 +24,7 @@ dependencies:
   blake3-wasm: 2.1.5
   bls-wasm: 0.4.8
   chalk: 5.0.1
+  chart.js: 3.8.0
   commander: 9.2.0
   ejs: 3.1.8
   fastify: 4.0.0-rc.4
@@ -2144,6 +2146,10 @@ packages:
 
   /chardet/0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
+    dev: false
+
+  /chart.js/3.8.0:
+    resolution: {integrity: sha512-cr8xhrXjLIXVLOBZPkBZVF6NDeiVIrPLHcMhnON7UufudL+CNeRrD+wpYanswlm8NpudMdrt3CHoLMQMxJhHRg==}
     dev: false
 
   /chownr/1.1.4:

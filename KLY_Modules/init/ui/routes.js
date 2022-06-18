@@ -460,7 +460,7 @@ export default (fastify, options, next) => {
 
     fastify.get('/symbiotes', (request, reply) =>
     
-        handler(reply,'KLY_Modules/init/ui/templates/symbiotes.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/symbiotes.ejs',{symbiotes:CONFIGURATION.SYMBIOTES})
         
     )
 
@@ -474,7 +474,7 @@ export default (fastify, options, next) => {
 
     fastify.get('/empire',(request, reply)=>
     
-        handler(reply,'KLY_Modules/init/ui/templates/empire.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/empire.ejs',{empire:CONFIGURATION.EMPIRE})
     
     )
 
@@ -489,7 +489,7 @@ export default (fastify, options, next) => {
 
     fastify.get('/misc',(request,reply)=>
 
-        handler(request,'KLY_Modules/init/ui/templates/misc.ejs')
+        handler(reply,'KLY_Modules/init/ui/templates/misc.ejs')
         
     )
 

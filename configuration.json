@@ -10,32 +10,6 @@
         "https":false
     },
 
-    "SYMBIOTES":{
-
-        "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9":{
-      
-            "UPDATES": "https://knull.klyntar.org/updates",
-            "WORKFLOW":"dev_controller",
-            "ALIAS":"kNULL",
-            "CLUSTER": {
-                "URL": "http://localhost:7331",
-                "AUTH": "NODE_AUTH"
-            },                
-            "PROXY": {
-                "TYPE": "SOCKS5",
-                "URL": "http://USER:PASS@localhost:5666"
-            }
-            
-        }
-        
-    },
-
-
-    "EMPIRE":[
-        "https://1.mynode.com",
-        "https://dead::beaf:6336"
-    ],
-
     "EXTRA_CLI": [
         "KLY_Modules/init/cli/init.js"
     ],
