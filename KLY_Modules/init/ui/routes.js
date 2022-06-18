@@ -479,6 +479,13 @@ export default (fastify, options, next) => {
     )
 
 
+    fastify.get('/modules',(request, reply)=>
+    
+        handler(reply,'KLY_Modules/init/ui/templates/modules.ejs')
+    
+    )
+
+
     // ███╗   ███╗██╗███████╗ ██████╗
     // ████╗ ████║██║██╔════╝██╔════╝
     // ██╔████╔██║██║███████╗██║        
