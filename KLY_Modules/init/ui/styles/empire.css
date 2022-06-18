@@ -36,7 +36,12 @@ body {
 
 #welcome{
     position: absolute;
-    left: 50%;
+    left: 38%;
     width: 50%;
-    top: 50%; 
+    top: 10%; 
+}
+
+
+.futfont{
+    font-family: 'Major Mono Display', monospace;
 }
