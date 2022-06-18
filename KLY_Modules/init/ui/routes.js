@@ -474,7 +474,7 @@ export default (fastify, options, next) => {
 
     fastify.get('/empire',(request, reply)=>
     
-        reply.send(JSON.stringify(CONFIGURATION,null,3))
+        handler(reply,'KLY_Modules/init/ui/templates/empire.ejs')
     
     )
 

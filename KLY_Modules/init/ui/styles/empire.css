@@ -1,0 +1,42 @@
+header {
+    background-image: url('https://user-images.githubusercontent.com/53381472/174412619-1c2cc9e6-8586-4a34-a38e-a6b4d3d03606.jpg');
+    background-repeat:no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+    display:block;
+    margin: 0 auto;
+    opacity: 0;
+    animation: ani 2s forwards;
+
+}
+
+@keyframes ani {
+    
+    0% {opacity: 0;}
+    
+    100% {opacity: 1;}
+
+}
+
+
+body {
+    width: 100%;
+    min-height: 100vh; 
+    margin: 0;
+}
+  
+  
+.content {
+    display: block;
+    width: 100%;
+    min-height: 20vh;
+}
+
+
+#welcome{
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 50%; 
+}
