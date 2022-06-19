@@ -210,7 +210,7 @@ Apollo
 
 To update the repository with module go to appropriate directory <b>KLY_Modules/<your_module></b> and pull changes
 
-<br/>
+<br/><br/>
 
 ### <b>KLY_ServicesAPI</b>
 
@@ -221,15 +221,13 @@ To update the repository with module go to appropriate directory <b>KLY_Modules/
 <br/>
 
 
-The same principle for services API. The same way it's a repository in this directory, the same way you should update it and so on. To check available services API go to
+The same principle works for the services API. Each subdirectory - it's a repository. To check available services API go to
 
 ```shell
 
 http(s)://<your_interface>:<port>/services
 
 ```
-
-to check your current services
 
 <br/><br/>
 
@@ -241,16 +239,13 @@ to check your current services
 
 <br/>
 
-The same principle as for services API. The same way it's a repository in this directory, the same way you should update it and so on. To check available services API go to
+The same principle as for services API. Each subdirectory - it's a repository in this directory. To check your symbiotes and how to interact with them go to
 
 ```shell
 
 http(s)://<your_interface>:<port>/symbiotes
 
 ```
-
-
-to check your symbiotes and how to interact with them
 
 
 <br/><br/>
