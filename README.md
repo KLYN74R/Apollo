@@ -241,7 +241,7 @@ to check your current services
 
 <br/>
 
-The same principle for services API. The same way it's a repository in this directory, the same way you should update it and so on. To check available services API go to
+The same principle as for services API. The same way it's a repository in this directory, the same way you should update it and so on. To check available services API go to
 
 ```shell
 
