@@ -9,10 +9,10 @@
 
 ## 📖 Content
 
-- [Short intro](#-⚡-Short-intro)
-- [How to build](#-🏗️-How-to-build)
-- [Modularity](#-⚙️-Modularity)
-- [Advice](#-🤓-Advice)
+- [Short intro](#-short-intro)
+- [How to build](#-how-to-build)
+- [Modularity](#-modularity)
+- [Advice](#-advice)
 
 <br/><br/>
 
