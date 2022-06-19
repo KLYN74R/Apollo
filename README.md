@@ -3,8 +3,8 @@
 
 <img src="https://user-images.githubusercontent.com/53381472/174458851-d6cbe7cd-3696-48ef-8839-975f061e393f.png">
 
-# <b>Apollo</b>
-
+<img src="https://readme-typing-svg.herokuapp.com?font=Major+Mono+Display&size=48&duration=4000&color=C20000&center=true&vCenter=true&width=300&height=80&lines=Apollo">
+<br/>
 </div>
 
 ## 📖 Content
