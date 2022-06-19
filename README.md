@@ -9,14 +9,14 @@
 
 ## 📖 Content
 
-- [Short intro <a name = "intro"></a>](#-intro-)
-- [How to build <a name = "build"></a>](#-build-)
-- [Modularity <a name = "modularity"></a>](#-modularity-)
-- [Advice <a name = "advice"></a>](#-advice-)
+- [Short intro](#-⚡-Short-intro)
+- [How to build](#-🏗️-How-to-build)
+- [Modularity](#-⚙️-Modularity)
+- [Advice](#-🤓-Advice)
 
 <br/><br/>
 
-## ⚡ Short intro <a name = "intro"></a>
+## ⚡ Short intro
 <br/>
 <p>
 We're happy to present you Apollo - our powerful CLI & UI tool to control your KLYNTAR infrastructure. With this tool you can do everything - use it as wallet, interact with decentralized services, control your Unobtanium sources, deep dive into Cryptoland-our amazing collection of crypto algorithms available on KLYNTAR.
@@ -24,7 +24,7 @@ We're happy to present you Apollo - our powerful CLI & UI tool to control your K
 
 <br/><br/>
 
-## 🏗️ How to build <a name = "build"></a>
+## 🏗️ How to build
 
 <br/>
 
@@ -122,7 +122,7 @@ pnpm run build
 
 <br/><br/>
 
-## ⚙️ Modularity <a name = "modularity"></a>
+## ⚙️ Modularity
 <br/>
 <p>
 
@@ -194,7 +194,7 @@ Apollo
 
 <br/><br/>
 
-## 🤓 Advice <a name = "advice"></a>
+## 🤓 Advice
 <br/>
 <p>
 Follow us to get the news & updates ASAP. We're happy to involve new members to KLY community 😊
