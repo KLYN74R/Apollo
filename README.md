@@ -9,10 +9,10 @@
 
 ## 📖 Content
 
-- [Short intro <a name = "intro"></a>](#intro)
-- [How to build <a name = "build"></a>](#build)
-- [Modularity <a name = "modularity"></a>](#modularity)
-- [Advice <a name = "advice"></a>](#advice)
+- [Short intro <a name = "intro"></a>](#-intro-)
+- [How to build <a name = "build"></a>](#-build-)
+- [Modularity <a name = "modularity"></a>](#-modularity-)
+- [Advice <a name = "advice"></a>](#-advice-)
 
 <br/><br/>
 
