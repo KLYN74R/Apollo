@@ -140,6 +140,26 @@ Working with different "hacking" tools,I've get the experience of so called 'bes
 
 Directory for your external modules. This might be extra useful commands. Might be written by you or any other 3rd party. Must contain 2 directories <b>cli</b>(contains everything for commands in CLI) and <b>ui</b>(directory with everything for UI in browser). Soon we'll make a tutorial of HOWTO write modules for Apollo.
 
+Each directory-is typically Git repository to allow you to easily update different modules independently if you need and swap versions. Moreover,soon you'll also have an amazing ability to verify authors cryptographically - via code signing. By having hash of repository you can verify authority and be sure that code is original using different crypto features like multisig or post-quantum cryptography,social staking and so on. We describe it in <a href="https://mastering.klyntar.org/beginning/basic-security#additional-features">Basic Security</a> in our MasteringKlyntar book.
+
+<br/><br/>
+
+- CLI part
+
+In CLI extra modules looks like ordinary commands. To allow your users to differ them, please, give them original prefix or make a single command with repository name and hide commands to subcommands 
+
+- UI part
+
+If module also has a UI part(which is often the case), then you'll have ability to visit:
+
+```shell
+
+http(s)://<your_interface>:<port>/modules
+
+```
+
+to find there the entry point to your module.
+
 <br/>
 
 #### <b>Summarizing this,your directories tree on these levels should look like this</b>
@@ -157,8 +177,7 @@ Apollo
 │   │    │   
 │   │    │───cli(directory for files to improve CLI)
 │   │    │   │
-│   │    │   └───init.js
-│   │    │   
+│   │    │   └───init.js 
 │   │    │
 │   │    └───ui(directory for files to improve UI)
 │   │        │
@@ -172,10 +191,8 @@ Apollo
 │   └───your_custom_module
 │        │   
 │        │───cli(directory for files to improve CLI)
-│        │   └───configs.json
-│        │   └───server.js
-│        │   └───routes.js
-│        │   └───...
+│        │    │   
+│        │    └───init.js
 │        │
 │        └───ui(directory for files to improve UI)
 │            │
@@ -191,12 +208,50 @@ Apollo
 
 ```
 
+To update the repository with module go to appropriate directory <b>KLY_Modules/<your_module></b> and pull changes
+
+<br/>
+
 ### <b>KLY_ServicesAPI</b>
+
+<br/>
+
+> <b>ServiceAPI</b> - repository with API to interact with the scope of service runned on Klyntar. Imagine if all smart contracts on ETH will have a unique design in your wallet, separate page with all available features specific to contract. Since we have wider power, we also have so complicated way to improve abilities of your Apollo instance.
+
+<br/>
+
+
+The same principle for services API. The same way it's a repository in this directory, the same way you should update it and so on. To check available services API go to
+
+```shell
+
+http(s)://<your_interface>:<port>/services
+
+```
+
+to check your current services
+
+<br/><br/>
 
 ### <b>KLY_WorkflowsAPI</b>
 
+<br/>
 
-</p>
+> <b>WorkflowsAPI</b> - repository with API to interact with symbiotes on Klyntar. Insofar as they can use different workflows(thanksfully to <a href="https://mastering.klyntar.org/beginning/mutations">Mutations principle</a>),we need to make possible to use appropriate algorithms,build right events to send to symbiotes and use other specific features like traffic over TOR or threshold signatures. Imagine if you'll have ability to control your Bitcoin, Solana, Avalanche, Cosmos assets(native coins,tokens,etc.), execute smart contracts, make delegations using only one instrument. Yes,this is what Apollo do.
+
+<br/>
+
+The same principle for services API. The same way it's a repository in this directory, the same way you should update it and so on. To check available services API go to
+
+```shell
+
+http(s)://<your_interface>:<port>/symbiotes
+
+```
+
+
+to check your symbiotes and how to interact with them
+
 
 <br/><br/>
 
