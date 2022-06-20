@@ -35,7 +35,7 @@ We're happy to present you Apollo - our powerful CLI & UI tool to control your K
 <br/>
 
 <p>
-As you've seen, KLYNTAR is in symbiotic relationship with other blockchains. By running different nodes of other projects, working with tools required by them, the most auful & irritating problem was problem with initial setup - misconfigs, old docs, semver mistakes, nightly versions and so on. That's why, we've prepared docker image to allow you to be sure that you'll 100% have succesful setup. So,let's start 🚀
+As you've seen, KLYNTAR is in symbiotic relationship with other blockchains. By running different nodes of other projects, working with tools required by them, the most auful & irritating problem was problem with initial setup - misconfigs, old docs, semver mistakes, nightly versions and so on. That's why, we've prepared docker images to allow you to be sure that you'll 100% have succesful setup. So,let's start 🚀
 
 ### <b>NOTE</b>
 We assume that you have Docker on the board. You can install Docker for Linux & Windows & Mac <a href="https://docs.docker.com/engine/install/" target="_blank" rel="noopener">here</a>
@@ -51,7 +51,7 @@ Docker version 20.10.14, build a224086
 
 ### <b>Download the image</b>
 
-We present you our image <a href="https://hub.docker.com/repository/docker/klyntar/all_in_one" target="_blank" rel="noopener">klyntar/all_in_one</a>. This is universal image with preinstalled Node.js, Go , Python and some tools like <code>pnpm</code> , <code>node-gyp</code>, <code>git</code> and so on. We've created it to save your time and nervous system. This is the base layer for all our Dockerfiles(at least for core and Apollo). The aproximate compressed size is 606M. Also, in our repository <a href="https://github.com/KLYN74R/KlyntarBaseImage" target="_blank" rel="noopener">KlyntarBaseImages</a> you can find the sources of all base-layer Dockerfiles, so you can clone and build it yourself or find the bash build script and so through the process to install requirements to your host machine. But anyway,we recomend you to use containers.
+We present you our first image <a href="https://hub.docker.com/repository/docker/klyntar/all_in_one" target="_blank" rel="noopener">klyntar/all_in_one</a>. This is universal image with preinstalled Node.js, Go , Python and some tools like <code>pnpm</code> , <code>node-gyp</code>, <code>git</code> and so on. We've created it to save your time and nervous system. This is the base layer for all our Dockerfiles(at least for core and Apollo). The aproximate compressed size is 606M. Also, in our repository <a href="https://github.com/KLYN74R/KlyntarBaseImage" target="_blank" rel="noopener">KlyntarBaseImages</a> you can find the sources of all base-layer Dockerfiles, so you can clone and build it yourself or find the bash build script and so through the process to install requirements to your host machine. But anyway,we recomend you to use containers.
 
 
 <img src="https://user-images.githubusercontent.com/53381472/174490998-2041af0d-6cd5-4873-ad64-fa810cda02df.jpg"/>
@@ -343,5 +343,7 @@ Follow us to get the news & updates ASAP. Discuss, share ideas, advices, help ne
 
 Read the docs here to find out more
 
-[<img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white">]()
-[<img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white">](https://mastering.klyntar.org)
+<br/>
+
+<a href="https://mastering.klyntar.org">🇬🇧 <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a><br/>
+<a href="https://ru.mastering.klyntar.org">🇷🇺 <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a>
