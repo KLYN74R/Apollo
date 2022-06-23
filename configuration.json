@@ -7,7 +7,11 @@
     "FASTIFY_OPTIONS":{
         "logger":false,
         "http2":false,
-        "https":false
+        "https":{
+            "enable":true,
+            "key":"resources/cert.key",
+            "cert":"resources/cert.pem"
+        }
     },
 
     "EXTRA_CLI": [

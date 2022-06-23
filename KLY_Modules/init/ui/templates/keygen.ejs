@@ -71,7 +71,13 @@
 
         <p class="futfont" style="font-weight:bold">Result(will be below):</p>
 
-        <p style="font-weight:bold;font-size: larger;" id="result"></p>    <br/>
+        <div id="res_hodler">
+
+            <p style="font-weight:bold;font-size: larger;" id="result"></p>
+            
+        </div>
+    
+        <br/>
 
     </div>
   
@@ -136,7 +142,7 @@
     let generateKeyPair=async()=>{
 
         //Run loader
-        let block=document.getElementById('general'),
+        let block=document.getElementById('res_hodler'),
 
             loader=document.createElement('div')
 
@@ -150,15 +156,23 @@
 
         // <div align="center" class="lds-dual-ring"></div>
 
+
         let generated=document.createElement('p')
 
         generated.id='generated'
 
         generated.style="font-weight:bold;"
 
-        generated.innerHTML=JSON.stringify(await fetch(`/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}/${document.getElementById('alias')?.value || 1337}`).then(r=>r.json()).catch(e=>'😕Some error occured'),null,3)
+        generated.innerHTML=JSON.stringify(
+            
+            await fetch(`/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}/${document.getElementById('alias')?.value || 1337}`)
+            
+            .then(r=>r.json()).catch(e=>'😕Some error occured'),null,3)
 
-        block.replaceChild(generated,loader)
+
+            
+        block.replaceChildren()
+        block.appendChild(generated)
 
     }
 

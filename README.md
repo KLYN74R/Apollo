@@ -35,7 +35,7 @@ We're happy to present you Apollo - our powerful CLI & UI tool to control your K
 <br/>
 
 <p>
-As you've seen, KLYNTAR is in symbiotic relationship with other blockchains. By running different nodes of other projects, working with tools required by them, the most auful & irritating problem was problem with initial setup - misconfigs, old docs, semver mistakes, nightly versions and so on. That's why, we've prepared docker images to allow you to be sure that you'll 100% have succesful setup. So,let's start 🚀
+As you've seen, KLYNTAR is in symbiotic relationship with other blockchains. By running different nodes of other projects, working with tools required by them, the most auful & irritating problem was problem with initial setup - misconfigs, old docs, semver mistakes, nightly versions and so on. That's why, we've prepared docker images to allow you to be sure that you'll have 100% succesful setup. So,let's start 🚀
 
 ### <b>NOTE</b>
 We assume that you have Docker on the board. You can install Docker for Linux & Windows & Mac <a href="https://docs.docker.com/engine/install/" target="_blank" rel="noopener">here</a>
@@ -345,5 +345,5 @@ Read the docs here to find out more
 
 <br/>
 
-<a href="https://mastering.klyntar.org">🇬🇧 <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a><br/>
-<a href="https://ru.mastering.klyntar.org">🇷🇺 <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a>
+:ru: <a href="https://mastering.klyntar.org"> <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a><br/>
+:ru: <a href="https://ru.mastering.klyntar.org"> <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a>

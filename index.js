@@ -910,10 +910,10 @@ program
             
 
                 //In configs you should store only path
-                if(CONFIGURATION.FASTIFY_OPTIONS.https){
+                if(CONFIGURATION.FASTIFY_OPTIONS.https.enable){
 
-                    CONFIGURATION.FASTIFY_OPTIONS.https.key=fs.readFileSync(CONFIGURATION.FASTIFY_OPTIONS.https.key)
-                    CONFIGURATION.FASTIFY_OPTIONS.https.cert=fs.readFileSync(CONFIGURATION.FASTIFY_OPTIONS.https.cert)
+                    CONFIGURATION.FASTIFY_OPTIONS.https.key=fs.readFileSync(PATH_RESOLVE(CONFIGURATION.FASTIFY_OPTIONS.https.key))
+                    CONFIGURATION.FASTIFY_OPTIONS.https.cert=fs.readFileSync(PATH_RESOLVE(CONFIGURATION.FASTIFY_OPTIONS.https.cert))
 
                 }
 
