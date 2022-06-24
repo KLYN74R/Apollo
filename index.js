@@ -605,7 +605,7 @@ program
 
 */
         
-program.command('multisig').alias('ms').description(`\x1b[32mModule to work with multisignatures(currently \u001b[38;5;199mBLS/Schnorr\x1b[0m\x1b[32m)\x1b[0m`)
+program.command('multisig').alias('ms').description(`\x1b[32mModule to work with multisignatures(currently \u001b[38;5;199mBLS\x1b[0m\x1b[32m)\x1b[0m`)
 
         .addCommand(
             
