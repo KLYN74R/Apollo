@@ -345,5 +345,5 @@ Read the docs here to find out more
 
 <br/>
 
-:ru: <a href="https://mastering.klyntar.org"> <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a><br/>
+:gb: <a href="https://mastering.klyntar.org"> <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a><br/>
 :ru: <a href="https://ru.mastering.klyntar.org"> <img src="https://img.shields.io/badge/Gitbook-000000?style=for-the-badge&logo=gitbook&logoColor=white"></a>

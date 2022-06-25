@@ -915,7 +915,7 @@ program
                     CONFIGURATION.FASTIFY_OPTIONS.https.key=fs.readFileSync(PATH_RESOLVE(CONFIGURATION.FASTIFY_OPTIONS.https.key))
                     CONFIGURATION.FASTIFY_OPTIONS.https.cert=fs.readFileSync(PATH_RESOLVE(CONFIGURATION.FASTIFY_OPTIONS.https.cert))
 
-                }
+                }else CONFIGURATION.FASTIFY_OPTIONS.https=undefined
 
                 //Create an instance
                 let fastify = fasModule.default(CONFIGURATION.FASTIFY_OPTIONS)

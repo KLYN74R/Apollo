@@ -8,7 +8,7 @@
         "logger":false,
         "http2":false,
         "https":{
-            "enable":true,
+            "enable":false,
             "key":"resources/cert.key",
             "cert":"resources/cert.pem"
         }
