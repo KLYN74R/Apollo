@@ -46,14 +46,26 @@
 
             <!-- SUPPORTED FORMATS WILL BE PASTED HERE  -->
 
-        </select><br/><br/>
+        </select>
+        
+        <br/><br/><br/>
+
+        <label for="advancedOptions" class="cyberpunk futfont" style="font-size: large; font-weight:bold;">
+            Enter advanced options(mnemonic,password,etc.)
+        </label>
+        
+        <br/><br/><br/>
+
+        <input class="cyberpunk" type="text" id="advancedOptions" style="max-width: 500px" placeholder=""/>
+        
+        <br/><br/>
         
         <div id="hodler">
         
             <input class="cyberpunk futfont" type="checkbox" id="shouldstore" onClick="changeExplain()"/>
 
-            <label for="shouldstore" class="cyberpunk" id="checkboxExplain" style="font-size: large;">
-                Store keypair to KEYSTORE(Current: <b>NO</b>,generated keys won't be stored)
+            <label for="shouldstore" class="cyberpunk futfont" id="checkboxExplain" style="font-size: large; font-weight:bold;">
+                store keypair to keystore(Current: <b>NO</b>,generated keys won't be stored)
             </label><br/>
 
             <div id="inner_hodler">
@@ -165,9 +177,9 @@
 
         generated.innerHTML=JSON.stringify(
             
-            await fetch(`/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}/${document.getElementById('alias')?.value || 1337}`)
+            await fetch(`/key_generate/${document.getElementById('key_selector').value}/${document.getElementById('shouldstore').checked}/${document.getElementById('alias')?.value || 1337}/${document.getElementById('advancedOptions').value}`)
             
-            .then(r=>r.json()).catch(e=>'😕Some error occured'),null,3)
+            .then(r=>r.json()).catch(_=>'😕Some error occured'),null,3)
 
 
             
@@ -185,7 +197,7 @@
             isChecked=document.getElementById('shouldstore').checked
 
 
-        lable.innerHTML=`Store keypair to KEYSTORE(Current: ${isChecked?"<b>YES</b>,Apollo will store all generated keys":"<b>NO</b>,generated keys won't be stored"})`
+        lable.innerHTML=`store keypair to keystore(Current: ${isChecked?"YES,Apollo will store all generated keys":"NO,generated keys won't be stored"})`
 
 
         //Main block

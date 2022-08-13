@@ -111,9 +111,12 @@ export default (fastify, options, next) => {
             
     )
 
-    fastify.get('/key_generate/:format/:checked/:alias', (request, reply)=>{
+    fastify.get('/key_generate/:format/:checked/:alias/:advanced', (request, reply)=>{
 
         let format=request.params.format
+
+
+        console.log('ADV ',request.params.advanced)
 
         if(format==='kusama' || format==='substrate format'){
 
@@ -123,10 +126,15 @@ export default (fastify, options, next) => {
 
         import(`@klyntar/valardohaeris/${format}/vd.js`).then(async m=>{
 
-            let keypair=await m.default.generate()
-            
+            let advancedOptions = []
+
+            if(request.params.advanced!=='') advancedOptions = request.params.advanced.split(':')
+
+            let keypair=await m.default.generate(...advancedOptions)
+
 
             if(request.params.format==='substrate format') keypair.address=m.default.toSubstrate(keypair.publicKey)
+            
             else if(request.params.format==='kusama') keypair.address=m.default.toKusama(keypair.publicKey)
 
             if(keypair&&request.params.checked==='true'){
@@ -143,7 +151,11 @@ export default (fastify, options, next) => {
 
             reply.send(keypair)
 
-        }).catch(e=>reply.send(`Oops,some error has been occured ${e}`))
+        }).catch(e=>{
+
+            console.log(e)
+            reply.send(`Oops,some error has been occured ${e}`)
+        })
 
     })
     
