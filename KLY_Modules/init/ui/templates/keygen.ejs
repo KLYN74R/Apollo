@@ -51,7 +51,7 @@
         <br/><br/><br/>
 
         <label for="advancedOptions" class="cyberpunk futfont" style="font-size: large; font-weight:bold;">
-            Enter advanced options(mnemonic,password,etc.)
+            Add advanced options(mnemonic,password,etc.)
         </label>
         
         <br/><br/><br/>
@@ -65,7 +65,7 @@
             <input class="cyberpunk futfont" type="checkbox" id="shouldstore" onClick="changeExplain()"/>
 
             <label for="shouldstore" class="cyberpunk futfont" id="checkboxExplain" style="font-size: large; font-weight:bold;">
-                store keypair to keystore(Current: <b>NO</b>,generated keys won't be stored)
+                store keypair to keystore(Current: no,generated keys won't be stored)
             </label><br/>
 
             <div id="inner_hodler">
@@ -197,7 +197,7 @@
             isChecked=document.getElementById('shouldstore').checked
 
 
-        lable.innerHTML=`store keypair to keystore(Current: ${isChecked?"YES,Apollo will store all generated keys":"NO,generated keys won't be stored"})`
+        lable.innerHTML=`store keypair to keystore(Current: ${isChecked?"yes,Apollo will store all generated keys":"no,generated keys won't be stored"})`
 
 
         //Main block

@@ -113,10 +113,9 @@ export default (fastify, options, next) => {
 
     fastify.get('/key_generate/:format/:checked/:alias/:advanced', (request, reply)=>{
 
+        
         let format=request.params.format
 
-
-        console.log('ADV ',request.params.advanced)
 
         if(format==='kusama' || format==='substrate format'){
 
@@ -128,7 +127,7 @@ export default (fastify, options, next) => {
 
             let advancedOptions = []
 
-            if(request.params.advanced!=='') advancedOptions = request.params.advanced.split(':')
+            if(request.params.advanced!=='') advancedOptions = request.params.advanced.split('@')
 
             let keypair=await m.default.generate(...advancedOptions)
 
@@ -180,7 +179,28 @@ export default (fastify, options, next) => {
         //Parse body
         let {scope,operation,params}=JSON.parse(request.body)
     
-        if(scope==='crypt'){
+        if(scope==='default_signatures'){
+
+            if(operation==='sign'){
+ 
+                let [data,privateKey,keytype] = params.split(':'),
+
+                    signature = await import(`@klyntar/valardohaeris/${keytype}/vd.js`).then(m=>m.default.sign(data,privateKey)).catch(e=>false)
+               
+                reply.send(signature)
+
+            }else if(operation==='verify'){
+
+                let [data,publicKey,keytype,signature] = params.split(':'),
+
+                    isOK = await import(`@klyntar/valardohaeris/${keytype}/vd.js`).then(m=>m.default.verify(data,signature,publicKey)).catch(e=>false)
+           
+                reply.send(isOK)
+                        
+            }
+
+        }
+        else if(scope==='crypt'){
 
             let mod=(await import('../../../common.js')).default,
 
