@@ -1,6 +1,6 @@
 {
   "name": "apollo",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "CLI/REPL and Web interface to interact with your Klyntar infrastructure!🐙",
   "main": "index.js",
   "type": "module",
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/KLYN74R/Apollo#readme",
   "dependencies": {
-    "@klyntar/valardohaeris": "^19.1.0",
+    "@klyntar/valardohaeris": "^19.3.0",
     "@noble/bls12-381": "^1.3.0",
     "adm-zip": "^0.5.9",
     "base-58": "^0.0.1",
