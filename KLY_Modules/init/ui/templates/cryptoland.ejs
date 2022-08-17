@@ -285,7 +285,7 @@
                             {
                                 scope:'default_signatures',
                                 operation:'sign',
-                                params:`${document.getElementById('toSign').value}:${ document.getElementById('privateKey').value}:${document.getElementById('key_selector').value}`
+                                params:`${document.getElementById('toSign').value}@${ document.getElementById('privateKey').value}@${document.getElementById('key_selector').value}`
                             }
                         )
 
@@ -365,7 +365,7 @@
                             {
                                 scope:'default_signatures',
                                 operation:'verify',
-                                params:`${document.getElementById('plainText').value}:${ document.getElementById('publicKey').value}:${document.getElementById('key_selector').value}:${document.getElementById('signa').value}`
+                                params:`${document.getElementById('plainText').value}@${ document.getElementById('publicKey').value}@${document.getElementById('key_selector').value}@${document.getElementById('signa').value}`
                             }
                         )
 

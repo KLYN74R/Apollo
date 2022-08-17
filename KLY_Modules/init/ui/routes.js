@@ -183,17 +183,17 @@ export default (fastify, options, next) => {
 
             if(operation==='sign'){
  
-                let [data,privateKey,keytype] = params.split(':'),
+                let [data,privateKey,keytype] = params.split('@'),
 
-                    signature = await import(`@klyntar/valardohaeris/${keytype}/vd.js`).then(m=>m.default.sign(data,privateKey)).catch(e=>false)
+                    signature = await import(`@klyntar/valardohaeris/${keytype}/vd.js`).then(m=>m.default.sign(data,privateKey)).catch(e=>console.log(e)&&false)
                
                 reply.send(signature)
 
             }else if(operation==='verify'){
 
-                let [data,publicKey,keytype,signature] = params.split(':'),
+                let [data,publicKey,keytype,signature] = params.split('@'),
 
-                    isOK = await import(`@klyntar/valardohaeris/${keytype}/vd.js`).then(m=>m.default.verify(data,signature,publicKey)).catch(e=>false)
+                    isOK = await import(`@klyntar/valardohaeris/${keytype}/vd.js`).then(m=>m.default.verify(data,signature,publicKey)).catch(e=>console.log(e)&&false)
            
                 reply.send(isOK)
                         
