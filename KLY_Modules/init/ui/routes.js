@@ -85,7 +85,7 @@ export default (fastify, options, next) => {
     //Start page
     fastify.get('/',(request, reply) =>
     
-        handler(reply,'KLY_Modules/init/ui/templates/index.ejs',{text:'Hello,this is the entry point to control Klyntar'})
+        handler(reply,'KLY_Modules/init/ui/templates/index.ejs',{text:'Hello,this is the entrypoint to control Klyntar'})
 
     )
 
@@ -572,7 +572,7 @@ export default (fastify, options, next) => {
     //Need for tests
     fastify.get('/old', (request, reply) => {
     
-        reply.view('./test.ejs',{text:'Hello,this is the entry point to control Klyntar'})
+        reply.view('./test.ejs',{text:'Hello,this is the entrypoint to control Klyntar'})
         
     })
     
