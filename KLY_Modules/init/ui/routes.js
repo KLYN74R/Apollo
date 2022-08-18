@@ -105,56 +105,42 @@ export default (fastify, options, next) => {
     
     
 
-    fastify.get('/keygen',(request,reply) => 
+    fastify.get('/keygen',(_,reply) => 
 
         handler(reply,'KLY_Modules/init/ui/templates/keygen.ejs')
             
     )
 
-    fastify.get('/key_generate/:format/:checked/:alias/:advanced', (request, reply)=>{
+    fastify.post('/key_generate', (request, reply)=>{
 
-        
-        let format=request.params.format
-
-
-        if(format==='kusama' || format==='substrate format'){
-
-            format='polkadot'
-
-        }
+        //Parse body
+        let {format,checked,alias,advancedOptions}=JSON.parse(request.body)
 
         import(`@klyntar/valardohaeris/${format}/vd.js`).then(async m=>{
 
-            let advancedOptions = []
-
-            if(request.params.advanced!=='') advancedOptions = request.params.advanced.split('@')
+            advancedOptions = advancedOptions.split('@')
 
             let keypair=await m.default.generate(...advancedOptions)
 
-
-            if(request.params.format==='substrate format') keypair.address=m.default.toSubstrate(keypair.publicKey)
-            
-            else if(request.params.format==='kusama') keypair.address=m.default.toKusama(keypair.publicKey)
-
-            if(keypair&&request.params.checked==='true'){
+            if(keypair&&checked){
 
                 let kp=JSON.stringify(keypair)
 
-                let alias = request.params.alias!=='1337' ? request.params.alias : BLAKE3(kp) // assign alias or hashed value to filename
+                alias = alias!=='1337' ? alias : BLAKE3(kp) // assign alias or hashed value to filename
 
-                !fs.existsSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`)) && fs.mkdirSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}`))
+                !fs.existsSync(PATH_RESOLVE(`KEYSTORE/${format}`)) && fs.mkdirSync(PATH_RESOLVE(`KEYSTORE/${format}`))
 
-                fs.writeFileSync(PATH_RESOLVE(`KEYSTORE/${request.params.format}/${alias}.json`),kp)
+                fs.writeFileSync(PATH_RESOLVE(`KEYSTORE/${format}/${alias}.json`),kp)
 
             }
 
             reply.send(keypair)
 
-        }).catch(e=>{
-
-            console.log(e)
+        }).catch(e=>
+        
             reply.send(`Oops,some error has been occured ${e}`)
-        })
+        
+        )
 
     })
     
