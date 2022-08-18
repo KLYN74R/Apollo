@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/KLYN74R/Apollo#readme",
   "dependencies": {
-    "@klyntar/valardohaeris": "^20.2.1",
+    "@klyntar/valardohaeris": "^20.3.0",
     "@noble/bls12-381": "^1.3.0",
     "adm-zip": "^0.5.9",
     "base-58": "^0.0.1",
