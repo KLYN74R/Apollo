@@ -65,7 +65,7 @@ let {hash}=await import('blake3-wasm'),
 
         csrfGenerator().then(token=>
 
-            reply.view(path,{token,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
+            reply.view(path,{token,version:CONFIGURATION.VERSION,settings:Buffer.from(JSON.stringify(CONFIGURATION.DEFAULT),'utf-8').toString('hex'),...extra})
 
         )
 
@@ -548,22 +548,6 @@ export default (fastify, options, next) => {
         reply.send(JSON.stringify(CONFIGURATION,null,3))
     
     })
-
-    //_________________________ UPDATE ALIASES _____________________
-
-
-
-
-
-    //Need for tests
-    fastify.get('/old', (request, reply) => {
-    
-        reply.view('./test.ejs',{text:'Hello,this is the entrypoint to control Klyntar'})
-        
-    })
-    
-
-
 
     //__________________________________ STYLES, IMAGES AND SO ON __________________________________
 

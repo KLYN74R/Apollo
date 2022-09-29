@@ -1,4 +1,5 @@
 {
+    "VERSION":"Apollo v0.3.0",
     "DEFAULT":{
         "LANG":"EN",
         "MODE":"light"

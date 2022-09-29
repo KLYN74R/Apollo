@@ -3,4 +3,4 @@ console.log('    🇬🇧 Adversaries probably told you that by entering somethi
 console.log('    🇨🇳 攻擊者可能告訴你，通過在這裡輸入一些東西，你可以獲得一些很酷的東西，破解一些東西等等。 他們可能想從您那裡竊取一些有用的數據')
 console.log('    🇷🇺 Злоумышленники, вероятно, сказали вам, что введя что-то здесь, вы можете получить что-то крутое, взломать что-то и так далее. Вероятно, они хотят украсть у вас какие-то полезные данные')
 console.log(`%c Don't do it / Ничего не делайте`, 'font-weight: bold; font-size: 50px;color: red')
-console.log(`%c  Detailed https://klyntar.org/reports/self_xss`, 'font-weight: bold; font-size: 20px;color: blue')
+console.log(`%c  Detailed https://klyntar.org/academy/self_xss`, 'font-weight: bold; font-size: 20px;color: blue')

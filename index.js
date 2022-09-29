@@ -61,7 +61,7 @@ for(let mod of CONFIGURATION.EXTRA_CLI) await import(`./${mod}`)
 
 program
     .name('apollo')
-    .version(fs.readFileSync(PATH_RESOLVE('images/version.txt')).toString('utf-8').replaceAll('QWERTY','Apollo@v0.3.0 by KlyntarTeam'))
+    .version(CONFIGURATION.VERSION)
     .description(banner)
     .usage('[COMMAND] [FLAGS]')
 
