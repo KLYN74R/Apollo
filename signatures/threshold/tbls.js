@@ -8,17 +8,17 @@ await blsA.init()
 
 export default {
 
-      generateTBLS:(threshold,myPubId,pubKeysArr)=>{
+    generateTBLS:(threshold,myPubId,pubKeysArr)=>{
 
-          let signers=pubKeysArr.map(id => {
+        let signers=pubKeysArr.map(id => {
 
-              const sk = new blsA.SecretKey()
+            const sk = new blsA.SecretKey()
         
-              sk.setHashOf(Buffer.from([id]))
+            sk.setHashOf(Buffer.from([id]))
         
-              return {id:sk,recievedShares:[],arrId:id}
+            return {id:sk,recievedShares:[],arrId:id}
         
-          })
+        })
 
         //Вот процесс генерации для участников - они могут это делать приватно у себя
         //Generation process - signers can do it privately on theirs machines
@@ -41,9 +41,11 @@ export default {
 
         console.log(`Send this verification vector to all group members => ${jsonVerificationVector}`)
         console.log(`\n\nSend this secret shares to appropriate user(one per user)`)
+
+        
         serializedSecretKeyContribution.forEach((share,index)=>{
 
-            console.log(`To user ${index} => ${share}`)
+            console.log(`To user ${pubKeysArr[index]} => ${share}`)
 
         })
 
