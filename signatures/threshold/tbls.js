@@ -39,18 +39,18 @@ export default {
 
 
 
-        console.log(`Send this verification vector to all group members => ${jsonVerificationVector}`)
+        console.log(`Send this verification vector to all group members => \x1b[32;1m${jsonVerificationVector}\x1b[0m`)
         console.log(`\n\nSend this secret shares to appropriate user(one per user)`)
 
         
         serializedSecretKeyContribution.forEach((share,index)=>{
 
-            console.log(`To user ${pubKeysArr[index]} => ${share}`)
+            console.log(`To user \x1b[36;1m${pubKeysArr[index]}\x1b[0m => \x1b[32;1m${share}\x1b[0m`)
 
         })
 
         //console.log(`\n\nYour creds ${JSON.stringify(signers[pubKeysArr.indexOf(myPubId)])}`)
-        console.log(`\n\nYour ID ${serializedId}`)
+        console.log(`\n\nYour ID \x1b[36;1m${serializedId}\x1b[0m`)
 
         console.log('\nP.S:Stored to <filepath>.json')
         return JSON.stringify({

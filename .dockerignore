@@ -24,7 +24,7 @@ dist
 #Local
 useful.txt
 
-
 #All your keys
 KEYSTORE/*
 !KEYSTORE/README.md
+your_tbls.json
