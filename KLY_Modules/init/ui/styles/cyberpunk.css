@@ -1,3 +1,17 @@
+
+/* To hide scrollbar */
+
+body {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+/* To hide scrollbar */
+
 :root {
     --glitched-duration: 0.9s;
     --glitched-long-duration: 3s;
@@ -23,6 +37,7 @@
     font-style: normal;
   }
   
+
   body {
     background-color: var(--yellow-color);
     padding: 0px;
