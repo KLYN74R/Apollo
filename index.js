@@ -834,7 +834,7 @@ program
 
 
 program
-        .command('stats').alias('st').description(`\x1b[32mGet statistic data about your Klyntar infrastructure\x1b[0m`)
+        .command('stats').alias('st').description(`\x1b[32mGet statistic data about your KLYNTAR infrastructure\x1b[0m`)
 
         .action(async(opts,_cmd)=>{
 
