@@ -236,9 +236,9 @@ program
 
 program
 
-        .command('vanity').description(`\x1b[32mGenerate your vanity \x1b[31;1mKlyntar\x1b[0m\x1b[32m address with choosen prefix\x1b[0m`)
+        .command('vanity').description(`\x1b[32mGenerate your vanity \x1b[31;1mKLYNTAR\x1b[0m\x1b[32m address with choosen prefix\x1b[0m`)
 
-        .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for Klyntar format(and Solana)')
+        .requiredOption('-p, --prefix <value>','prefix for vanity address.Note:it`s only for KLYNTAR format(and Solana)')
         .option('-v, --verbose','track generation process')
         .option('-m, --mix','Mix symbols e.g homoglyphs, leetcode and so on')
 
@@ -401,7 +401,7 @@ program
             
                 import('./signatures/threshold/tbls.js').then(
 
-                    bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(',')))
+                    bundle => fs.writeFileSync(opts.path,bundle.default.generateTBLS(+opts.threshold,opts.id,opts.signers.split(','),true))
 
                 ).catch(e=>console.log(`\x1b[31;1mCan't find module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
   
@@ -420,7 +420,7 @@ program
             
                 import('./signatures/threshold/tbls.js').then(
                     
-                    bundle => bundle.default.verifyShareTBLS(opts.id,opts.secret,opts.vector.split(','))
+                    bundle => bundle.default.verifyShareTBLS(opts.id,opts.secret,opts.vector.split(','),true)
                 
                 ).catch(e=>console.log(`\x1b[31;1mCan't find module.Run \x1b[36;1mpnpm install\x1b[31;1m if you don't have installed packages. Use \x1b[36;1m-h\x1b[31;1m to get the help\x1b[0m`))
 

@@ -4,7 +4,7 @@
         "FASj1powx5qF1J6MRmx1PB7NQp5mENYEukhyfaWoqzL9":{
       
             "UPDATES": "https://knull.klyntar.org/updates",
-            "WORKFLOW":"dev_controller",
+            "WORKFLOW":"dev_tachyon",
             "ALIAS":"kNULL",
             "CLUSTER": {
                 "URL": "http://localhost:7331",
