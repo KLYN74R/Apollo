@@ -29,17 +29,15 @@ export default {
         let serializedVerificationVector=verificationVector.map(x=>x.serializeToHexStr())
         let serializedSecretKeyContribution=secretKeyContribution.map(x=>x.serializeToHexStr())
 
+        let jsonVerificationVector=JSON.stringify(serializedVerificationVector)
+        let serializedId=signers[pubKeysArr.indexOf(myPubId)].id.serializeToHexStr()
+
 
         if(isCLI){
 
             //console.log('Verification Vector SERIALIZE ', serArr.map(x=>blsA.deserializeHexStrToPublicKey(x)))
             //console.log('SecretKey contribution SERIALIZE ', secKeyArr.map(x=>blsA.deserializeHexStrToSecretKey(x)))
             console.log('\n\n==================== RESULT ====================\n')
-
-            let jsonVerificationVector=JSON.stringify(serializedVerificationVector),
-    
-                serializedId=signers[pubKeysArr.indexOf(myPubId)].id.serializeToHexStr()
-
 
 
             console.log(`Send this verification vector to all group members => \x1b[32;1m${jsonVerificationVector}\x1b[0m`)

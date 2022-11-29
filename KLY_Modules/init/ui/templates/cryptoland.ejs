@@ -846,6 +846,8 @@
 
                     let ids=document.getElementById('idsArray').value.split(',')
 
+                    console.log(tblsCreds)
+
                     tblsCreds.secretShares.forEach((share,index)=>{
 
                         result.innerHTML+=`<li>For user with id ${ids[index]} => ${share}`+'</li>'
