@@ -564,7 +564,6 @@ export default (fastify, options, next) => {
     
     })
 
-
     fastify.get('/update/:param/:value', (request, reply) => {
     
         CONFIGURATION.DEFAULT[request.params.param]=request.params.value
